@@ -118,6 +118,9 @@ và chỉ thay đổi ở những vị trí có nội dung thay đổi.
 - **Bước 2 – Điền dữ liệu:** nhập bằng form, dán dữ liệu, hoặc điền hàng loạt từ một bảng Excel để tạo nhiều file.
 - **Bước 3 – Kiểm tra:** so sánh cấu trúc file kết quả với file mẫu và báo những chỗ khác ngoài các vị trí biến.
 - Toàn bộ xử lý chạy trong trình duyệt, file không bị gửi lên server. Chỉ phần phân tích bằng AI mới gửi nội dung chữ cho AI.
+- **Ngay trong bản đầu tiên (MVP)** đã có sẵn tab **"Điền mẫu Word/Excel"** trên thanh bên, gắn nhãn "Sắp có", để giữ chỗ.
+  Tab hiện bố cục dự kiến và chưa có chức năng (màn hình M11 trong `docs/05-MAN-HINH-VA-LUONG.md`).
+  Cấu trúc thư mục dành sẵn: `src/features/templates/`.
 
 ### Mức C – Để sau
 
