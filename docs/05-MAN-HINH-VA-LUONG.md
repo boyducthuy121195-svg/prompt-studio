@@ -67,7 +67,7 @@ flowchart LR
 | Cảm giác tổng thể | **Chuyên nghiệp kiểu doanh nghiệp**: bố cục chặt, dùng bảng nhiều, màu trung tính |
 | Màu chủ đạo | **Xanh lục (teal)** `#0F766E` ở chế độ sáng, `#2DB3A6` ở chế độ tối. Nút AI dùng màu hổ phách để phân biệt |
 | Mật độ | **Gọn, nhiều thông tin**: chữ cơ bản 13px, nút cao 36px, ít khoảng trắng |
-| Điều hướng | **Thanh menu bên trái**, có nút **thu gọn / mở rộng ở cuối thanh**. Khi thu gọn chỉ còn biểu tượng |
+| Điều hướng | **Thanh menu bên trái**, có nút **thu gọn / mở rộng ở cuối thanh**. Khi thu gọn, **toàn bộ** thanh bên (menu và mục "Đã ghim") chỉ còn biểu tượng. Prompt đã ghim hiện thành ô chữ cái đầu, rê chuột thấy tên, bấm để copy |
 | Màn hình chính | **Laptop 13–15 inch** (chiều rộng 1280–1440px). Trên màn hình nhỏ vẫn dùng được |
 | Trình tạo prompt | **Hai cột cạnh nhau**: bảng nhập bên trái, xem trước bên phải |
 | Hiển thị gợi ý | **Ô tích (checkbox) kèm câu đầy đủ** sẽ chèn vào prompt |
