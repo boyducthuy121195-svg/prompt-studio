@@ -32,7 +32,7 @@ Làm task [số] trong @PLAN.md.
 | 2 | Khung giao diện: thanh bên, header, sáng/tối, các trang trống | A9, M11 | 1 | ✅ |
 | 3 | Lưu trữ và quản lý dự án | A1 | 2 | ✅ |
 | 4 | Dữ liệu cố định: loại prompt, gợi ý, quy trình, khung AGENTS.md | A2, A4, A5 | 1 | ✅ |
-| 5 | Trình tạo prompt (chưa dùng AI) | A4, A6 | 3, 4 | ⬜ |
+| 5 | Trình tạo prompt (chưa dùng AI) | A4, A6 | 3, 4 | ✅ |
 | 6 | Thư viện, ghim, điền nhanh biến | A5, A9 | 5 | ⬜ |
 | 7 | Cài đặt và lớp AI (Claude + Gemini) | A7 | 3 | ⬜ |
 | 8 | ✨ Trau chuốt và hộp so sánh trước/sau | A3, A4 | 5, 7 | ⬜ |
@@ -110,7 +110,8 @@ Thứ tự trên đã tính sẵn: có thể làm lần lượt từ trên xuố
 
 Task này không có giao diện mới. AI báo kết quả test.
 
-### Task 5 – Trình tạo prompt (chưa dùng AI) ⬜
+### Task 5 – Trình tạo prompt (chưa dùng AI) ✅
+> Hoàn thành 18/10/2026. Bấm giai đoạn trên thanh tiến độ vẫn để đặt giai đoạn (task 3); bên dưới thanh có đường dẫn "Prompt mẫu của giai đoạn hiện tại" mở đúng loại prompt.
 **Tài liệu:** `docs/02`, `docs/04`.
 
 **Làm gì:**

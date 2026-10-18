@@ -10,6 +10,7 @@ import { deleteProject, duplicateProject, updateProject } from '@/lib/db/project
 import { updateSettings } from '@/lib/db/settings'
 import { vi } from '@/lib/i18n/vi'
 import { phaseLabel } from '@/lib/phases'
+import { STANDARD_PHASES } from '@/lib/prompts/standard-process'
 import type { Project, ProjectProfile } from '@/types/models'
 import { PhaseBar } from './PhaseBar'
 
@@ -69,6 +70,7 @@ function ProjectDetail({ project }: { project: Project }) {
   const saved = toForm(project)
   const dirty = (Object.keys(form) as (keyof FormState)[]).some((k) => form[k] !== saved[k])
   const s = stats.status === 'ready' ? stats.data[project.id] : undefined
+  const phasePrompt = STANDARD_PHASES[project.currentPhase]?.prompt
 
   const save = async () => {
     try {
@@ -134,6 +136,17 @@ function ProjectDetail({ project }: { project: Project }) {
         </PanelHeader>
         <div className="p-3.5">
           <PhaseBar current={project.currentPhase} onSelect={(i) => void selectPhase(i)} />
+          {phasePrompt && (
+            <p className="mt-2.5 text-xs text-muted">
+              {vi.builder.phasePromptHint}{' '}
+              <Link
+                to={`/prompt/${phasePrompt.typeCode}`}
+                className="font-semibold text-accent hover:underline"
+              >
+                {phasePrompt.title} →
+              </Link>
+            </p>
+          )}
         </div>
       </Panel>
 
