@@ -89,13 +89,18 @@ và lấy lại được prompt hay dùng chỉ bằng một lần copy.
 - Xuất toàn bộ dữ liệu ra một file `.json` và nhập lại khi cần (đổi máy, đổi trình duyệt).
 - Nhắc sao lưu nếu đã quá 7 ngày chưa sao lưu.
 
+**A9. Tiện ích giao diện** – chi tiết: `docs/05-MAN-HINH-VA-LUONG.md`
+- Thanh menu bên trái thu gọn / mở rộng được.
+- Chuyển giao diện sáng / tối. App nhớ lựa chọn này.
+- Ghim prompt hay dùng lên thanh bên để copy một chạm.
+- Phím tắt: `Ctrl+K` tìm nhanh, `Ctrl+Enter` Copy, `Ctrl+S` lưu, `Ctrl+B` thu gọn thanh bên, `Esc` đóng hộp thoại.
+
 ### Mức B – Nên có (phiên bản 1.1)
 
 - **B1. Lịch sử phiên bản**: mỗi lần lưu file quy tắc tạo một phiên bản, có thể xem và khôi phục bản cũ.
 - **B2. Mẫu khởi đầu**: AGENTS.md mẫu cho các loại dự án phổ biến (web React/Next.js, Python, mobile...).
 - **B3. So sánh Claude và Gemini**: chạy cùng một yêu cầu trên cả hai AI và đặt kết quả cạnh nhau để chọn bản tốt hơn.
 - **B4. Ước tính chi phí**: hiện số token và chi phí ước tính của mỗi lần gọi AI.
-- **B5. Giao diện sáng/tối.**
 
 ### Mức D – Module "Điền mẫu Word/Excel" (giai đoạn 2, sau khi xong mức A và B)
 

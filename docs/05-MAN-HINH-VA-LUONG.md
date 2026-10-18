@@ -60,8 +60,22 @@ flowchart LR
 - **Lỗi:** chưa có API key, key sai, mất mạng, hết hạn mức. Thông báo tiếng Việt kèm nút "Đi tới Cài đặt" hoặc "Thử lại".
 - **Thành công:** thông báo nhỏ "Đã copy", "Đã lưu".
 
-## 5. Phong cách
-- Tối giản, nền sáng, một màu nhấn (xanh chàm). Có chế độ tối (mức B5).
+## 5. Phong cách (đã chốt với chủ dự án ngày 18/10/2026)
+
+| Hạng mục | Quyết định |
+|---|---|
+| Cảm giác tổng thể | **Chuyên nghiệp kiểu doanh nghiệp**: bố cục chặt, dùng bảng nhiều, màu trung tính |
+| Màu chủ đạo | **Xanh lục (teal)** `#0F766E` ở chế độ sáng, `#2DB3A6` ở chế độ tối. Nút AI dùng màu hổ phách để phân biệt |
+| Mật độ | **Gọn, nhiều thông tin**: chữ cơ bản 13px, nút cao 36px, ít khoảng trắng |
+| Điều hướng | **Thanh menu bên trái**, có nút **thu gọn / mở rộng ở cuối thanh**. Khi thu gọn chỉ còn biểu tượng |
+| Màn hình chính | **Laptop 13–15 inch** (chiều rộng 1280–1440px). Trên màn hình nhỏ vẫn dùng được |
+| Trình tạo prompt | **Hai cột cạnh nhau**: bảng nhập bên trái, xem trước bên phải |
+| Hiển thị gợi ý | **Ô tích (checkbox) kèm câu đầy đủ** sẽ chèn vào prompt |
+| Danh sách | Dự án và Thư viện hiển thị dạng **bảng** (table) thay vì thẻ |
+| Tiện ích | **Phím tắt**, **chuyển sáng/tối**, **ghim prompt hay dùng** lên thanh bên |
+
+**Phím tắt dự kiến:** `Ctrl+K` tìm nhanh · `Ctrl+Enter` Copy prompt · `Ctrl+S` lưu · `Ctrl+B` thu gọn/mở thanh bên · `Esc` đóng hộp thoại.
+
 - Chữ hiển thị tiếng Việt.
 - Mockup tương tác (bấm thử được): https://claude.ai/artifact/5ehYGPek22DsNPgTX2Buan. Đăng nhập claude.ai để mở.
 - Font chữ: Be Vietnam Pro (giao diện), JetBrains Mono (khung xem trước prompt).
