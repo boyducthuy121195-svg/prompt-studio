@@ -28,7 +28,7 @@ Làm task [số] trong @PLAN.md.
 |---|---|---|---|---|
 | 0 | Tài liệu dự án (PRD, AGENTS, thiết kế, kiến trúc, kế hoạch) | — | — | ✅ |
 | 1 | Dựng khung dự án | — | 0 | ✅ |
-| 2 | Khung giao diện: thanh bên, header, sáng/tối, các trang trống | A9, M11 | 1 | ⬜ |
+| 2 | Khung giao diện: thanh bên, header, sáng/tối, các trang trống | A9, M11 | 1 | ✅ |
 | 3 | Lưu trữ và quản lý dự án | A1 | 2 | ⬜ |
 | 4 | Dữ liệu cố định: loại prompt, gợi ý, quy trình, khung AGENTS.md | A2, A4, A5 | 1 | ⬜ |
 | 5 | Trình tạo prompt (chưa dùng AI) | A4, A6 | 3, 4 | ⬜ |
@@ -62,7 +62,8 @@ Thứ tự trên đã tính sẵn: có thể làm lần lượt từ trên xuố
 - Chạy `npm install` rồi `npm run dev`, mở http://localhost:5173 thấy chữ "Prompt Studio".
 - `npm run lint`, `npm run typecheck`, `npm test`, `npm run test:e2e` đều chạy được và pass. Mỗi loại có ít nhất 1 test mẫu.
 
-### Task 2 – Khung giao diện ⬜
+### Task 2 – Khung giao diện ✅
+> Hoàn thành 18/10/2026. Ảnh chụp: `docs/screenshots/task-02-*.png`. Tên mục trên thanh bên rút gọn thành "Mẫu Word/Excel" cho vừa nhãn "Sắp có".
 **Tài liệu:** `docs/05` mục 1 và 5, bản mẫu giao diện.
 
 **Làm gì:**

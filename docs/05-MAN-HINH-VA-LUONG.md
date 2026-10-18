@@ -31,7 +31,7 @@
 | M7 | **Cải thiện** | Ô dán hoặc tải file lên · Chọn loại nội dung (AGENTS.md / prompt) · Kết quả: điểm theo tiêu chí, danh sách vấn đề, bản đề xuất (mở M5) | A3 |
 | M8 | **Thư viện** | Tab: Quy trình chuẩn · Của dự án · Dùng chung · Lọc theo thẻ · Thẻ prompt (Copy / Mở trong bảng nhập / Sửa) | A5 |
 | M9 | **Điền biến** (hộp thoại) | Mỗi biến `{{…}}` là một ô nhập (đã điền sẵn giá trị mặc định) · Xem trước · Copy | A5 |
-| M11 | **Điền mẫu Word/Excel** *(Sắp có – giai đoạn 2)* | Bản đầu tiên chỉ có tab giữ chỗ, gắn nhãn "Sắp có", hiện bố cục dự kiến (các nút chưa hoạt động): quy trình 4 bước (Tải file mẫu → Đánh dấu vị trí thay đổi → Điền dữ liệu → Kiểm tra và xuất) · Khu tải file · Bảng vị trí biến (Biến, Vị trí trong file, Kiểu, Giá trị trong mẫu) · Danh sách mẫu đã lưu | D |
+| M11 | **Điền mẫu Word/Excel** *(Sắp có – giai đoạn 2)* | Trên thanh bên ghi gọn là "Mẫu Word/Excel". Bản đầu tiên chỉ có tab giữ chỗ, gắn nhãn "Sắp có", hiện bố cục dự kiến (các nút chưa hoạt động): quy trình 4 bước (Tải file mẫu → Đánh dấu vị trí thay đổi → Điền dữ liệu → Kiểm tra và xuất) · Khu tải file · Bảng vị trí biến (Biến, Vị trí trong file, Kiểu, Giá trị trong mẫu) · Danh sách mẫu đã lưu | D |
 | M10 | **Cài đặt** | API key Claude / Gemini (ẩn/hiện, nút Kiểm tra) · Model mặc định · Ngôn ngữ mặc định · Sao lưu (tải .json) · Khôi phục (chọn file) · Xóa toàn bộ dữ liệu | A7, A8 |
 
 ## 3. Luồng chính

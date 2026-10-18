@@ -1,1 +1,108 @@
 @import 'tailwindcss';
+
+/* Chế độ tối bật bằng class .dark trên thẻ <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Bộ màu teal doanh nghiệp – xem docs/05-MAN-HINH-VA-LUONG.md mục 5 */
+:root {
+  --bg: #f3f5f5;
+  --surface: #ffffff;
+  --side: #fafbfb;
+  --soft: #f6f8f8;
+  --hover: #edf1f1;
+  --border: #d9dfdf;
+  --ink: #16211f;
+  --muted: #55635f;
+  --accent: #0f766e;
+  --accent-hover: #0b5e58;
+  --on-accent: #ffffff;
+  --accent-weak: #e2f3f0;
+  --accent-line: #afdad4;
+  --accent-ink: #0b4f49;
+  --ai-bg: #fff4df;
+  --ai-line: #ddbb78;
+  --ai-ink: #5c3a00;
+  --warn-bg: #fff4df;
+  --warn-line: #e2c589;
+  --warn-ink: #5c3a00;
+  --red-bg: #fbe3df;
+  --red-ink: #7a1d14;
+  --green-bg: #dcf1e6;
+  --green-ink: #145c38;
+  --code-bg: #16211f;
+  --code-ink: #e4ecea;
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #0e1513;
+  --surface: #16201e;
+  --side: #121a18;
+  --soft: #1a2522;
+  --hover: #1f2b28;
+  --border: #2a3834;
+  --ink: #e3ebe9;
+  --muted: #9aaba6;
+  --accent: #2db3a6;
+  --accent-hover: #46c5b8;
+  --on-accent: #04201c;
+  --accent-weak: #123733;
+  --accent-line: #1f5a53;
+  --accent-ink: #8fe3d8;
+  --ai-bg: #30250f;
+  --ai-line: #6a5023;
+  --ai-ink: #f2d597;
+  --warn-bg: #30250f;
+  --warn-line: #6a5023;
+  --warn-ink: #f2d597;
+  --red-bg: #3a1a16;
+  --red-ink: #f4b4aa;
+  --green-bg: #123323;
+  --green-ink: #96ddb5;
+  --code-bg: #0a0f0e;
+  --code-ink: #dce5e3;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --font-sans: 'Be Vietnam Pro', system-ui, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-side: var(--side);
+  --color-soft: var(--soft);
+  --color-hover: var(--hover);
+  --color-border: var(--border);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-on-accent: var(--on-accent);
+  --color-accent-weak: var(--accent-weak);
+  --color-accent-line: var(--accent-line);
+  --color-accent-ink: var(--accent-ink);
+  --color-ai-bg: var(--ai-bg);
+  --color-ai-line: var(--ai-line);
+  --color-ai-ink: var(--ai-ink);
+  --color-warn-bg: var(--warn-bg);
+  --color-warn-line: var(--warn-line);
+  --color-warn-ink: var(--warn-ink);
+  --color-red-bg: var(--red-bg);
+  --color-red-ink: var(--red-ink);
+  --color-green-bg: var(--green-bg);
+  --color-green-ink: var(--green-ink);
+  --color-code-bg: var(--code-bg);
+  --color-code-ink: var(--code-ink);
+}
+
+@layer base {
+  body {
+    @apply bg-bg font-sans text-[13px] text-ink antialiased;
+    margin: 0;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+}

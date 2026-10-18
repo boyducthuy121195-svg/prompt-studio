@@ -2,8 +2,8 @@ import { render, screen } from '@testing-library/react'
 import App from './App'
 
 describe('App', () => {
-  it('hiển thị tên app', () => {
+  it('mở trang Dự án khi vào địa chỉ gốc', async () => {
     render(<App />)
-    expect(screen.getByRole('heading', { name: 'Prompt Studio' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: 'Dự án', level: 1 })).toBeInTheDocument()
   })
 })
