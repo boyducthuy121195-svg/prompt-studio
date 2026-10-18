@@ -180,7 +180,7 @@ export function DiffDialog({
               <Tag>{t.optional}</Tag>
               {picks.hint && <span className="text-xs text-muted">{picks.hint}</span>}
             </div>
-            <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-1.5">
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(min(280px,100%),1fr))] gap-1.5">
               {picks.items.map((it, i) => (
                 <CheckOption
                   key={`${i}-${it.label}`}
@@ -195,7 +195,7 @@ export function DiffDialog({
         )}
 
         {questions.length > 0 && (
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-2.5 rounded-lg border border-accent-line bg-accent-weak p-3">
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(min(280px,100%),1fr))] gap-2.5 rounded-lg border border-accent-line bg-accent-weak p-3">
             <div className="col-span-full flex items-center gap-2">
               <h3 className="text-[13px] font-semibold text-accent-ink">{t.questions}</h3>
               <Tag>{t.optional}</Tag>

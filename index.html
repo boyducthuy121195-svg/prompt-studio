@@ -4,6 +4,14 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--
+      Bảo mật (AGENTS.md mục 9): trình duyệt chỉ cho app kết nối tới máy này, Anthropic và Google.
+      'unsafe-inline' ở script-src là do Vite cần một đoạn script nhỏ khi chạy `npm run dev`.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' ws://localhost:5173 https://api.anthropic.com https://generativelanguage.googleapis.com; object-src 'none'; base-uri 'self'; form-action 'none'"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

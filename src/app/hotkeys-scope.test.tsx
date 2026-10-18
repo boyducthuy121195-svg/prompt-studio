@@ -17,7 +17,7 @@ describe('phím tắt khi đang mở hộp thoại', () => {
     })
     await togglePin(p.id)
     renderApp('/prompt/TU_DO')
-    const aside = screen.getByRole('complementary')
+    const aside = await screen.findByRole('complementary')
     await user.click(
       await within(aside).findByRole('button', { name: 'Điền nhanh rồi copy: Báo lỗi' }),
     )

@@ -8,11 +8,9 @@ import {
   Save,
   Trash2,
 } from 'lucide-react'
-import { useEffect, useMemo, useState, type ReactNode } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { Link } from 'react-router'
 import { useHotkey } from '@/app/use-hotkey'
-import { MarkdownEditor } from '@/components/MarkdownEditor'
-import { MarkdownPreview } from '@/components/MarkdownPreview'
 import { Button, Kbd, PageHeader, Panel, PanelHeader, Tag } from '@/components/Primitives'
 import { useToast } from '@/components/toast-context'
 import { inputClass } from '@/features/task-prompt/FieldInput'
@@ -37,6 +35,14 @@ import { vi } from '@/lib/i18n/vi'
 import { getAgentsSection } from '@/lib/prompts/agents-skeleton'
 import { cn } from '@/lib/utils'
 import type { AgentsDoc, AgentsSection, Project } from '@/types/models'
+
+// Trình soạn thảo (CodeMirror) và xem trước Markdown khá nặng nên tải riêng khi cần
+const MarkdownEditor = lazy(async () => ({
+  default: (await import('@/components/MarkdownEditor')).MarkdownEditor,
+}))
+const MarkdownPreview = lazy(async () => ({
+  default: (await import('@/components/MarkdownPreview')).MarkdownPreview,
+}))
 
 const t = vi.agents
 export type AgentsMode = 'wizard' | 'free' | 'edit'
@@ -162,7 +168,7 @@ function AgentsEditor({
 
       {mode === 'edit' && current && (
         <div className="flex flex-wrap items-start gap-3.5">
-          <Panel className="flex-[1_1_240px]">
+          <Panel className="min-w-0 flex-[1_1_240px]">
             <PanelHeader>
               <h2 className="flex-1 text-sm font-semibold">{t.sectionsTitle}</h2>
               <span className="text-xs text-muted">
@@ -298,23 +304,25 @@ function AgentsEditor({
                   className={`${inputClass} h-9 font-semibold`}
                 />
               )}
-              {view === 'edit' && (
-                <MarkdownEditor
-                  key={current.key}
-                  label={t.content}
-                  value={current.content}
-                  onChange={(v) =>
-                    setSections((l) => updateSection(l, current.key, { content: v }))
-                  }
-                />
-              )}
-              {view === 'preview' && <MarkdownPreview source={current.content} />}
-              {view === 'file' && <MarkdownPreview source={md} />}
+              <Suspense fallback={<p className="text-muted">{vi.common.loading}</p>}>
+                {view === 'edit' && (
+                  <MarkdownEditor
+                    key={current.key}
+                    label={t.content}
+                    value={current.content}
+                    onChange={(v) =>
+                      setSections((l) => updateSection(l, current.key, { content: v }))
+                    }
+                  />
+                )}
+                {view === 'preview' && <MarkdownPreview source={current.content} />}
+                {view === 'file' && <MarkdownPreview source={md} />}
+              </Suspense>
               {def && <p className="text-xs text-muted">{def.hint}</p>}
             </div>
           </Panel>
 
-          <Panel className="flex-[1_1_260px]">
+          <Panel className="min-w-0 flex-[1_1_260px]">
             <PanelHeader>
               <h2 className="flex-1 text-sm font-semibold">{t.checksTitle}</h2>
               <span className="text-xs text-muted">{t.checksHint}</span>

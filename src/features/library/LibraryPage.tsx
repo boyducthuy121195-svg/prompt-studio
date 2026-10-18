@@ -142,6 +142,12 @@ export function LibraryPage() {
 
         {tab === 'proj' && !project ? (
           <p className="p-6 text-center text-muted">{t.noProject}</p>
+        ) : tab !== 'std' && prompts.status === 'loading' ? (
+          <p className="p-6 text-center text-muted">{vi.common.loading}</p>
+        ) : tab !== 'std' && prompts.status === 'error' ? (
+          <p role="alert" className="p-6 text-center text-red-ink">
+            {vi.common.dbError}
+          </p>
         ) : shown.length === 0 ? (
           <p className="p-6 text-center text-muted">{t.empty}</p>
         ) : (

@@ -1,32 +1,69 @@
 import { Navigate, type RouteObject } from 'react-router'
 import { NotFoundPage } from '@/components/NotFoundPage'
-import { BackupPanel } from '@/features/backup/BackupPanel'
-import { AgentsPageWithAi } from '@/features/wizard/AgentsAi'
-import { ImprovePage } from '@/features/improve/ImprovePage'
-import { LibraryPage } from '@/features/library/LibraryPage'
 import { ProjectDetailPage } from '@/features/projects/ProjectDetailPage'
 import { ProjectsPage } from '@/features/projects/ProjectsPage'
-import { PromptBuilderPage } from '@/features/task-prompt/PromptBuilderPage'
-import { PromptPickPage } from '@/features/task-prompt/PromptPickPage'
-import { SettingsPage } from '@/features/settings/SettingsPage'
-import { TemplatesPage } from '@/features/templates/TemplatesPage'
+import { vi } from '@/lib/i18n/vi'
 import { AppLayout } from './AppLayout'
 
+/**
+ * Trang Dự án tải ngay; các trang khác chỉ tải khi mở lần đầu (`lazy`) để app khởi động nhanh
+ * (CodeMirror, react-markdown… khá nặng).
+ */
 export const routes: RouteObject[] = [
   {
     path: '/',
     element: <AppLayout />,
+    hydrateFallbackElement: <p className="p-5 text-muted">{vi.common.loading}</p>,
     children: [
       { index: true, element: <Navigate to="/projects" replace /> },
       { path: 'projects', element: <ProjectsPage /> },
       { path: 'projects/:id', element: <ProjectDetailPage /> },
-      { path: 'prompt', element: <PromptPickPage /> },
-      { path: 'prompt/:typeCode', element: <PromptBuilderPage /> },
-      { path: 'agents', element: <AgentsPageWithAi /> },
-      { path: 'improve', element: <ImprovePage /> },
-      { path: 'library', element: <LibraryPage /> },
-      { path: 'templates', element: <TemplatesPage /> },
-      { path: 'settings', element: <SettingsPage backupSlot={<BackupPanel />} /> },
+      {
+        path: 'prompt',
+        lazy: async () => ({
+          Component: (await import('@/features/task-prompt/PromptPickPage')).PromptPickPage,
+        }),
+      },
+      {
+        path: 'prompt/:typeCode',
+        lazy: async () => ({
+          Component: (await import('@/features/task-prompt/PromptBuilderPage')).PromptBuilderPage,
+        }),
+      },
+      {
+        path: 'agents',
+        lazy: async () => ({
+          Component: (await import('@/features/wizard/AgentsAi')).AgentsPageWithAi,
+        }),
+      },
+      {
+        path: 'improve',
+        lazy: async () => ({
+          Component: (await import('@/features/improve/ImprovePage')).ImprovePage,
+        }),
+      },
+      {
+        path: 'library',
+        lazy: async () => ({
+          Component: (await import('@/features/library/LibraryPage')).LibraryPage,
+        }),
+      },
+      {
+        path: 'templates',
+        lazy: async () => ({
+          Component: (await import('@/features/templates/TemplatesPage')).TemplatesPage,
+        }),
+      },
+      {
+        path: 'settings',
+        lazy: async () => {
+          const [{ SettingsPage }, { BackupPanel }] = await Promise.all([
+            import('@/features/settings/SettingsPage'),
+            import('@/features/backup/BackupPanel'),
+          ])
+          return { element: <SettingsPage backupSlot={<BackupPanel />} /> }
+        },
+      },
       { path: '*', element: <NotFoundPage /> },
     ],
   },

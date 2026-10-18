@@ -11,7 +11,7 @@ export function PhaseBar({
   onSelect: (index: number) => void
 }) {
   return (
-    <ol className="grid grid-cols-[repeat(auto-fill,minmax(96px,1fr))] gap-1.5">
+    <ol className="grid grid-cols-[repeat(auto-fill,minmax(min(96px,100%),1fr))] gap-1.5">
       {PHASES.map((name, i) => {
         const state = i < current ? 'done' : i === current ? 'current' : 'todo'
         return (

@@ -1,4 +1,4 @@
-import { screen, within } from '@testing-library/react'
+import { screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { createProject } from '@/lib/db/projects'
 import { savePrompt } from '@/lib/db/prompts'
@@ -25,7 +25,7 @@ describe('Tìm nhanh (Ctrl+K)', () => {
     expect(first).toHaveTextContent('Sửa lỗi')
     expect(first).toHaveAttribute('aria-selected', 'true')
     await user.keyboard('{Enter}')
-    expect(router.state.location.pathname).toBe('/prompt/SUA_LOI')
+    await waitFor(() => expect(router.state.location.pathname).toBe('/prompt/SUA_LOI'))
     expect(screen.queryByRole('combobox', { name: 'Từ khóa tìm kiếm' })).not.toBeInTheDocument()
   })
 
@@ -37,7 +37,7 @@ describe('Tìm nhanh (Ctrl+K)', () => {
     await user.type(await screen.findByRole('combobox', { name: 'Từ khóa tìm kiếm' }), 'gia dinh')
     expect(screen.getAllByRole('option')[0]).toHaveTextContent('Web bán hàng')
     await user.keyboard('{Enter}')
-    expect(router.state.location.pathname).toBe(`/projects/${p.id}`)
+    await waitFor(() => expect(router.state.location.pathname).toBe(`/projects/${p.id}`))
   })
 
   it('tìm prompt đã lưu có biến → Enter mở Điền nhanh; prompt không biến thì copy ngay', async () => {

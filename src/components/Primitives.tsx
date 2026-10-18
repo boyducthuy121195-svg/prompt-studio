@@ -74,7 +74,10 @@ export function Kbd({ children, className }: { children: ReactNode; className?: 
 
 export function Panel({ className, ...props }: HTMLAttributes<HTMLElement>) {
   return (
-    <section className={cn('rounded-lg border border-border bg-surface', className)} {...props} />
+    <section
+      className={cn('relative rounded-lg border border-border bg-surface', className)}
+      {...props}
+    />
   )
 }
 

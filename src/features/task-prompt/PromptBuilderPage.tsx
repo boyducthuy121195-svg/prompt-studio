@@ -264,7 +264,7 @@ export function PromptBuilder({
             <span className="text-xs text-muted">{t.formHint}</span>
           </PanelHeader>
           <div className="flex flex-col gap-3.5 p-3.5">
-            <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-3">
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(min(220px,100%),1fr))] gap-3">
               <div>
                 <label htmlFor="f-role" className="mb-1 block text-xs font-semibold">
                   {t.role}
@@ -318,7 +318,7 @@ export function PromptBuilder({
             </div>
 
             {type.fields.length > 0 && (
-              <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-3">
+              <div className="grid grid-cols-[repeat(auto-fill,minmax(min(240px,100%),1fr))] gap-3">
                 {type.fields.map((f) => (
                   <div
                     key={f.key}
@@ -368,7 +368,7 @@ export function PromptBuilder({
 
             <fieldset className="m-0 flex flex-col gap-2 border-0 p-0">
               <legend className="mb-1 text-xs font-semibold">{t.pasted}</legend>
-              <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-2">
+              <div className="grid grid-cols-[repeat(auto-fill,minmax(min(200px,100%),1fr))] gap-2">
                 <select
                   aria-label={t.pastedKind}
                   className={`${inputClass} h-9`}
@@ -422,7 +422,7 @@ export function PromptBuilder({
                     <span className="flex-1 text-xs text-muted">{g.hint}</span>
                     <Tag>{t.selectedCount(count, list.length)}</Tag>
                   </legend>
-                  <div className="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-1.5">
+                  <div className="grid grid-cols-[repeat(auto-fill,minmax(min(260px,100%),1fr))] gap-1.5">
                     {list.map((s) => (
                       <CheckOption
                         key={s.code}

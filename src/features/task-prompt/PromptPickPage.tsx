@@ -34,7 +34,7 @@ export function PromptPickPage() {
         </div>
       )}
 
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] items-start gap-3.5">
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(min(300px,100%),1fr))] items-start gap-3.5">
         {PROMPT_GROUPS.map((g) => (
           <Panel key={g.key}>
             <PanelHeader>

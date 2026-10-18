@@ -38,7 +38,7 @@ function SettingsForm({ s, backupSlot }: { s: Settings; backupSlot?: ReactNode }
             <h2 className="flex-1 text-sm font-semibold">{t.aiTitle}</h2>
             <span className="text-xs text-muted">{t.aiHint}</span>
           </PanelHeader>
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-3.5 p-3.5">
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(min(280px,100%),1fr))] gap-3.5 p-3.5">
             <KeyField
               provider="claude"
               label={t.claudeKey}
@@ -234,7 +234,7 @@ function KeyField({
     setChecking(true)
     setStatus(null)
     try {
-      const ids = await getProvider(await getSettings(), provider).testKey()
+      const ids = await (await getProvider(await getSettings(), provider)).testKey()
       await onModels?.(ids)
       setStatus({ ok: true, text: t.keyOk(ids.length) })
     } catch (err) {

@@ -86,7 +86,9 @@ describe('AGENTS.md – chỉnh sửa theo mục', () => {
     await user.click(screen.getByRole('button', { name: 'Đưa mục Quy tắc đặt tên lên' }))
     await user.click(screen.getByRole('button', { name: 'Xem cả file' }))
     // Tiêu đề khung soạn + tiêu đề trong file xem trước
-    expect(await screen.findAllByRole('heading', { name: '10. Quy tắc đặt tên' })).toHaveLength(2)
+    await waitFor(() =>
+      expect(screen.getAllByRole('heading', { name: '10. Quy tắc đặt tên' })).toHaveLength(2),
+    )
     expect(screen.getByRole('heading', { name: '11. Cách làm việc với tôi' })).toBeInTheDocument()
   })
 

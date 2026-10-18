@@ -11,6 +11,9 @@ export default defineConfig({
     alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
   },
   server: { port: 5173, strictPort: true },
+  // Trình soạn thảo CodeMirror (~620 kB) là một khối riêng, chỉ tải khi mở chế độ chỉnh sửa AGENTS.md.
+  // App chạy trên máy (localhost) nên khối này không làm chậm đáng kể.
+  build: { chunkSizeWarningLimit: 700 },
   // Chuẩn bị sẵn thư viện lớn khi khởi động, tránh việc Vite tự tải lại trang lần đầu mở một màn hình
   optimizeDeps: {
     include: [

@@ -20,7 +20,7 @@ Toàn bộ dữ liệu lưu trong IndexedDB của trình duyệt.
 ## 2. Công nghệ (stack)
 
 - **React 19 + TypeScript (strict)**, build bằng **Vite**
-- **Tailwind CSS v4** để làm giao diện, thêm **shadcn/ui** cho các thành phần có sẵn (nút, hộp thoại, tab...)
+- **Tailwind CSS v4** để làm giao diện. Thành phần có sẵn theo kiểu shadcn/ui: **Radix Dialog** + `class-variance-authority` / `clsx` / `tailwind-merge`, đặt trong `src/components/`
 - **Dexie.js** (lớp bọc IndexedDB) để lưu dữ liệu
 - **React Router** để chuyển trang
 - Soạn và xem trước Markdown: **CodeMirror 6** + **react-markdown**
@@ -65,7 +65,11 @@ src/
   lib/
     ai/           # gọi Claude/Gemini, tất cả đi qua một interface chung (AIProvider)
     db/           # schema Dexie và các hàm đọc/ghi
-    prompts/      # meta-prompt mà app dùng để sinh/cải thiện nội dung
+    prompts/      # dữ liệu cố định (loại prompt, gợi ý, trọng tâm) và meta-prompt trong prompts/meta/
+    agents/       # tách / ghép / kiểm tra / xuất AGENTS.md
+    i18n/vi.ts    # mọi chữ hiển thị
+    backup.ts, search.ts, library.ts ...  # hàm dùng chung khác, mỗi file có *.test.ts
+  test/           # công cụ dùng chung cho test (renderApp, clearDb)
   types/          # kiểu dữ liệu dùng chung
 tests/e2e/        # kiểm thử Playwright
 ```
@@ -106,15 +110,22 @@ export function ProjectCard({ project }: { project: Project }) {
   - Mặc định cho Gemini: **Gemini 3.8 Flash**, theo lựa chọn của chủ dự án. Tên model chính xác phải lấy từ danh sách model mà Google trả về khi kiểm tra key. Nếu danh sách không có model này thì chọn bản Flash mới nhất và báo người dùng.
   - Sao lưu mặc định **không kèm API key**. Có ô tích "Kèm API key" kèm cảnh báo.
 - Gọi Claude từ trình duyệt phải bật `dangerouslyAllowBrowser: true`. Việc này chấp nhận được vì đây là app cá nhân và key do người dùng tự nhập.
-- Ưu tiên **streaming**: chữ hiện ra dần, kèm nút "Dừng".
+- Ưu tiên **streaming**: chữ hiện ra dần, kèm nút "Dừng". Khi cần tách nhiều phần (bản viết lại + gợi ý, điểm + vấn đề) thì dùng JSON có cấu trúc, kiểm tra bằng Zod.
+- Mỗi lần gọi ✨ phải gửi kèm **ngữ cảnh** qua `src/lib/prompts/meta/context.ts` (hồ sơ dự án, giai đoạn, loại prompt, các ô khác). Gợi ý thêm của AI luôn tách riêng để người dùng tự tích chọn.
 - Các meta-prompt nằm trong `src/lib/prompts/`. Mỗi prompt là một file riêng và có test kiểm tra rằng nó được ghép đúng với dữ liệu dự án.
-- Khi kiểm thử **không gọi API thật**. Dùng mock.
+- Khi kiểm thử **không gọi API thật**. Test đơn vị dùng `createMockProvider` (`src/lib/ai/mock.ts`); test e2e dùng `tests/e2e/fake-claude.ts` để chặn và trả lời giả.
 
 - Nội dung app tạo ra (prompt, file quy tắc) mặc định viết bằng **tiếng Việt, giữ thuật ngữ tiếng Anh**. Người dùng đổi được ngôn ngữ cho từng lần tạo.
 - **Chỉ gọi AI khi người dùng bấm nút** (✨ Trau chuốt, Tạo, Kiểm tra). Không tự gọi AI khi người dùng đang gõ hay lúc tải trang.
 - Danh sách gợi ý của Trình tạo prompt là **dữ liệu cố định** lấy từ `docs/04-THU-VIEN-GOI-Y.md`, lưu trong `src/lib/prompts/`. Không làm giao diện để sửa danh sách này.
 
 ## 7. Kiểm thử
+
+**Bẫy thường gặp:**
+- Các trang (trừ Dự án) tải theo kiểu `lazy` → trong test, sau khi chuyển trang phải dùng `findBy…` / `waitFor`, không dùng `getBy…` ngay.
+- Phím tắt của trang không chạy khi đang mở hộp thoại (`useHotkey`, tùy chọn `inDialog`).
+- `index.html` có Content-Security-Policy chỉ cho kết nối tới Anthropic / Google. Thêm dịch vụ mới thì phải hỏi chủ dự án trước (AGENTS.md mục 9).
+- Trên máy này Chromium cho Playwright nằm ở `PLAYWRIGHT_CHROMIUM_PATH`; trên máy khác chạy `npx playwright install chromium`.
 
 - Mỗi hàm trong `lib/` phải có test đơn vị.
 - Mỗi tính năng trong PLAN.md phải có ít nhất một test e2e cho luồng chính.

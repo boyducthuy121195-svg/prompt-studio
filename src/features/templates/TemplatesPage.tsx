@@ -17,7 +17,7 @@ export function TemplatesPage() {
         <PanelHeader>
           <h2 className="text-sm font-semibold">{t.stepsTitle}</h2>
         </PanelHeader>
-        <ol className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))]">
+        <ol className="grid grid-cols-[repeat(auto-fill,minmax(min(220px,100%),1fr))]">
           {t.steps.map((step, i) => (
             <li
               key={step.title}
@@ -34,7 +34,7 @@ export function TemplatesPage() {
       </Panel>
 
       <div className="flex flex-wrap items-start gap-3.5">
-        <Panel className="flex-[1_1_320px]">
+        <Panel className="min-w-0 flex-[1_1_320px]">
           <PanelHeader>
             <h2 className="text-sm font-semibold">{t.uploadTitle}</h2>
           </PanelHeader>

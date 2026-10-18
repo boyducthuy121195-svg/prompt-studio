@@ -158,7 +158,7 @@ function ProjectDetail({ project }: { project: Project }) {
             <span className="text-xs text-muted">{t.profileHint}</span>
           </PanelHeader>
           <form
-            className="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-3 p-3.5"
+            className="grid grid-cols-[repeat(auto-fill,minmax(min(260px,100%),1fr))] gap-3 p-3.5"
             onSubmit={(e) => {
               e.preventDefault()
               void save()
@@ -201,7 +201,7 @@ function ProjectDetail({ project }: { project: Project }) {
           </form>
         </Panel>
 
-        <Panel className="flex-[1_1_260px]">
+        <Panel className="min-w-0 flex-[1_1_260px]">
           <PanelHeader>
             <h2 className="text-sm font-semibold">{t.docsTitle}</h2>
           </PanelHeader>

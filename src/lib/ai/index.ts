@@ -1,15 +1,14 @@
 import type { Settings } from '@/types/models'
-import { createClaudeProvider } from './claude'
 import { AIError } from './errors'
-import { createGeminiProvider } from './gemini'
 import type { AIProvider, ProviderId } from './types'
 
-type Factory = (s: Settings, id: ProviderId) => AIProvider
+type Factory = (s: Settings, id: ProviderId) => AIProvider | Promise<AIProvider>
 
-const realFactory: Factory = (s, id) =>
+// SDK của Claude / Gemini khá nặng nên chỉ tải khi người dùng bấm nút AI lần đầu
+const realFactory: Factory = async (s, id) =>
   id === 'claude'
-    ? createClaudeProvider(s.claudeKey, s.claudeModel)
-    : createGeminiProvider(s.geminiKey, s.geminiModel)
+    ? (await import('./claude')).createClaudeProvider(s.claudeKey, s.claudeModel)
+    : (await import('./gemini')).createGeminiProvider(s.geminiKey, s.geminiModel)
 
 let factory: Factory = realFactory
 
@@ -23,7 +22,10 @@ export function hasKey(s: Settings, id: ProviderId = s.defaultProvider): boolean
 }
 
 /** Nhà cung cấp AI đang dùng theo Cài đặt. Báo lỗi tiếng Việt nếu chưa có key. */
-export function getProvider(s: Settings, id: ProviderId = s.defaultProvider): AIProvider {
+export async function getProvider(
+  s: Settings,
+  id: ProviderId = s.defaultProvider,
+): Promise<AIProvider> {
   if (!hasKey(s, id)) throw new AIError('no_key', id)
   return factory(s, id)
 }

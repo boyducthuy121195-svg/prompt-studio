@@ -529,6 +529,8 @@ export const vi = {
     comingSoonBadge: 'Đang xây dựng',
     close: 'Đóng',
     loading: 'Đang tải...',
+    dbError:
+      'Không đọc được dữ liệu trong trình duyệt. Tải lại trang để thử lại; nếu vẫn lỗi, hãy tắt chế độ ẩn danh hoặc dùng trình duyệt khác.',
     error: (msg: string) => `Có lỗi: ${msg}`,
   },
 } as const

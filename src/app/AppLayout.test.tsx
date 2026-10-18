@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react'
+import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { createMemoryRouter } from 'react-router'
 import { RouterProvider } from 'react-router/dom'
@@ -38,8 +38,8 @@ describe('Khung giao diện', () => {
     const user = userEvent.setup()
     const router = renderAt('/projects')
     await user.click(screen.getByRole('link', { name: 'Thư viện' }))
-    expect(router.state.location.pathname).toBe('/library')
-    expect(screen.getByRole('heading', { name: 'Thư viện', level: 1 })).toBeInTheDocument()
+    await waitFor(() => expect(router.state.location.pathname).toBe('/library'))
+    expect(await screen.findByRole('heading', { name: 'Thư viện', level: 1 })).toBeInTheDocument()
   })
 
   it('thu gọn thanh bên bằng nút và bằng Ctrl+B, lựa chọn được ghi nhớ', async () => {

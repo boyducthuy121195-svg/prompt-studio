@@ -116,7 +116,7 @@ function WizardPanel({ ctx }: { ctx: AgentsSlotContext }) {
           />
         </div>
         <h3 className="text-base font-semibold">{def.question}</h3>
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-1.5">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(min(200px,100%),1fr))] gap-1.5">
           {def.quickOptions.map((o) => (
             <CheckOption
               key={o}

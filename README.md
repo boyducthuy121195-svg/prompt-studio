@@ -8,7 +8,18 @@ Web app cá nhân giúp tạo, cải thiện và quản lý prompt và file quy 
 | `AGENTS.md` | Quy tắc cho AI lập trình làm việc trên dự án này (`CLAUDE.md` trỏ về file này) |
 | `docs/` | Tài liệu thiết kế chi tiết: quy trình, trình tạo prompt, khung AGENTS.md, thư viện gợi ý |
 | `ARCHITECTURE.md` | Kiến trúc và công nghệ |
-| `PLAN.md` | Kế hoạch thực hiện từng bước (14 task) |
+| `PLAN.md` | Kế hoạch thực hiện từng bước (14 task + 12A) – **đã xong bản MVP** |
+| `docs/mockup/` | Bản mẫu giao diện (mockup) – xem online tại link trong `docs/mockup/README.md` |
+
+## App làm được gì
+- **Dự án:** mỗi dự án có hồ sơ (công nghệ, lệnh, quy ước…) và thanh tiến độ 11 giai đoạn.
+- **Tạo prompt:** 18 loại việc, bảng nhập theo khung chuẩn, gợi ý tích sẵn, ✨ trau chuốt theo ngữ cảnh dự án.
+- **AGENTS.md:** Hỏi đáp 10 câu, Nhập tự do hoặc tự sửa từng mục; tải về gói `.zip` (AGENTS.md, CLAUDE.md, cấu hình Gemini).
+- **Cải thiện:** AI chấm điểm prompt / file quy tắc có sẵn; bạn chọn vấn đề cần sửa rồi AI viết lại.
+- **Thư viện:** prompt mẫu theo quy trình chuẩn, prompt đã lưu, ghim lên thanh bên, điền nhanh các chỗ trống `{{…}}`.
+- **Tìm nhanh:** `Ctrl+K` từ bất cứ đâu (gõ không dấu cũng được).
+- **Cài đặt:** API key Claude / Gemini, model, ngôn ngữ, sáng/tối, sao lưu và khôi phục.
+- AI **chỉ chạy khi bạn bấm nút** có dấu ✨. Ngoài Anthropic và Google, app không gửi dữ liệu đi đâu (trình duyệt chặn mọi kết nối khác).
 
 ---
 
@@ -67,4 +78,10 @@ Trước lần đầu chạy `npm run test:e2e` trên một máy, cần chạy t
 ### ⚠️ Dữ liệu trong app KHÔNG nằm trên GitHub
 Dự án, prompt và API key bạn tạo **trong app** được lưu trong trình duyệt của từng máy.
 Trước khi đổi máy, vào **Cài đặt → Sao lưu** để tải file `.json` về. Sang máy mới, vào **Cài đặt → Khôi phục** để nạp lại.
-Có thể lưu file sao lưu lên Google Drive cho an toàn. **Không** đưa file này lên GitHub vì trong đó có API key.
+Mặc định file sao lưu **không chứa API key** (sang máy mới bạn nhập lại key). Nếu tích ô "Kèm API key" thì
+**không** gửi file cho ai và **không** đưa lên GitHub. Có thể lưu file lên Google Drive cho an toàn.
+
+### Khi gặp lỗi
+- **Trang trắng hoặc báo "Không đọc được dữ liệu trong trình duyệt":** tải lại trang; nếu vẫn lỗi, tắt chế độ ẩn danh.
+- **"Cổng 5173 đang được dùng":** app đang chạy ở một cửa sổ lệnh khác – dùng cửa sổ đó, hoặc tắt nó bằng `Ctrl+C`.
+- **Nút ✨ báo lỗi key:** vào Cài đặt, bấm "Kiểm tra" cạnh ô key.

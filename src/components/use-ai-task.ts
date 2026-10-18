@@ -33,7 +33,7 @@ export function useAITask<T = never>() {
     let provider: AIProvider | undefined
     try {
       const settings = await getSettings()
-      provider = getProvider(settings)
+      provider = await getProvider(settings)
       if (job.kind === 'stream') {
         for await (const part of job.run(provider, c.signal)) {
           text += part

@@ -54,19 +54,19 @@ describe('lỗi AI', () => {
 describe('chọn nhà cung cấp', () => {
   afterEach(() => setProviderFactory(null))
 
-  it('chưa có key thì báo lỗi no_key', () => {
+  it('chưa có key thì báo lỗi no_key', async () => {
     expect(hasKey(DEFAULT_SETTINGS)).toBe(false)
-    expect(() => getProvider(DEFAULT_SETTINGS)).toThrow(
+    await expect(getProvider(DEFAULT_SETTINGS)).rejects.toThrow(
       'Bạn chưa nhập API key Claude. Vào Cài đặt để nhập.',
     )
     expect(aiLabel(DEFAULT_SETTINGS)).toBeNull()
   })
 
-  it('có key thì dùng nhà cung cấp theo Cài đặt; nhãn header gọn', () => {
+  it('có key thì dùng nhà cung cấp theo Cài đặt; nhãn header gọn', async () => {
     const mock = createMockProvider({ json: { ok: true } })
     setProviderFactory(() => mock)
     const s = { ...DEFAULT_SETTINGS, claudeKey: 'sk-ant-x' }
-    expect(getProvider(s)).toBe(mock)
+    expect(await getProvider(s)).toBe(mock)
     expect(aiLabel(s)).toBe('Claude · opus-5-5')
     expect(
       aiLabel({ ...s, defaultProvider: 'gemini', geminiKey: 'g', geminiModel: 'gemini-3.8-flash' }),

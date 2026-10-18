@@ -42,7 +42,7 @@ Làm task [số] trong @PLAN.md.
 | 12 | Sao lưu và khôi phục | A8 | 3, 7 | ✅ |
 | 12A | ✨ AI theo ngữ cảnh: gợi ý bổ sung, Cải thiện 2 bước | A2, A3, A4 | 8, 10, 11 | ✅ |
 | 13 | Tìm nhanh (Ctrl+K) và hoàn thiện phím tắt | A9 | 6, 9 | ✅ |
-| 14 | Hoàn thiện và kiểm thử toàn app | Tất cả | 1–13 | ⬜ |
+| 14 | Hoàn thiện và kiểm thử toàn app | Tất cả | 1–13 | ✅ |
 
 Thứ tự trên đã tính sẵn: có thể làm lần lượt từ trên xuống. Các task 1–6 **chưa cần API key**.
 
@@ -251,7 +251,14 @@ Task này không có giao diện mới. AI báo kết quả test.
 **Tự kiểm tra:**
 - Dùng app chỉ bằng bàn phím cho luồng "tìm prompt → điền → copy".
 
-### Task 14 – Hoàn thiện và kiểm thử toàn app ⬜
+### Task 14 – Hoàn thiện và kiểm thử toàn app ✅
+> Hoàn thành 18/10/2026.
+> - E2E cho 3 luồng chính (`tests/e2e/main-flows.spec.ts`, `library.spec.ts`) và sao lưu (`backup.spec.ts`); AI giả lập bằng `tests/e2e/fake-claude.ts`.
+> - Rà 360px / 1440px × sáng / tối cho mọi trang (`layout.spec.ts`). Sửa 3 lỗi tràn ngang trên điện thoại (Tạo prompt, Dự án, AGENTS.md).
+> - Thêm thông báo khi trình duyệt không đọc được dữ liệu; Thư viện có trạng thái "Đang tải".
+> - Bảo mật: thêm Content-Security-Policy chỉ cho kết nối tới Anthropic / Google; đã rà không in key, không chèn HTML thô từ AI.
+> - Tách gói: thư viện AI và CodeMirror chỉ tải khi cần (file chính 2,2 MB → khoảng 470 kB).
+> - Checklist tự kiểm tra: `docs/06-CHECKLIST-KIEM-TRA.md`. Việc đặt dự án Prompt Studio sang giai đoạn "Kiểm thử" là dữ liệu trong trình duyệt của chủ dự án, cần tự bấm (checklist mục 1).
 **Làm gì:**
 - Viết E2E cho 3 luồng chính trong `docs/05` và luồng sao lưu/khôi phục.
 - Rà các trạng thái trống, đang tải, lỗi trên mọi màn hình.
