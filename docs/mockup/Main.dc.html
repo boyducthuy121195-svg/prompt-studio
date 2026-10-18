@@ -518,8 +518,16 @@ mark{background:#FFE3A1;color:#3A2600;padding:0 2px;border-radius:3px}
             <label class="sr" for="imp-in">Nội dung</label>
             <textarea id="imp-in" class="in" style="min-height: 240px" defaultValue="Bạn là lập trình viên giỏi. Hãy viết code sạch, cẩn thận. Làm trang đăng nhập cho app của tôi, đẹp và bảo mật."></textarea>
             <div style="display: flex; flex-wrap: wrap; gap: 6px">
-              <button class="btn">Tải file lên</button>
+              <button class="btn">Tải file lên (.md, .txt)</button>
               <button class="btn btn-ai" onClick="{{analyze}}">✨ Phân tích bằng AI</button>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; padding: 12px; border: 1px solid var(--accent-line); border-radius: 6px; background: var(--accent-weak)">
+              <span style="font-size: 13px; font-weight: 600; color: var(--accent-ink)">Dùng bản đã cải thiện <span class="muted" style="font-weight: 400">(hiện sau khi bấm Chấp nhận)</span></span>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px">
+                <button class="btn btn-sm btn-pri">Copy</button>
+                <button class="btn btn-sm">Lưu vào Thư viện</button>
+                <button class="btn btn-sm">Dùng làm AGENTS.md của "{{project.name}}"</button>
+              </div>
             </div>
           </div>
         </section>
@@ -706,13 +714,16 @@ mark{background:#FFE3A1;color:#3A2600;padding:0 2px;border-radius:3px}
           <section class="panel">
             <div class="panel-h"><h2 class="h2">Sao lưu và khôi phục</h2></div>
             <div class="panel-b">
-              <p class="muted" style="margin: 0; font-size: 12px; line-height: 1.5">Lần sao lưu gần nhất: 9 ngày trước. File sao lưu chứa cả API key, đừng đưa lên GitHub.</p>
+              <p class="muted" style="margin: 0; font-size: 12px; line-height: 1.5">Lần sao lưu gần nhất: 9 ngày trước. Dữ liệu chỉ nằm trong trình duyệt này. Sao lưu để mang sang máy khác hoặc phòng khi xóa trình duyệt.</p>
+              <label class="opt"><input type="checkbox"><span style="font-weight: 600">Kèm API key trong file sao lưu</span></label>
+              <p class="muted" style="margin: 0; font-size: 12px">Mặc định không kèm key. Nếu tích ô trên sẽ hiện cảnh báo: không gửi file cho ai và không đưa lên GitHub. Khôi phục: app kiểm tra file, cho xem trước số dự án / prompt rồi mới ghi đè.</p>
               <div style="display: flex; flex-wrap: wrap; gap: 6px">
                 <button class="btn btn-pri" onClick="{{backup}}">Tải file sao lưu (.json)</button>
                 <button class="btn">Khôi phục từ file...</button>
               </div>
               <div style="height: 1px; background: var(--border)"></div>
               <button class="btn btn-danger" style="align-self: flex-start">Xóa toàn bộ dữ liệu</button>
+              <p class="muted" style="margin: 0; font-size: 12px">Phải xác nhận 2 lần: "Tiếp tục" rồi "Xóa vĩnh viễn".</p>
             </div>
           </section>
         </div>
@@ -1202,7 +1213,7 @@ class Component extends DCLogic {
       },
       projOptions: s.projects.map(function (p, i) { return { value: String(i), name: p.name }; }),
       build: (function () {
-        var map = { projects: [1, 'task 3'], project: [1, 'task 3'], templates: [1, 'task 2 (giữ chỗ)'], builder: [0, 'task 5'], library: [0, 'task 6'], settings: [0, 'task 7, 12'], agents: [0, 'task 9–10'], improve: [0, 'task 11'] };
+        var map = { projects: [1, 'task 3'], project: [1, 'task 3'], templates: [1, 'task 2 (giữ chỗ)'], builder: [1, 'task 5, 8'], library: [1, 'task 6'], settings: [1, 'task 7, 12'], agents: [1, 'task 9–10'], improve: [1, 'task 11'] };
         var m = map[s.screen] || [0, ''];
         return m[0] ? { cls: 'tag tag-green', text: '✓ Đã có trong app · ' + m[1] } : { cls: 'tag tag-warn', text: 'Bản mẫu · sẽ làm ở ' + m[1] };
       })(),
