@@ -27,7 +27,19 @@ import {
 } from '@/lib/prompts/prompt-types'
 import { SUGGESTION_GROUPS, SUGGESTIONS, toggleSuggestion } from '@/lib/prompts/suggestions'
 import { PROMPT_TYPE_CODES, type PromptTypeCode } from '@/lib/prompts/types'
+import { DiffDialog } from '@/components/DiffDialog'
+import { useAITask } from '@/components/use-ai-task'
+import {
+  appendAnswers,
+  PolishPromptSchema,
+  polishFieldRequest,
+  polishPromptRequest,
+  type PolishPromptResult,
+} from '@/lib/prompts/meta/polish'
 import { FieldInput, inputClass } from './FieldInput'
+
+type PolishTarget =
+  { kind: 'field'; key: string; label: string; before: string } | { kind: 'all'; before: string }
 import { SavePromptDialog } from './SavePromptDialog'
 
 const t = vi.builder
@@ -86,10 +98,15 @@ export function PromptBuilder({
   const project = current.status === 'ready' ? current.data : null
   const toast = useToast()
 
-  const preview = useMemo(() => buildPrompt(form, project), [form, project])
+  const built = useMemo(() => buildPrompt(form, project), [form, project])
+  // Bản đã trau chuốt bằng AI (✨ Trau chuốt toàn bộ); sửa bảng nhập thì bỏ bản này
+  const [polished, setPolished] = useState<string | null>(null)
+  const preview = polished ?? built
   const selected = new Set(form.selected)
-  const set = <K extends keyof PromptForm>(key: K, value: PromptForm[K]) =>
+  const set = <K extends keyof PromptForm>(key: K, value: PromptForm[K]) => {
     setForm((f) => ({ ...f, [key]: value }))
+    setPolished(null)
+  }
 
   const copy = async () => toast((await copyText(preview)) ? t.copied : t.copyFailed)
   useHotkey('mod+enter', () => void copy())
@@ -99,9 +116,84 @@ export function PromptBuilder({
     ? `${type.name}: ${form.task.trim().slice(0, 60)}`
     : type.name
 
-  const aiSoon = () => toast(t.aiNotReady)
-  const polishButton = (label: string) => (
-    <Button variant="ai" size="sm" onClick={aiSoon} aria-label={t.polishLabel(label)}>
+  const ai = useAITask<PolishPromptResult>()
+  const [polishing, setPolishing] = useState<PolishTarget | null>(null)
+
+  const fieldText = (key: string) => {
+    if (key === 'task') return form.task
+    if (key === 'purpose') return form.purpose
+    const v = form.fields[key]
+    return typeof v === 'string' ? v : ''
+  }
+  const setFieldText = (key: string, value: string) => {
+    if (key === 'task' || key === 'purpose') set(key, value)
+    else set('fields', { ...form.fields, [key]: value })
+  }
+
+  const polishField = (key: string, label: string) => {
+    const text = fieldText(key)
+    if (!text.trim()) return toast(t.emptyToPolish)
+    setPolishing({ kind: 'field', key, label, before: text })
+    void ai.start({
+      kind: 'stream',
+      run: (p, signal) =>
+        p.streamText(
+          polishFieldRequest({
+            fieldLabel: label,
+            text,
+            promptTypeName: type.name,
+            language: form.language,
+          }),
+          signal,
+        ),
+    })
+  }
+
+  const polishAll = () => {
+    setPolishing({ kind: 'all', before: preview })
+    void ai.start({
+      kind: 'json',
+      run: (p, signal) =>
+        p.generateJson(
+          polishPromptRequest({ prompt: preview, language: form.language }),
+          PolishPromptSchema,
+          signal,
+        ),
+    })
+  }
+
+  const closePolish = () => {
+    ai.reset()
+    setPolishing(null)
+  }
+  const accept = (answers: { question: string; answer: string }[]) => {
+    if (!polishing) return
+    if (polishing.kind === 'field') {
+      setFieldText(
+        polishing.key,
+        ai.state.status === 'done' ? ai.state.text.trim() : polishing.before,
+      )
+    } else if (ai.state.status === 'done' && ai.state.data) {
+      setPolished(appendAnswers(ai.state.data.improved, answers))
+    }
+    toast(vi.diff.accepted)
+    closePolish()
+  }
+  const result = ai.state.status === 'done' ? ai.state.data : undefined
+  const after =
+    polishing?.kind === 'all'
+      ? (result?.improved ?? '')
+      : ai.state.status === 'idle'
+        ? ''
+        : ai.state.text
+
+  const polishButton = (key: string, label: string) => (
+    <Button
+      variant="ai"
+      size="sm"
+      onClick={() => polishField(key, label)}
+      aria-label={t.polishLabel(label)}
+    >
       {t.polish}
     </Button>
   )
@@ -124,6 +216,7 @@ export function PromptBuilder({
               variant="ghost"
               onClick={() => {
                 setForm(emptyForm(typeCode, form.language))
+                setPolished(null)
                 toast(t.resetDone)
               }}
             >
@@ -183,7 +276,7 @@ export function PromptBuilder({
                 <label htmlFor="f-task" className="flex-1 text-xs font-semibold">
                   {t.task} <span className="font-normal text-muted">{t.required}</span>
                 </label>
-                {polishButton(t.task)}
+                {polishButton('task', t.task)}
               </div>
               <textarea
                 id="f-task"
@@ -209,7 +302,7 @@ export function PromptBuilder({
                       field={f}
                       value={form.fields[f.key]}
                       onChange={(v) => set('fields', { ...form.fields, [f.key]: v })}
-                      action={f.polish ? polishButton(f.label) : undefined}
+                      action={f.polish ? polishButton(f.key, f.label) : undefined}
                     />
                   </div>
                 ))}
@@ -221,7 +314,7 @@ export function PromptBuilder({
                 <label htmlFor="f-why" className="flex-1 text-xs font-semibold">
                   {t.purpose}
                 </label>
-                {polishButton(t.purpose)}
+                {polishButton('purpose', t.purpose)}
               </div>
               <input
                 id="f-why"
@@ -343,6 +436,14 @@ export function PromptBuilder({
             </span>
           </PanelHeader>
           <div className="flex flex-col gap-3 p-3.5">
+            {polished && (
+              <div className="flex flex-wrap items-center gap-2 rounded-md border border-ai-line bg-ai-bg px-3 py-1.5 text-xs text-ai-ink">
+                <span className="flex-1">{t.polishedBanner}</span>
+                <Button size="sm" variant="ghost" onClick={() => setPolished(null)}>
+                  {t.discardPolished}
+                </Button>
+              </div>
+            )}
             <pre
               aria-label={t.previewTitle}
               className="m-0 max-h-[64vh] overflow-auto whitespace-pre-wrap break-words rounded-md bg-code-bg p-3.5 font-mono text-xs leading-relaxed text-code-ink"
@@ -350,7 +451,7 @@ export function PromptBuilder({
               {preview}
             </pre>
             <div className="flex flex-wrap gap-1.5">
-              <Button variant="ai" onClick={aiSoon}>
+              <Button variant="ai" onClick={polishAll}>
                 {t.polishAll}
               </Button>
               <Button onClick={() => setSaving(true)}>
@@ -369,6 +470,23 @@ export function PromptBuilder({
           </div>
         </Panel>
       </div>
+
+      {polishing && (
+        <DiffDialog
+          open
+          title={polishing.kind === 'field' ? t.polishTitle(polishing.label) : t.polishAllTitle}
+          before={polishing.before}
+          after={after}
+          running={ai.state.status === 'running'}
+          error={ai.state.status === 'error' ? ai.state.error : null}
+          changes={result?.changes}
+          questions={result?.questions}
+          onStop={ai.stop}
+          onRetry={ai.retry}
+          onAccept={accept}
+          onClose={closePolish}
+        />
+      )}
 
       {saving && (
         <SavePromptDialog

@@ -35,7 +35,7 @@ Làm task [số] trong @PLAN.md.
 | 5 | Trình tạo prompt (chưa dùng AI) | A4, A6 | 3, 4 | ✅ |
 | 6 | Thư viện, ghim, điền nhanh biến | A5, A9 | 5 | ✅ |
 | 7 | Cài đặt và lớp AI (Claude + Gemini) | A7 | 3 | ✅ |
-| 8 | ✨ Trau chuốt và hộp so sánh trước/sau | A3, A4 | 5, 7 | ⬜ |
+| 8 | ✨ Trau chuốt và hộp so sánh trước/sau | A3, A4 | 5, 7 | ✅ |
 | 9 | AGENTS.md: chỉnh sửa theo mục, kiểm tra, xuất file | A2, A6 | 4, 3 | ⬜ |
 | 10 | AGENTS.md: Hỏi đáp, Nhập tự do, ✨ theo mục | A2 | 8, 9 | ⬜ |
 | 11 | Màn hình Cải thiện | A3 | 8 | ⬜ |
@@ -162,7 +162,8 @@ Task này không có giao diện mới. AI báo kết quả test.
 
 **Cần bạn:** có sẵn API key Claude và Gemini.
 
-### Task 8 – ✨ Trau chuốt và hộp so sánh ⬜
+### Task 8 – ✨ Trau chuốt và hộp so sánh ✅
+> Hoàn thành 18/10/2026. Kiểm tra bằng AI giả; cần thử với key thật trên máy chủ dự án.
 **Làm gì:**
 - Nút ✨ cạnh ô Nhiệm vụ và các ô tự do (`polishField`): chữ hiện dần, có nút "Dừng".
 - Nút "✨ Trau chuốt toàn bộ" (`polishPrompt`) trả JSON gồm bản cải thiện, danh sách thay đổi và câu hỏi cho bạn.
