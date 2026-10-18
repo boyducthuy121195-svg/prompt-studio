@@ -1,0 +1,1347 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Prompt Studio – bản mẫu</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+*{box-sizing:border-box}
+.app{--bg:#F3F5F5;--surface:#FFFFFF;--side:#FAFBFB;--soft:#F6F8F8;--hover:#EDF1F1;--border:#D9DFDF;--ink:#16211F;--muted:#55635F;--accent:#0F766E;--accent-hover:#0B5E58;--on-accent:#FFFFFF;--accent-weak:#E2F3F0;--accent-line:#AFDAD4;--accent-ink:#0B4F49;--ai-bg:#FFF4DF;--ai-line:#DDBB78;--ai-ink:#5C3A00;--warn-bg:#FFF4DF;--warn-line:#E2C589;--warn-ink:#5C3A00;--red-bg:#FBE3DF;--red-ink:#7A1D14;--green-bg:#DCF1E6;--green-ink:#145C38;--code-bg:#16211F;--code-ink:#E4ECEA;--overlay:rgba(14,22,20,.5);
+  min-height:100vh;display:flex;flex-wrap:wrap;align-items:stretch;font-family:'Be Vietnam Pro',system-ui,sans-serif;font-size:13px;color:var(--ink);background:var(--bg)}
+.app.dark{--bg:#0E1513;--surface:#16201E;--side:#121A18;--soft:#1A2522;--hover:#1F2B28;--border:#2A3834;--ink:#E3EBE9;--muted:#9AABA6;--accent:#2DB3A6;--accent-hover:#46C5B8;--on-accent:#04201C;--accent-weak:#123733;--accent-line:#1F5A53;--accent-ink:#8FE3D8;--ai-bg:#30250F;--ai-line:#6A5023;--ai-ink:#F2D597;--warn-bg:#30250F;--warn-line:#6A5023;--warn-ink:#F2D597;--red-bg:#3A1A16;--red-ink:#F4B4AA;--green-bg:#123323;--green-ink:#96DDB5;--code-bg:#0A0F0E;--code-ink:#DCE5E3;--overlay:rgba(0,0,0,.6)}
+a{color:var(--accent)}a:hover{color:var(--accent-hover)}
+.side{flex:1 1 236px;max-width:100%;padding:12px 10px;background:var(--side);border-right:1px solid var(--border);display:flex;flex-direction:column;gap:2px}
+.side.min{flex:0 0 60px}
+.side.min .nav-txt,.side.min .brand-txt{display:none}
+.side.min .nav,.side.min .pin,.side.min .pin-h{justify-content:center;padding-left:0;padding-right:0}
+.ini{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;flex:0 0 20px;border-radius:5px;background:var(--accent-weak);border:1px solid var(--accent-line);color:var(--accent-ink);font-size:11px;font-weight:700}
+.nav{display:flex;align-items:center;gap:10px;width:100%;min-height:36px;padding:0 10px;border:0;border-radius:6px;background:transparent;color:var(--ink);font:inherit;font-size:13px;text-align:left;cursor:pointer;white-space:nowrap;overflow:hidden}
+.nav:hover{background:var(--hover)}
+.nav-on{background:var(--accent-weak);color:var(--accent-ink);font-weight:600;box-shadow:inset 0 0 0 1px var(--accent-line)}
+.nav-on:hover{background:var(--accent-weak)}
+.pin{display:flex;align-items:center;gap:8px;width:100%;min-height:30px;padding:0 10px;border:0;border-radius:6px;background:transparent;color:var(--ink);font:inherit;font-size:12.5px;text-align:left;cursor:pointer}
+.pin:hover{background:var(--hover)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:34px;padding:0 12px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--ink);font:inherit;font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap}
+.btn:hover{background:var(--hover)}
+.btn-pri{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn-pri:hover{background:var(--accent-hover);border-color:var(--accent-hover)}
+.btn-ai{background:var(--ai-bg);border-color:var(--ai-line);color:var(--ai-ink)}
+.btn-ai:hover{filter:brightness(0.97)}
+.btn-sm{min-height:28px;padding:0 9px;font-size:12px}
+.btn-danger{color:var(--red-ink)}
+.btn-ghost{border-color:transparent;background:transparent}
+.btn-ghost:hover{background:var(--hover)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn:disabled:hover{background:var(--surface)}
+.step{padding:12px 14px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:4px}
+.step-no{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--accent-weak);border:1px solid var(--accent-line);color:var(--accent-ink);font-size:11.5px;font-weight:700}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:8px}
+.panel-h{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--border)}
+.panel-b{padding:14px;display:flex;flex-direction:column;gap:12px}
+.lbl{display:block;font-size:12px;font-weight:600;margin:0 0 4px;color:var(--ink)}
+.in{width:100%;min-height:34px;padding:6px 10px;border:1px solid var(--border);border-radius:6px;font:inherit;font-size:13px;background:var(--surface);color:var(--ink)}
+.in:focus{outline:2px solid var(--accent);outline-offset:-1px}
+textarea.in{min-height:64px;resize:vertical;line-height:1.5}
+.muted{color:var(--muted)}
+.h1{margin:0;font-size:19px;font-weight:700;letter-spacing:-0.01em}
+.h2{margin:0;font-size:14px;font-weight:600}
+.h3{margin:0;font-size:13px;font-weight:600}
+.tag{display:inline-flex;align-items:center;min-height:20px;padding:0 7px;border-radius:4px;background:var(--soft);border:1px solid var(--border);color:var(--muted);font-size:11.5px;font-weight:500;white-space:nowrap}
+.tag-acc{background:var(--accent-weak);border-color:var(--accent-line);color:var(--accent-ink)}
+.tag-warn{background:var(--warn-bg);border-color:var(--warn-line);color:var(--warn-ink)}
+.tag-red{background:var(--red-bg);border-color:transparent;color:var(--red-ink)}
+.tag-green{background:var(--green-bg);border-color:transparent;color:var(--green-ink)}
+kbd{display:inline-flex;align-items:center;min-height:18px;padding:0 5px;border:1px solid var(--border);border-bottom-width:2px;border-radius:4px;background:var(--soft);color:var(--muted);font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px}
+.tblwrap{overflow-x:auto}
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{text-align:left;font-weight:600;color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;padding:8px 12px;border-bottom:1px solid var(--border);background:var(--soft);white-space:nowrap}
+.tbl td{padding:7px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:0}
+.tbl tbody tr:hover td{background:var(--hover)}
+.linkbtn{border:0;background:transparent;padding:0;font:inherit;font-weight:600;color:var(--accent);cursor:pointer;text-align:left}
+.linkbtn:hover{text-decoration:underline}
+.phase{display:flex;flex-direction:column;gap:2px;min-height:48px;padding:6px 8px;border-radius:6px;border:1px solid var(--border);background:var(--surface);font:inherit;font-size:11.5px;text-align:left;cursor:pointer;color:var(--ink)}
+.phase:hover{border-color:var(--accent)}
+.phase-done{background:var(--green-bg);border-color:transparent;color:var(--green-ink)}
+.phase-cur{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.tab{min-height:34px;padding:0 12px;border:0;border-bottom:2px solid transparent;background:transparent;font:inherit;font-size:13px;color:var(--muted);cursor:pointer}
+.tab-on{border-bottom-color:var(--accent);color:var(--ink);font-weight:600}
+.seg{min-height:30px;padding:0 12px;border:1px solid var(--border);background:var(--surface);font:inherit;font-size:12.5px;color:var(--ink);cursor:pointer}
+.seg-on{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.sec{display:flex;align-items:center;gap:8px;flex:1;min-height:32px;padding:0 8px;border:1px solid transparent;border-radius:6px;background:transparent;font:inherit;font-size:13px;text-align:left;color:var(--ink);cursor:pointer}
+.sec:hover{background:var(--hover)}
+.sec-on{background:var(--accent-weak);border-color:var(--accent-line)}
+.sec-off{color:var(--muted);text-decoration:line-through}
+.opt{display:flex;gap:8px;align-items:flex-start;padding:7px 9px;border:1px solid var(--border);border-radius:6px;background:var(--surface);cursor:pointer;font-size:12.5px;line-height:1.45}
+.opt:hover{border-color:var(--accent-line)}
+.opt-on{border-color:var(--accent-line);background:var(--accent-weak)}
+.opt input{margin:2px 0 0;accent-color:var(--accent);width:15px;height:15px;flex:0 0 auto}
+.bar{height:6px;background:var(--hover);border-radius:3px;overflow:hidden}
+.fill{height:6px;background:var(--accent);border-radius:3px}
+.w1{width:10%}.w2{width:20%}.w3{width:30%}.w4{width:40%}.w5{width:50%}.w6{width:60%}.w7{width:70%}.w8{width:80%}.w9{width:90%}.w10{width:100%}
+.preview{margin:0;padding:14px;background:var(--code-bg);color:var(--code-ink);border-radius:6px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;line-height:1.6;white-space:pre-wrap;word-break:break-word;max-height:640px;overflow:auto}
+.overlay{position:fixed;inset:0;background:var(--overlay);display:flex;align-items:flex-start;justify-content:center;padding:40px 16px;overflow:auto;z-index:20}
+.modal{background:var(--surface);color:var(--ink);border:1px solid var(--border);border-radius:10px;max-width:980px;width:100%;display:flex;flex-direction:column}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;background:#16211F;color:#fff;padding:10px 16px;border-radius:8px;font-size:13px;z-index:30;box-shadow:0 6px 20px rgba(0,0,0,.2)}
+.diff{padding:12px;border-radius:6px;border:1px solid var(--border);font-size:13px;line-height:1.65;white-space:pre-wrap;background:var(--surface)}
+mark{background:#FFE3A1;color:#3A2600;padding:0 2px;border-radius:3px}
+.ok{color:var(--green-ink)}.warn{color:var(--warn-ink)}
+.sr{position:absolute;left:-9999px}
+</style>
+</helmet>
+<div class="{{rootCls}}">
+
+<aside class="{{sideCls}}">
+  <div style="display: flex; align-items: center; gap: 10px; padding: 4px 6px 12px">
+    <div style="width: 28px; height: 28px; flex: 0 0 28px; border-radius: 6px; background: var(--accent); display: flex; align-items: center; justify-content: center">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--on-accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17l6-6-6-6"></path><path d="M12 19h8"></path></svg>
+    </div>
+    <div class="brand-txt">
+      <div style="font-weight: 700; font-size: 14px">Prompt Studio</div>
+      <div class="muted" style="font-size: 11px">localhost:5173</div>
+    </div>
+  </div>
+  <button class="{{nav.projects}}" onClick="{{goProjects}}" title="Dự án">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 17px"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+    <span class="nav-txt">Dự án</span>
+  </button>
+  <button class="{{nav.builder}}" onClick="{{goBuilder}}" title="Tạo prompt">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 17px"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"></path><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"></path></svg>
+    <span class="nav-txt">Tạo prompt</span>
+  </button>
+  <button class="{{nav.agents}}" onClick="{{goAgents}}" title="AGENTS.md">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 17px"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6"></path><path d="M8 13h8M8 17h5"></path></svg>
+    <span class="nav-txt">AGENTS.md</span>
+  </button>
+  <button class="{{nav.improve}}" onClick="{{goImprove}}" title="Cải thiện">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 17px"><path d="M3 17l6-6 4 4 8-8"></path><path d="M15 7h6v6"></path></svg>
+    <span class="nav-txt">Cải thiện</span>
+  </button>
+  <button class="{{nav.library}}" onClick="{{goLibrary}}" title="Thư viện">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 17px"><path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"></path><path d="M19 17v4H6"></path></svg>
+    <span class="nav-txt">Thư viện</span>
+  </button>
+  <button class="{{nav.templates}}" onClick="{{goTemplates}}" title="Điền mẫu Word/Excel (sắp có)">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 17px"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18M3 15h18M9 3v18"></path></svg>
+    <span class="nav-txt" style="flex: 1">Mẫu Word/Excel</span>
+    <span class="nav-txt tag tag-warn">Sắp có</span>
+  </button>
+  <button class="{{nav.settings}}" onClick="{{goSettings}}" title="Cài đặt">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 17px"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"></path></svg>
+    <span class="nav-txt">Cài đặt</span>
+  </button>
+
+  <div class="side-extra" style="margin-top: 14px; padding: 10px 4px 0; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 2px">
+    <div class="pin-h" title="Đã ghim" style="display: flex; align-items: center; gap: 6px; padding: 0 6px 4px">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="muted"><path d="M12 17v5"></path><path d="M9 10.8V4h6v6.8l3 3.2H6z"></path></svg>
+      <span class="muted nav-txt" style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em">Đã ghim</span>
+    </div>
+    <sc-for list="{{pinned}}" as="pn" hint-placeholder-count="3">
+      <button class="pin" onClick="{{pn.copy}}" title="{{pn.tip}}" aria-label="{{pn.tip}}">
+        <span class="ini" aria-hidden="true">{{pn.ini}}</span>
+        <span class="nav-txt" style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{pn.title}}</span>
+        <sc-if value="{{pn.hasVars}}" hint-placeholder-val="{{ false }}"><span class="nav-txt tag">Điền</span></sc-if>
+      </button>
+    </sc-for>
+    <sc-if value="{{noPinned}}" hint-placeholder-val="{{ false }}">
+      <p class="muted nav-txt" style="margin: 0; padding: 0 6px; font-size: 12px">Chưa ghim prompt nào. Vào Thư viện để ghim.</p>
+    </sc-if>
+  </div>
+
+  <div style="margin-top: auto; padding-top: 10px; border-top: 1px solid var(--border)">
+    <button class="nav" onClick="{{toggleSide}}" aria-label="{{sideToggleLabel}}" title="{{sideToggleLabel}} (Ctrl+B)">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 17px"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M9 4v16"></path></svg>
+      <span class="nav-txt" style="flex: 1">Thu gọn thanh bên</span>
+      <span class="nav-txt"><kbd>Ctrl+B</kbd></span>
+    </button>
+  </div>
+</aside>
+
+<main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+  <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 8px 20px; min-height: 52px; background: var(--surface); border-bottom: 1px solid var(--border)">
+    <label for="proj-select" class="muted" style="font-size: 12px">Dự án</label>
+    <select id="proj-select" class="in" style="width: auto; min-width: 220px" value="{{projectIdxStr}}" onChange="{{changeProject}}">
+      <sc-for list="{{projOptions}}" as="po" hint-placeholder-count="3"><option value="{{po.value}}">{{po.name}}</option></sc-for>
+      <option value="-1">Không chọn dự án (dùng chung)</option>
+    </select>
+    <span class="tag tag-acc">AI: Claude · opus-5-5</span>
+    <span class="{{build.cls}}" title="Màn hình này đã có trong app thật chưa">{{build.text}}</span>
+    <div style="flex: 1 1 120px"></div>
+    <div style="position: relative; flex: 0 1 300px">
+      <label for="search" class="sr">Tìm kiếm</label>
+      <input id="search" class="in" style="padding-right: 64px" placeholder="Tìm dự án, prompt...">
+      <span style="position: absolute; right: 8px; top: 8px"><kbd>Ctrl+K</kbd></span>
+    </div>
+    <button class="btn btn-ghost" onClick="{{toggleTheme}}" aria-label="{{themeLabel}}" title="{{themeLabel}}">
+      <sc-if value="{{dark}}" hint-placeholder-val="{{ false }}">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+      </sc-if>
+      <sc-if value="{{light}}" hint-placeholder-val="{{ true }}">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+      </sc-if>
+      <span>{{themeShort}}</span>
+    </button>
+  </header>
+
+  <div style="padding: 18px 20px; width: 100%; display: flex; flex-direction: column; gap: 14px">
+
+    <sc-if value="{{is.projects}}" hint-placeholder-val="{{ true }}">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+        <div style="flex: 1 1 300px">
+          <h1 class="h1">Dự án</h1>
+          <p class="muted" style="margin: 2px 0 0">Mỗi dự án có hồ sơ, prompt và AGENTS.md riêng.</p>
+        </div>
+        <button class="btn btn-pri" onClick="{{newProject}}">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+          Dự án mới
+        </button>
+      </div>
+      <div class="panel" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 8px 14px; background: var(--warn-bg); border-color: var(--warn-line); color: var(--warn-ink)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01"></path><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path></svg>
+        <span style="flex: 1 1 300px">Đã 9 ngày chưa sao lưu. Sao lưu để không mất dữ liệu khi đổi máy.</span>
+        <button class="btn btn-sm" onClick="{{goSettings}}">Sao lưu ngay</button>
+      </div>
+      <div class="panel tblwrap">
+        <table class="tbl">
+          <thead><tr><th>Tên dự án</th><th>Mô tả</th><th>Giai đoạn</th><th>AGENTS.md</th><th>Prompt</th><th>Sửa lần cuối</th><th><span class="sr">Thao tác</span></th></tr></thead>
+          <tbody>
+            <sc-for list="{{projects}}" as="p" hint-placeholder-count="3">
+              <tr>
+                <td style="white-space: nowrap"><button class="linkbtn" onClick="{{p.open}}">{{p.name}}</button></td>
+                <td class="muted" style="min-width: 260px">{{p.desc}}</td>
+                <td style="white-space: nowrap"><span class="tag tag-acc">{{p.phase}}</span></td>
+                <td style="white-space: nowrap">{{p.agents}}</td>
+                <td>{{p.prompts}}</td>
+                <td class="muted" style="white-space: nowrap">{{p.updated}}</td>
+                <td style="white-space: nowrap; text-align: right"><button class="btn btn-sm" onClick="{{p.open}}">Mở</button></td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{is.project}}" hint-placeholder-val="{{ false }}">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
+        <div style="flex: 1 1 300px">
+          <div class="muted" style="font-size: 12px"><button class="linkbtn" style="font-weight: 500" onClick="{{goProjects}}">Dự án</button> / {{project.name}}</div>
+          <h1 class="h1">{{project.name}}</h1>
+        </div>
+        <button class="btn btn-sm" onClick="{{duplicateProject}}">Nhân bản</button>
+        <button class="btn btn-sm btn-danger" onClick="{{askDelete}}">Xóa</button>
+      </div>
+      <section class="panel">
+        <div class="panel-h">
+          <h2 class="h2" style="flex: 1">Tiến độ theo quy trình chuẩn</h2>
+          <span class="muted" style="font-size: 12px">Bấm một giai đoạn để đặt làm giai đoạn hiện tại</span>
+        </div>
+        <div class="panel-b">
+          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 6px">
+            <sc-for list="{{phases}}" as="ph" hint-placeholder-count="11">
+              <button class="{{ph.cls}}" onClick="{{ph.go}}">
+                <span style="font-weight: 600">{{ph.no}}</span>
+                <span>{{ph.name}}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+      <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-start">
+        <section class="panel" style="flex: 2 1 420px">
+          <div class="panel-h"><h2 class="h2" style="flex: 1">Hồ sơ dự án</h2><sc-if value="{{profileDirty}}" hint-placeholder-val="{{ false }}"><span class="tag tag-warn">Chưa lưu</span></sc-if><span class="muted" style="font-size: 12px">Tự điền vào mọi prompt của dự án</span></div>
+          <div class="panel-b" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px">
+            <div><label class="lbl" for="pf-name">Tên dự án</label><input id="pf-name" class="in" defaultValue="{{project.name}}" onChange="{{markDirty}}"></div>
+            <div><label class="lbl" for="pf-desc">Mô tả ngắn</label><input id="pf-desc" class="in" defaultValue="{{project.desc}}" onChange="{{markDirty}}"></div>
+            <sc-for list="{{profileFields}}" as="pf" hint-placeholder-count="7">
+              <div><label class="lbl" for="{{pf.id}}">{{pf.label}}</label><textarea id="{{pf.id}}" class="in" placeholder="{{pf.ph}}" defaultValue="{{pf.val}}" onChange="{{markDirty}}"></textarea></div>
+            </sc-for>
+            <div style="grid-column: 1 / -1"><button class="btn btn-pri btn-sm" disabled="{{saveDisabled}}" onClick="{{saveProfile}}">Lưu hồ sơ <kbd style="background: transparent; color: inherit; border-color: currentColor">Ctrl+S</kbd></button></div>
+          </div>
+        </section>
+        <section class="panel" style="flex: 1 1 280px">
+          <div class="panel-h"><h2 class="h2">Tài liệu của dự án</h2></div>
+          <div class="tblwrap">
+            <table class="tbl">
+              <tbody>
+                <tr><td><button class="linkbtn" onClick="{{goAgents}}">AGENTS.md</button></td><td class="muted">9/10 mục</td><td class="muted">Hôm nay</td></tr>
+                <tr><td><button class="linkbtn" onClick="{{goLibraryProject}}">Prompt đã lưu</button></td><td class="muted">3 prompt</td><td class="muted">Hôm nay</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="panel-b" style="padding-top: 10px"><button class="btn" onClick="{{goBuilder}}">Tạo prompt mới</button></div>
+        </section>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{is.pick}}" hint-placeholder-val="{{ false }}">
+      <div>
+        <h1 class="h1">Tạo prompt</h1>
+        <p class="muted" style="margin: 2px 0 0">Chọn loại việc giao cho AI. Mỗi loại có bảng nhập và gợi ý riêng.</p>
+      </div>
+      <div class="panel" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 8px 14px; background: var(--accent-weak); border-color: var(--accent-line); color: var(--accent-ink)">
+        <span style="flex: 1 1 300px">Dự án <b>Prompt Studio</b> đang ở giai đoạn <b>Thiết kế</b>. Nên dùng loại <b>Thiết kế giao diện</b>.</span>
+        <button class="btn btn-sm btn-pri" onClick="{{pickSuggested}}">Dùng loại này</button>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; align-items: start">
+        <sc-for list="{{groups}}" as="g" hint-placeholder-count="5">
+          <section class="panel">
+            <div class="panel-h"><h2 class="h2">{{g.name}}</h2></div>
+            <div class="tblwrap">
+              <table class="tbl">
+                <tbody>
+                  <sc-for list="{{g.types}}" as="t" hint-placeholder-count="3">
+                    <tr>
+                      <td><button class="linkbtn" onClick="{{t.pick}}">{{t.name}}</button><div class="muted" style="font-size: 12px; margin-top: 2px">{{t.desc}}</div></td>
+                    </tr>
+                  </sc-for>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{is.form}}" hint-placeholder-val="{{ false }}">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
+        <div style="flex: 1 1 300px">
+          <div class="muted" style="font-size: 12px"><button class="linkbtn" style="font-weight: 500" onClick="{{backToPick}}">Tạo prompt</button> / {{type.group}}</div>
+          <h1 class="h1">{{type.name}}</h1>
+        </div>
+        <span class="muted" style="font-size: 12px">{{type.desc}}</span>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-start">
+        <section class="panel" style="flex: 1 1 480px; min-width: 0">
+          <div class="panel-h"><h2 class="h2" style="flex: 1">Bảng nhập</h2><span class="muted" style="font-size: 12px">Ô có ✨ dùng AI trau chuốt khi bấm</span></div>
+          <div class="panel-b">
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px">
+              <div>
+                <label class="lbl" for="f-role">Vai trò của AI</label>
+                <select id="f-role" class="in" value="{{role}}" onChange="{{setRole}}">
+                  <sc-for list="{{roles}}" as="r" hint-placeholder-count="6"><option value="{{r}}">{{r}}</option></sc-for>
+                </select>
+              </div>
+              <div>
+                <label class="lbl" for="f-lang">Ngôn ngữ của prompt</label>
+                <select id="f-lang" class="in" value="{{lang}}" onChange="{{setLang}}">
+                  <option value="vi-en">Tiếng Việt, giữ thuật ngữ Anh</option>
+                  <option value="vi">Tiếng Việt hoàn toàn</option>
+                  <option value="en">Tiếng Anh</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px">
+                <label class="lbl" for="f-task" style="margin: 0; flex: 1">Nhiệm vụ <span class="muted" style="font-weight: 400">(bắt buộc)</span></label>
+                <button class="btn btn-ai btn-sm" onClick="{{polishField}}" aria-label="Trau chuốt ô Nhiệm vụ bằng AI">✨ Trau chuốt</button>
+              </div>
+              <textarea id="f-task" class="in" placeholder="{{type.taskPh}}" value="{{task}}" onChange="{{setTask}}"></textarea>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px">
+              <sc-for list="{{fields}}" as="f" hint-placeholder-count="2">
+                <div>
+                  <label class="lbl" for="{{f.id}}">{{f.label}}</label>
+                  <input id="{{f.id}}" class="in" placeholder="{{f.ph}}" value="{{f.val}}" onChange="{{f.change}}">
+                </div>
+              </sc-for>
+              <div>
+                <label class="lbl" for="f-why">Mục đích / Vì sao</label>
+                <input id="f-why" class="in" placeholder="Giúp AI hiểu ý, ví dụ: để không mất dữ liệu" value="{{purpose}}" onChange="{{setPurpose}}">
+              </div>
+            </div>
+            <sc-for list="{{chipGroups}}" as="cg" hint-placeholder-count="4">
+              <fieldset style="border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px">
+                <legend style="display: flex; width: 100%; align-items: baseline; gap: 8px; padding: 0 0 6px">
+                  <span class="h3">{{cg.title}}</span>
+                  <span class="muted" style="font-size: 12px; flex: 1">{{cg.hint}}</span>
+                  <span class="tag">{{cg.count}}</span>
+                </legend>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 6px">
+                  <sc-for list="{{cg.items}}" as="c" hint-placeholder-count="6">
+                    <label class="{{c.cls}}">
+                      <input type="checkbox" checked="{{c.on}}" onChange="{{c.toggle}}">
+                      <span><span style="font-weight: 600">{{c.label}}</span><br><span class="muted">{{c.text}}</span></span>
+                    </label>
+                  </sc-for>
+                </div>
+              </fieldset>
+            </sc-for>
+          </div>
+        </section>
+        <section class="panel" style="flex: 1 1 380px; min-width: 0">
+          <div class="panel-h">
+            <h2 class="h2" style="flex: 1">Xem trước prompt</h2>
+            <span class="muted" style="font-size: 12px">{{previewStats}}</span>
+          </div>
+          <div class="panel-b">
+            <pre class="preview">{{preview}}</pre>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px">
+              <button class="btn btn-ai" onClick="{{openDiff}}">✨ Trau chuốt toàn bộ</button>
+              <button class="btn" onClick="{{savePrompt}}">Lưu <kbd>Ctrl+S</kbd></button>
+              <div style="flex: 1"></div>
+              <button class="btn btn-pri" onClick="{{copyPrompt}}">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg>
+                Copy <kbd style="background: transparent; color: inherit; border-color: currentColor">Ctrl+Enter</kbd>
+              </button>
+            </div>
+            <p class="muted" style="margin: 0; font-size: 12px">Chỉ khi bấm ✨ app mới gọi AI. Copy rồi dán vào Claude Code, Gemini CLI, Cursor...</p>
+          </div>
+        </section>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{is.agents}}" hint-placeholder-val="{{ false }}">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+        <div style="flex: 1 1 300px">
+          <h1 class="h1">AGENTS.md</h1>
+          <p class="muted" style="margin: 2px 0 0">Khung chuẩn 10 mục, dùng chung cho Claude Code, Gemini CLI, Codex, Cursor...</p>
+        </div>
+        <div role="group" aria-label="Chế độ" style="display: flex">
+          <button class="{{agentsModeCls.wizard}}" style="border-radius: 6px 0 0 6px" onClick="{{modeWizard}}">Hỏi đáp</button>
+          <button class="{{agentsModeCls.free}}" style="border-left: 0; border-right: 0" onClick="{{modeFree}}">Nhập tự do</button>
+          <button class="{{agentsModeCls.edit}}" style="border-radius: 0 6px 6px 0" onClick="{{modeEdit}}">Chỉnh sửa theo mục</button>
+        </div>
+      </div>
+
+      <sc-if value="{{agentsIs.wizard}}" hint-placeholder-val="{{ false }}">
+        <section class="panel" style="max-width: 760px">
+          <div class="panel-h">
+            <span class="tag tag-acc">Mục {{wiz.no}}/10</span>
+            <span class="h2" style="flex: 1">{{wiz.section}}</span>
+          </div>
+          <div class="panel-b">
+            <div class="bar"><div class="{{wiz.barCls}}"></div></div>
+            <h2 class="h2" style="font-size: 16px">{{wiz.q}}</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 6px">
+              <sc-for list="{{wiz.opts}}" as="o" hint-placeholder-count="4">
+                <label class="{{o.cls}}"><input type="checkbox" checked="{{o.on}}" onChange="{{o.toggle}}"><span>{{o.label}}</span></label>
+              </sc-for>
+            </div>
+            <div><label class="lbl" for="wiz-free">Thêm ý của bạn (không bắt buộc)</label><textarea id="wiz-free" class="in" placeholder="Gõ tự do, AI sẽ viết lại cho chuẩn."></textarea></div>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px">
+              <button class="btn" onClick="{{wizPrev}}">Quay lại</button>
+              <button class="btn btn-ghost" onClick="{{wizNext}}">Bỏ qua mục này</button>
+              <div style="flex: 1"></div>
+              <button class="btn btn-pri" onClick="{{wizNext}}">{{wiz.nextLabel}}</button>
+            </div>
+          </div>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{agentsIs.free}}" hint-placeholder-val="{{ false }}">
+        <section class="panel" style="max-width: 860px">
+          <div class="panel-h"><h2 class="h2">Dán ghi chú, README hoặc file quy tắc cũ</h2></div>
+          <div class="panel-b">
+            <label class="sr" for="free-in">Nội dung</label>
+            <textarea id="free-in" class="in" style="min-height: 240px" placeholder="Ví dụ: dùng npm, test bằng vitest, đừng bao giờ commit file .env, giao diện tiếng việt..."></textarea>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
+              <button class="btn btn-ai" onClick="{{classifyFree}}">✨ Phân loại vào 10 mục</button>
+              <span class="muted" style="font-size: 12px">AI xếp nội dung vào đúng mục và chỉ ra mục còn thiếu.</span>
+            </div>
+          </div>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{agentsIs.edit}}" hint-placeholder-val="{{ true }}">
+        <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-start">
+          <nav class="panel" aria-label="Các mục" style="flex: 1 1 230px">
+            <div class="panel-h"><h2 class="h2" style="flex: 1">Các mục</h2><span class="muted" style="font-size: 12px">{{sectionsOnCount}}</span></div>
+            <div style="padding: 6px; display: flex; flex-direction: column; gap: 1px">
+              <sc-for list="{{sections}}" as="sec" hint-placeholder-count="10">
+                <div style="display: flex; align-items: center; gap: 2px">
+                  <button class="{{sec.cls}}" onClick="{{sec.select}}">
+                    <span class="muted" style="font-size: 11px; width: 16px">{{sec.no}}</span>
+                    <span style="flex: 1">{{sec.name}}</span>
+                    <sc-if value="{{sec.star}}" hint-placeholder-val="{{ false }}"><span class="tag tag-acc">Bắt buộc</span></sc-if>
+                  </button>
+                  <sc-if value="{{sec.optional}}" hint-placeholder-val="{{ true }}">
+                    <input type="checkbox" checked="{{sec.on}}" onChange="{{sec.toggle}}" aria-label="{{sec.toggleLabel}}" style="accent-color: var(--accent); width: 15px; height: 15px; margin: 0 6px">
+                  </sc-if>
+                </div>
+              </sc-for>
+              <button class="btn btn-sm btn-ghost" style="justify-content: flex-start; margin-top: 4px">+ Thêm mục tùy chỉnh</button>
+            </div>
+          </nav>
+          <section class="panel" style="flex: 3 1 440px; min-width: 0">
+            <div class="panel-h">
+              <h2 class="h2" style="flex: 1 1 180px">{{curSection.no}}. {{curSection.name}}</h2>
+              <button class="btn btn-ai btn-sm" onClick="{{openDiff}}">✨ Viết lại</button>
+              <button class="btn btn-ai btn-sm" onClick="{{openDiff}}">✨ Ngắn gọn hơn</button>
+              <button class="btn btn-ai btn-sm" onClick="{{openDiff}}">✨ Thêm ví dụ</button>
+            </div>
+            <div class="panel-b">
+              <label class="sr" for="sec-text">Nội dung mục</label>
+              <textarea id="sec-text" class="in" style="min-height: 280px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12.5px" value="{{curSection.text}}" onChange="{{setSectionText}}"></textarea>
+              <p class="muted" style="margin: 0; font-size: 12px">{{curSection.hint}}</p>
+            </div>
+          </section>
+          <aside class="panel" style="flex: 1 1 260px">
+            <div class="panel-h"><h2 class="h2">Kiểm tra chất lượng</h2></div>
+            <div class="panel-b">
+              <sc-for list="{{checks}}" as="ck" hint-placeholder-count="5">
+                <div style="display: flex; gap: 8px; font-size: 12.5px; line-height: 1.45">
+                  <span class="{{ck.cls}}" style="font-weight: 700; width: 14px">{{ck.icon}}</span>
+                  <span>{{ck.text}}</span>
+                </div>
+              </sc-for>
+              <button class="btn btn-ai btn-sm" onClick="{{recheck}}">✨ Kiểm tra lại bằng AI</button>
+              <div style="height: 1px; background: var(--border)"></div>
+              <button class="btn btn-pri" onClick="{{downloadMd}}">Tải AGENTS.md</button>
+              <button class="btn" onClick="{{downloadZip}}">Tải gói .zip (kèm CLAUDE.md, Gemini)</button>
+              <button class="btn" onClick="{{copyAgents}}">Copy</button>
+            </div>
+          </aside>
+        </div>
+      </sc-if>
+    </sc-if>
+
+    <sc-if value="{{is.improve}}" hint-placeholder-val="{{ false }}">
+      <div>
+        <h1 class="h1">Cải thiện</h1>
+        <p class="muted" style="margin: 2px 0 0">Dán prompt hoặc file quy tắc có sẵn. AI chấm điểm, chỉ ra vấn đề và đề xuất bản tốt hơn.</p>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-start">
+        <section class="panel" style="flex: 1 1 420px; min-width: 0">
+          <div class="panel-h">
+            <h2 class="h2" style="flex: 1">Nội dung cần cải thiện</h2>
+            <label class="sr" for="imp-kind">Loại nội dung</label>
+            <select id="imp-kind" class="in" style="width: auto"><option>Prompt</option><option>AGENTS.md / CLAUDE.md</option></select>
+          </div>
+          <div class="panel-b">
+            <label class="sr" for="imp-in">Nội dung</label>
+            <textarea id="imp-in" class="in" style="min-height: 240px" defaultValue="Bạn là lập trình viên giỏi. Hãy viết code sạch, cẩn thận. Làm trang đăng nhập cho app của tôi, đẹp và bảo mật."></textarea>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px">
+              <button class="btn">Tải file lên</button>
+              <button class="btn btn-ai" onClick="{{analyze}}">✨ Phân tích bằng AI</button>
+            </div>
+          </div>
+        </section>
+        <section class="panel" style="flex: 1 1 380px; min-width: 0">
+          <div class="panel-h"><h2 class="h2" style="flex: 1">Kết quả</h2><span class="tag">Ví dụ minh họa</span></div>
+          <div class="panel-b">
+            <sc-for list="{{scores}}" as="sc" hint-placeholder-count="5">
+              <div style="display: grid; grid-template-columns: 130px 1fr 40px; align-items: center; gap: 10px; font-size: 12.5px">
+                <span>{{sc.label}}</span>
+                <div class="bar"><div class="{{sc.cls}}"></div></div>
+                <span class="muted" style="text-align: right">{{sc.v}}/10</span>
+              </div>
+            </sc-for>
+          </div>
+          <div class="tblwrap" style="border-top: 1px solid var(--border)">
+            <table class="tbl">
+              <thead><tr><th>Mức</th><th>Vấn đề</th></tr></thead>
+              <tbody>
+                <sc-for list="{{issues}}" as="is" hint-placeholder-count="4">
+                  <tr><td style="width: 60px"><span class="{{is.cls}}">{{is.lvl}}</span></td><td style="line-height: 1.45">{{is.text}}</td></tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+          <div class="panel-b" style="border-top: 1px solid var(--border)"><button class="btn btn-pri" onClick="{{openDiff}}">Xem bản đề xuất</button></div>
+        </section>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{is.library}}" hint-placeholder-val="{{ false }}">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+        <div style="flex: 1 1 300px">
+          <h1 class="h1">Thư viện</h1>
+          <p class="muted" style="margin: 2px 0 0">Prompt mẫu theo quy trình chuẩn, prompt của dự án và prompt dùng chung.</p>
+        </div>
+      </div>
+      <div class="panel">
+        <div role="tablist" style="display: flex; flex-wrap: wrap; gap: 2px; padding: 0 8px; border-bottom: 1px solid var(--border)">
+          <button role="tab" class="{{libTabCls.std}}" onClick="{{tabStd}}">Quy trình chuẩn</button>
+          <button role="tab" class="{{libTabCls.proj}}" onClick="{{tabProj}}">Của dự án</button>
+          <button role="tab" class="{{libTabCls.shared}}" onClick="{{tabShared}}">Dùng chung</button>
+        </div>
+        <div class="tblwrap">
+          <table class="tbl">
+            <thead><tr><th>Tên prompt</th><th>Loại</th><th>Biến</th><th style="text-align: right">Thao tác</th></tr></thead>
+            <tbody>
+              <sc-for list="{{libItems}}" as="li" hint-placeholder-count="6">
+                <tr>
+                  <td style="min-width: 260px"><span style="font-weight: 600">{{li.title}}</span><div class="muted" style="font-size: 12px; margin-top: 2px">{{li.desc}}</div></td>
+                  <td style="white-space: nowrap"><span class="tag tag-acc">{{li.tag}}</span></td>
+                  <td class="muted" style="white-space: nowrap">{{li.vars}}</td>
+                  <td style="white-space: nowrap; text-align: right">
+                    <button class="btn btn-sm btn-ghost" onClick="{{li.pin}}" aria-label="{{li.pinLabel}}" title="{{li.pinLabel}}">{{li.pinText}}</button>
+                    <button class="btn btn-sm" onClick="{{li.openForm}}">Mở bảng nhập</button>
+                    <button class="btn btn-sm btn-pri" onClick="{{li.use}}">Dùng</button>
+                  </td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{is.templates}}" hint-placeholder-val="{{ false }}">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+        <div style="flex: 1 1 300px">
+          <h1 class="h1">Điền mẫu Word / Excel</h1>
+          <p class="muted" style="margin: 2px 0 0">Tạo file giống 100% file mẫu (định dạng, bảng, công thức, ô gộp...), chỉ thay nội dung ở những vị trí thay đổi.</p>
+        </div>
+        <span class="tag tag-warn">Giai đoạn 2 · Sắp có</span>
+      </div>
+      <div class="panel" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 8px 14px; background: var(--accent-weak); border-color: var(--accent-line); color: var(--accent-ink)">
+        <span style="flex: 1 1 300px">Module này đã có trong kế hoạch (PRD mục D) và sẽ được làm sau khi xong các phần chính. Màn hình dưới đây là bố cục dự kiến, các nút chưa hoạt động.</span>
+      </div>
+      <section class="panel">
+        <div class="panel-h"><h2 class="h2">Quy trình 4 bước</h2></div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr))">
+          <div class="step"><span class="step-no">1</span><span class="h3">Tải file mẫu</span><span class="muted" style="font-size: 12px; line-height: 1.45">File .docx hoặc .xlsx bạn đang dùng. Xử lý ngay trong trình duyệt, không gửi lên mạng.</span></div>
+          <div class="step"><span class="step-no">2</span><span class="h3">Đánh dấu vị trí thay đổi</span><span class="muted" style="font-size: 12px; line-height: 1.45">AI đề xuất các vị trí biến (tên, ngày, số tiền, dòng bảng lặp). Bạn xác nhận hoặc sửa.</span></div>
+          <div class="step"><span class="step-no">3</span><span class="h3">Điền dữ liệu</span><span class="muted" style="font-size: 12px; line-height: 1.45">Điền bằng form, dán dữ liệu, hoặc điền hàng loạt từ một bảng Excel để tạo nhiều file.</span></div>
+          <div class="step" style="border-right: 0"><span class="step-no">4</span><span class="h3">Kiểm tra và xuất file</span><span class="muted" style="font-size: 12px; line-height: 1.45">So sánh với file mẫu, báo những chỗ khác ngoài vị trí biến, rồi tải về.</span></div>
+        </div>
+      </section>
+      <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-start">
+        <section class="panel" style="flex: 1 1 320px">
+          <div class="panel-h"><h2 class="h2">Bước 1 · Tải file mẫu</h2></div>
+          <div class="panel-b">
+            <div class="muted" style="border: 1.5px dashed var(--border); border-radius: 8px; padding: 28px 16px; text-align: center; line-height: 1.6">Kéo thả file .docx hoặc .xlsx vào đây<br>File được xử lý ngay trong trình duyệt, không gửi lên mạng.</div>
+            <button class="btn" disabled="disabled" style="align-self: flex-start">Chọn file...</button>
+          </div>
+        </section>
+        <section class="panel" style="flex: 2 1 460px; min-width: 0">
+          <div class="panel-h">
+            <h2 class="h2" style="flex: 1">Bước 2 · Vị trí thay đổi</h2>
+            <span class="tag">Ví dụ minh họa</span>
+            <button class="btn btn-ai btn-sm" disabled="disabled">✨ AI tìm vị trí biến</button>
+          </div>
+          <div class="tblwrap">
+            <table class="tbl">
+              <thead><tr><th>Biến</th><th>Vị trí trong file mẫu</th><th>Kiểu</th><th>Giá trị trong mẫu</th></tr></thead>
+              <tbody>
+                <sc-for list="{{tplVars}}" as="tv" hint-placeholder-count="4">
+                  <tr>
+                    <td style="white-space: nowrap; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px">{{tv.name}}</td>
+                    <td class="muted">{{tv.where}}</td>
+                    <td style="white-space: nowrap"><span class="tag">{{tv.kind}}</span></td>
+                    <td>{{tv.sample}}</td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+      <section class="panel">
+        <div class="panel-h"><h2 class="h2" style="flex: 1">Mẫu đã lưu</h2><button class="btn btn-pri btn-sm" disabled="disabled">+ Mẫu mới</button></div>
+        <div class="panel-b muted" style="text-align: center; padding: 24px">Chưa có mẫu nào. Mỗi mẫu sẽ gắn với một dự án và dùng lại được nhiều lần.</div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{is.settings}}" hint-placeholder-val="{{ false }}">
+      <h1 class="h1">Cài đặt</h1>
+      <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-start">
+        <section class="panel" style="flex: 1 1 440px">
+          <div class="panel-h"><h2 class="h2" style="flex: 1">AI và API key</h2><span class="muted" style="font-size: 12px">Key chỉ lưu trong trình duyệt này</span></div>
+          <div class="panel-b" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px">
+            <div>
+              <label class="lbl" for="k-claude">API key Claude (Anthropic)</label>
+              <div style="display: flex; gap: 6px"><input id="k-claude" type="password" class="in" placeholder="sk-ant-..."><button class="btn" onClick="{{checkClaude}}">Kiểm tra</button></div>
+              <sc-if value="{{keyOk.claude}}" hint-placeholder-val="{{ false }}"><p class="ok" style="margin: 4px 0 0; font-size: 12px">Key hợp lệ (mô phỏng).</p></sc-if>
+            </div>
+            <div>
+              <label class="lbl" for="k-gemini">API key Gemini (Google)</label>
+              <div style="display: flex; gap: 6px"><input id="k-gemini" type="password" class="in" placeholder="AIza..."><button class="btn" onClick="{{checkGemini}}">Kiểm tra</button></div>
+              <sc-if value="{{keyOk.gemini}}" hint-placeholder-val="{{ false }}"><p class="ok" style="margin: 4px 0 0; font-size: 12px">Key hợp lệ (mô phỏng).</p></sc-if>
+            </div>
+            <div><label class="lbl" for="s-ai">AI mặc định</label><select id="s-ai" class="in"><option>Claude</option><option>Gemini</option></select></div>
+            <div><label class="lbl" for="s-mc">Model Claude</label><select id="s-mc" class="in"><option>claude-sonnet-5-5 (cân bằng, khuyến nghị)</option><option>claude-opus-5-5 (mạnh nhất)</option><option>claude-haiku-5-5 (nhanh, rẻ)</option></select></div>
+            <div><label class="lbl" for="s-mg">Model Gemini</label><select id="s-mg" class="in"><option>[Danh sách lấy từ Google khi kiểm tra key]</option></select></div>
+            <div><label class="lbl" for="s-lang">Ngôn ngữ mặc định</label><select id="s-lang" class="in"><option>Tiếng Việt, giữ thuật ngữ Anh</option><option>Tiếng Việt hoàn toàn</option><option>Tiếng Anh</option></select></div>
+          </div>
+        </section>
+        <div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 14px">
+          <section class="panel">
+            <div class="panel-h"><h2 class="h2" style="flex: 1">Giao diện</h2></div>
+            <div class="panel-b">
+              <div style="display: flex; align-items: center; gap: 10px">
+                <span style="flex: 1">Chế độ hiển thị</span>
+                <div role="group" aria-label="Chế độ hiển thị" style="display: flex">
+                  <button class="{{themeSeg.light}}" style="border-radius: 6px 0 0 6px" onClick="{{setLight}}">Sáng</button>
+                  <button class="{{themeSeg.dark}}" style="border-radius: 0 6px 6px 0; border-left: 0" onClick="{{setDark}}">Tối</button>
+                </div>
+              </div>
+              <div class="tblwrap" style="border: 1px solid var(--border); border-radius: 6px">
+                <table class="tbl">
+                  <thead><tr><th>Phím tắt</th><th>Chức năng</th></tr></thead>
+                  <tbody>
+                    <tr><td><kbd>Ctrl+K</kbd></td><td>Tìm nhanh</td></tr>
+                    <tr><td><kbd>Ctrl+Enter</kbd></td><td>Copy prompt đang xem</td></tr>
+                    <tr><td><kbd>Ctrl+S</kbd></td><td>Lưu</td></tr>
+                    <tr><td><kbd>Ctrl+B</kbd></td><td>Thu gọn / mở thanh bên</td></tr>
+                    <tr><td><kbd>Esc</kbd></td><td>Đóng hộp thoại</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+          <section class="panel">
+            <div class="panel-h"><h2 class="h2">Sao lưu và khôi phục</h2></div>
+            <div class="panel-b">
+              <p class="muted" style="margin: 0; font-size: 12px; line-height: 1.5">Lần sao lưu gần nhất: 9 ngày trước. File sao lưu chứa cả API key, đừng đưa lên GitHub.</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px">
+                <button class="btn btn-pri" onClick="{{backup}}">Tải file sao lưu (.json)</button>
+                <button class="btn">Khôi phục từ file...</button>
+              </div>
+              <div style="height: 1px; background: var(--border)"></div>
+              <button class="btn btn-danger" style="align-self: flex-start">Xóa toàn bộ dữ liệu</button>
+            </div>
+          </section>
+        </div>
+      </div>
+    </sc-if>
+
+  </div>
+</main>
+
+<sc-if value="{{showDel}}" hint-placeholder-val="{{ false }}">
+  <div class="overlay">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="del-title" style="max-width: 520px">
+      <div class="panel-h" style="padding: 12px 18px; align-items: flex-start">
+        <div style="flex: 1">
+          <h2 id="del-title" class="h2" style="font-size: 16px">Xóa dự án "{{project.name}}"?</h2>
+          <p class="muted" style="margin: 2px 0 0">Hồ sơ, AGENTS.md và các prompt đã lưu của dự án này sẽ bị xóa vĩnh viễn. Không thể hoàn tác.</p>
+        </div>
+        <button class="btn btn-ghost btn-sm" aria-label="Đóng" onClick="{{cancelDelete}}">✕</button>
+      </div>
+      <div style="padding: 16px 18px; display: flex; justify-content: flex-end; gap: 6px">
+        <button class="btn" onClick="{{cancelDelete}}">Hủy</button>
+        <button class="btn" style="background: var(--red-ink); border-color: var(--red-ink); color: var(--surface)" onClick="{{confirmDelete}}">Xóa vĩnh viễn</button>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{showNew}}" hint-placeholder-val="{{ false }}">
+  <div class="overlay">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="new-title" style="max-width: 520px">
+      <div class="panel-h" style="padding: 12px 18px; align-items: flex-start">
+        <div style="flex: 1">
+          <h2 id="new-title" class="h2" style="font-size: 16px">Tạo dự án mới</h2>
+          <p class="muted" style="margin: 2px 0 0">Bạn có thể điền hồ sơ chi tiết sau khi tạo.</p>
+        </div>
+        <button class="btn btn-ghost btn-sm" aria-label="Đóng" onClick="{{cancelNew}}">✕</button>
+      </div>
+      <div style="padding: 16px 18px; display: flex; flex-direction: column; gap: 12px">
+        <div><label class="lbl" for="np-name">Tên dự án</label><input id="np-name" class="in" placeholder="Ví dụ: Web bán hàng" value="{{newName}}" onChange="{{setNewName}}"></div>
+        <div><label class="lbl" for="np-desc">Mô tả ngắn</label><textarea id="np-desc" class="in" placeholder="App làm gì, cho ai?" value="{{newDesc}}" onChange="{{setNewDesc}}"></textarea></div>
+        <sc-if value="{{newError}}" hint-placeholder-val="{{ false }}"><p role="alert" style="margin: 0; color: var(--red-ink)">Hãy nhập tên dự án.</p></sc-if>
+        <div style="display: flex; justify-content: flex-end; gap: 6px">
+          <button class="btn" onClick="{{cancelNew}}">Hủy</button>
+          <button class="btn btn-pri" onClick="{{createNew}}">Tạo dự án</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{showDiff}}" hint-placeholder-val="{{ false }}">
+  <div class="overlay">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="diff-title">
+      <div class="panel-h" style="padding: 12px 18px">
+        <h2 id="diff-title" class="h2" style="flex: 1; font-size: 16px">Đề xuất của AI</h2>
+        <span class="tag">Ví dụ minh họa</span>
+        <button class="btn btn-ghost btn-sm" aria-label="Đóng (Esc)" onClick="{{closeDiff}}">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+        </button>
+      </div>
+      <div style="padding: 16px 18px; display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; flex-wrap: wrap; gap: 14px">
+          <div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+            <h3 class="h3 muted">Bản của bạn</h3>
+            <div class="diff" style="background: var(--soft)">{{diffBefore}}</div>
+          </div>
+          <div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+            <h3 class="h3">Bản đề xuất <span class="muted" style="font-weight: 400">(tô vàng là chỗ thay đổi)</span></h3>
+            <div class="diff">Lỗi <mark>runtime: màn hình trắng (blank screen)</mark> khi <mark>submit form "Lưu"</mark> ở màn hình <mark>Hồ sơ dự án</mark>.
+<mark>Các bước tái hiện:</mark> mở một dự án → sửa ô "Mô tả" → bấm "Lưu".
+<mark>Kết quả mong muốn:</mark> dữ liệu được lưu vào IndexedDB, hiện thông báo "Đã lưu", giữ nguyên màn hình.</div>
+          </div>
+        </div>
+        <div class="panel" style="background: var(--accent-weak); border-color: var(--accent-line); padding: 12px; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px">
+          <div style="grid-column: 1 / -1" class="h3">AI cần bạn trả lời thêm (không bắt buộc)</div>
+          <div><label class="lbl" for="q1">Lỗi xảy ra trên trình duyệt nào?</label><input id="q1" class="in" placeholder="Ví dụ: Chrome trên máy tính"></div>
+          <div><label class="lbl" for="q2">Console có báo lỗi không? Dán vào đây.</label><input id="q2" class="in" placeholder="Bấm F12 → tab Console"></div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end">
+          <button class="btn" onClick="{{closeDiff}}">Bỏ qua</button>
+          <button class="btn btn-pri" onClick="{{acceptDiff}}">Chấp nhận thay đổi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{showFill}}" hint-placeholder-val="{{ false }}">
+  <div class="overlay">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="fill-title" style="max-width: 880px">
+      <div class="panel-h" style="padding: 12px 18px">
+        <h2 id="fill-title" class="h2" style="flex: 1; font-size: 16px">Điền nhanh: {{fill.title}}</h2>
+        <button class="btn btn-ghost btn-sm" aria-label="Đóng (Esc)" onClick="{{closeFill}}">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+        </button>
+      </div>
+      <div style="padding: 16px 18px; display: flex; flex-wrap: wrap; gap: 14px">
+        <div style="flex: 1 1 280px; display: flex; flex-direction: column; gap: 10px">
+          <sc-for list="{{fill.vars}}" as="v" hint-placeholder-count="3">
+            <div><label class="lbl" for="{{v.id}}">{{v.label}}</label><input id="{{v.id}}" class="in" placeholder="{{v.ph}}" value="{{v.val}}" onChange="{{v.change}}"></div>
+          </sc-for>
+        </div>
+        <div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+          <span class="h3">Nội dung sẽ được copy</span>
+          <pre class="preview" style="max-height: 340px">{{fill.preview}}</pre>
+        </div>
+      </div>
+      <div style="padding: 0 18px 16px; display: flex; justify-content: flex-end; gap: 6px">
+        <button class="btn" onClick="{{closeFill}}">Đóng</button>
+        <button class="btn btn-pri" onClick="{{copyFill}}">Copy <kbd style="background: transparent; color: inherit; border-color: currentColor">Ctrl+Enter</kbd></button>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{hasToast}}" hint-placeholder-val="{{ false }}">
+  <div class="toast" role="status">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7FE0C9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>
+    {{toast}}
+  </div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+var PS_CHIPS = {
+  rb: [
+    { code: 'RB-01', label: 'Chỉ làm đúng yêu cầu', text: 'Chỉ thay đổi những gì được yêu cầu hoặc thực sự cần thiết. Không thêm feature, không refactor, không "cải thiện" ngoài phạm vi.' },
+    { code: 'RB-02', label: 'Giữ giải pháp đơn giản', text: 'Giữ giải pháp ở mức đơn giản nhất. Không tạo abstraction/helper cho thao tác chỉ dùng một lần, không thiết kế cho yêu cầu giả định trong tương lai.' },
+    { code: 'RB-03', label: 'Không thêm thư viện', text: 'Không thêm dependency mới. Nếu thật sự cần, dừng lại và hỏi tôi, kèm lý do và phương án thay thế.' },
+    { code: 'RB-04', label: 'Không đổi hành vi', text: 'Không thay đổi hành vi hiện có của app. Toàn bộ test cũ phải tiếp tục pass.' },
+    { code: 'RB-05', label: 'Giữ dữ liệu cũ', text: 'Không làm mất dữ liệu đã lưu. Mọi thay đổi data schema phải kèm migration.' },
+    { code: 'RB-06', label: 'Không hardcode, không lách test', text: 'Viết giải pháp tổng quát, đúng với mọi input hợp lệ. Không hardcode giá trị và không viết code chỉ để test pass. Nếu test sai thì báo tôi, không tự lách.' },
+    { code: 'RB-07', label: 'Tuân thủ AGENTS.md', text: 'Tuân thủ toàn bộ quy tắc trong @AGENTS.md. Nếu yêu cầu này mâu thuẫn với AGENTS.md thì hỏi tôi.' },
+    { code: 'RB-08', label: 'Hỏi trước thao tác khó hoàn tác', text: 'Được tự làm các thao tác cục bộ, hoàn tác được (sửa file, chạy test). Phải hỏi trước khi xóa file/branch, git push --force, git reset --hard, đổi cấu hình dùng chung.' },
+    { code: 'RB-09', label: 'Không lộ bí mật', text: 'Không in ra, không commit API key, file .env hay bất kỳ secret nào.' },
+    { code: 'RB-10', label: 'Dọn file tạm', text: 'Nếu tạo file/script tạm để thử nghiệm thì xóa chúng khi xong việc.' },
+    { code: 'RB-11', label: 'Giao diện tiếng Việt, responsive', text: 'Mọi chữ hiển thị cho người dùng bằng tiếng Việt. Giao diện dùng được từ chiều rộng 360px (điện thoại).' },
+    { code: 'RB-12', label: 'Bảo mật đầu vào', text: 'Kiểm tra (validate) mọi dữ liệu từ bên ngoài: input người dùng, file nhập vào, response của API.' }
+  ],
+  cl: [
+    { code: 'CL-01', label: 'Hỏi trước khi làm', text: 'Nếu yêu cầu chưa rõ, hỏi tôi tối đa 3 câu trước khi bắt đầu. Không tự đoán ý tôi.' },
+    { code: 'CL-02', label: 'Lên kế hoạch → chờ duyệt', text: 'Trước tiên đọc code liên quan và trình bày kế hoạch ngắn (các bước, file sẽ sửa, rủi ro). Chờ tôi duyệt rồi mới làm.' },
+    { code: 'CL-03', label: 'Tự làm đến cùng', text: 'Làm liên tục cho đến khi hoàn thành. Gặp điểm chưa chắc chắn thì chọn phương án hợp lý nhất, ghi lại giả định và báo cáo ở cuối. Các thao tác khó hoàn tác vẫn phải hỏi.' },
+    { code: 'CL-04', label: 'Tìm hiểu trước khi kết luận', text: 'Không suy đoán về code chưa mở. Đọc các file liên quan trước khi trả lời hoặc sửa.' },
+    { code: 'CL-05', label: 'Báo tiến độ', text: 'Mở đầu bằng việc nhắc lại mục tiêu trong 1 câu và nêu kế hoạch. Trong lúc làm, báo ngắn từng bước. Kết thúc bằng tóm tắt.' },
+    { code: 'CL-06', label: 'Tự rà soát trước khi nộp', text: 'Trước khi báo xong, tự rà lại kết quả theo từng tiêu chí hoàn thành và sửa chỗ chưa đạt.' },
+    { code: 'CL-07', label: 'Giải thích cho người không biết code', text: 'Tôi không biết lập trình. Giải thích bằng ngôn ngữ đời thường. Nếu phải dùng thuật ngữ thì giải thích ngắn kèm theo.' }
+  ],
+  dr: [
+    { code: 'DR-01', label: 'Báo cáo 3 phần', text: 'Kết thúc bằng báo cáo 3 phần: (1) Đã làm gì, (2) Cách tôi tự kiểm tra, (3) Việc tiếp theo đề xuất.' },
+    { code: 'DR-02', label: 'Bảng Markdown', text: 'Trình bày kết quả chính dưới dạng bảng Markdown.' },
+    { code: 'DR-03', label: 'Sơ đồ Mermaid', text: 'Vẽ sơ đồ bằng Mermaid.' },
+    { code: 'DR-04', label: 'Lưu thành file', text: 'Lưu kết quả vào file [tên file].' },
+    { code: 'DR-05', label: 'Code + giải thích ngắn', text: 'Đưa ra code hoàn chỉnh, kèm giải thích ngắn (dưới 5 dòng) cho từng thay đổi chính.' },
+    { code: 'DR-06', label: 'Danh sách vấn đề theo mức độ', text: 'Liệt kê vấn đề theo mức độ (Nghiêm trọng / Cao / Trung bình / Thấp), mỗi vấn đề có: mô tả, vị trí, cách tái hiện, đề xuất sửa.' },
+    { code: 'DR-07', label: 'Có phương án khuyến nghị', text: 'Đưa ra tối đa 3 phương án, so sánh ưu và nhược, và chỉ rõ 1 phương án khuyến nghị kèm lý do.' }
+  ],
+  tc: [
+    { code: 'TC-01', label: 'Lint / typecheck / test pass', text: 'Các lệnh kiểm tra trong @AGENTS.md (lint, typecheck, test) đều pass.' },
+    { code: 'TC-02', label: 'Có test cho thay đổi', text: 'Code mới hoặc sửa đổi có test đi kèm.' },
+    { code: 'TC-03', label: 'Có bằng chứng chạy được', text: 'Có ảnh chụp màn hình hoặc các bước để tôi tự kiểm tra trên trình duyệt.' },
+    { code: 'TC-04', label: 'Đạt từng acceptance criteria', text: 'Liệt kê từng acceptance criteria và xác nhận đạt hay chưa đạt.' },
+    { code: 'TC-05', label: 'Không lỗi console', text: 'Không còn error/warning mới trong console trình duyệt.' },
+    { code: 'TC-06', label: 'Đã commit', text: 'Đã commit với message dạng Conventional Commits.' },
+    { code: 'TC-07', label: 'Cập nhật PLAN.md', text: 'Đã đánh dấu task hoàn thành trong @PLAN.md.' }
+  ]
+};
+
+var PS_TYPES = {
+  Y_TUONG: { name: 'Khám phá ý tưởng', desc: 'AI phỏng vấn bạn để làm rõ ý tưởng, rồi viết bản tóm tắt.', role: 'Product Manager', taskPh: 'Ví dụ: Làm rõ ý tưởng app quản lý chi tiêu gia đình', fields: [{ label: 'Người dùng mục tiêu', ph: 'Ví dụ: vợ chồng trẻ, không rành công nghệ' }, { label: 'Phân tích thêm', ph: 'Đối thủ, rủi ro, chỉ số thành công' }], rb: [], cl: ['CL-01', 'CL-07'], dr: ['DR-02'], tc: [], tip: 'Hỏi từng câu một và chờ tôi trả lời rồi mới hỏi câu tiếp theo.' },
+  PRD: { name: 'Tài liệu yêu cầu (PRD)', desc: 'Viết PRD: tính năng, user stories, acceptance criteria.', role: 'Product Manager', taskPh: 'Ví dụ: Viết PRD cho bản MVP', fields: [{ label: 'Phạm vi', ph: 'Toàn bộ sản phẩm / một tính năng' }, { label: 'Số tính năng Must tối đa', ph: '5' }], rb: [], cl: ['CL-01', 'CL-07'], dr: ['DR-04'], tc: ['TC-04'], tip: '' },
+  THIET_KE_UI: { name: 'Thiết kế giao diện', desc: 'Danh sách màn hình, user flow, mockup.', role: 'UX/UI Designer', taskPh: 'Ví dụ: Thiết kế các màn hình cho bản MVP', fields: [{ label: 'Màn hình cần thiết kế', ph: 'Ví dụ: trang chủ, chi tiết dự án' }, { label: 'Phong cách', ph: 'Doanh nghiệp, gọn, màu teal' }], rb: ['RB-11'], cl: ['CL-02'], dr: ['DR-03', 'DR-04'], tc: ['TC-03'], tip: 'Tạo bố cục có chủ đích. Chú ý khoảng cách, phân cấp chữ và các trạng thái rỗng / lỗi / đang tải.' },
+  KIEN_TRUC: { name: 'Kiến trúc & công nghệ', desc: 'Chọn tech stack, mô hình dữ liệu, chi phí.', role: 'Software Architect', taskPh: 'Ví dụ: Đề xuất tech stack cho app', fields: [{ label: 'Loại ứng dụng', ph: 'Chỉ frontend / full-stack' }, { label: 'Ngân sách', ph: 'Miễn phí' }], rb: [], cl: ['CL-02', 'CL-07'], dr: ['DR-07', 'DR-03', 'DR-04'], tc: [], tip: 'Ưu tiên công nghệ phổ biến, tài liệu tốt, dễ bảo trì bởi AI. Nêu chi phí hằng tháng ước tính.' },
+  THIET_KE_DU_LIEU: { name: 'Database / API', desc: 'Thiết kế schema, kiểu dữ liệu, endpoint.', role: 'Software Architect', taskPh: 'Ví dụ: Thiết kế data schema cho dự án và prompt', fields: [{ label: 'Đối tượng dữ liệu', ph: 'Dự án, Prompt, Thẻ...' }, { label: 'Kiểu API', ph: 'REST / không có API' }], rb: ['RB-05'], cl: ['CL-02'], dr: ['DR-03', 'DR-02'], tc: [], tip: '' },
+  KE_HOACH: { name: 'Lập kế hoạch', desc: 'Chia việc thành các task nhỏ, có cách kiểm tra.', role: 'Tech Lead', taskPh: 'Ví dụ: Chia MVP thành các task', fields: [{ label: 'Cách chia', ph: 'Vertical slice (khuyến nghị)' }, { label: 'Cỡ task', ph: 'Nhỏ' }], rb: ['RB-07'], cl: ['CL-02'], dr: ['DR-02', 'DR-04'], tc: [], tip: '' },
+  KHOI_TAO: { name: 'Dựng khung dự án', desc: 'Khởi tạo dự án, cài công cụ, commit đầu tiên.', role: 'Senior Full-stack Developer', taskPh: 'Ví dụ: Khởi tạo dự án theo ARCHITECTURE.md', fields: [{ label: 'Framework', ph: 'React + Vite' }, { label: 'Công cụ đi kèm', ph: 'ESLint, Prettier, Vitest' }], rb: ['RB-09', 'RB-10'], cl: ['CL-03', 'CL-05'], dr: ['DR-01'], tc: ['TC-01', 'TC-03', 'TC-06'], tip: '' },
+  TINH_NANG: { name: 'Xây tính năng mới', desc: 'Làm một tính năng theo PLAN.md, có test.', role: 'Senior Full-stack Developer', taskPh: 'Ví dụ: Làm task 4 trong PLAN.md – Thư viện prompt', fields: [{ label: 'Hành vi mong muốn', ph: 'Người dùng bấm... thì thấy...' }, { label: 'Acceptance criteria', ph: 'Mỗi tiêu chí cách nhau bằng dấu ;' }], rb: ['RB-01', 'RB-02', 'RB-07', 'RB-08', 'RB-12'], cl: ['CL-02', 'CL-04', 'CL-06'], dr: ['DR-01'], tc: ['TC-01', 'TC-02', 'TC-03', 'TC-04', 'TC-06', 'TC-07'], tip: 'Làm theo vertical slice: giao diện, logic và lưu trữ của tính năng phải chạy được end-to-end trước khi trau chuốt.' },
+  SUA_LOI: { name: 'Sửa lỗi', desc: 'Mô tả lỗi, AI tìm nguyên nhân gốc và sửa.', role: 'Senior Full-stack Developer', taskPh: 'Ví dụ: khi bấm nút lưu thì màn hình trắng', fields: [{ label: 'Thao tác gây lỗi', ph: 'Mở dự án → sửa mô tả → bấm Lưu' }, { label: 'Hiện tượng thực tế', ph: 'Màn hình trắng' }, { label: 'Kết quả mong muốn', ph: 'Lưu được và hiện "Đã lưu"' }], rb: ['RB-01', 'RB-06', 'RB-07'], cl: ['CL-04', 'CL-06'], dr: ['DR-01'], tc: ['TC-01', 'TC-02', 'TC-03', 'TC-06'], tip: 'Làm theo thứ tự: (1) tái hiện lỗi, (2) tìm root cause và giải thích, (3) viết test thất bại tái hiện lỗi, (4) sửa, (5) chạy lại test. Không chỉ sửa triệu chứng.' },
+  REFACTOR: { name: 'Cải tổ code (refactor)', desc: 'Làm code gọn, dễ đọc mà không đổi hành vi.', role: 'Senior Full-stack Developer', taskPh: 'Ví dụ: Tách component trang Thư viện', fields: [{ label: 'Phạm vi', ph: 'src/features/library/' }, { label: 'Mục tiêu', ph: 'Dễ đọc hơn, bỏ trùng lặp' }], rb: ['RB-02', 'RB-04', 'RB-07'], cl: ['CL-02', 'CL-04'], dr: ['DR-01'], tc: ['TC-01', 'TC-06'], tip: 'Chia thành các bước nhỏ, chạy test sau mỗi bước.' },
+  VIET_TEST: { name: 'Viết test', desc: 'Bổ sung unit / e2e test cho phần đã có.', role: 'QA Engineer', taskPh: 'Ví dụ: Viết test cho hàm ghép prompt', fields: [{ label: 'Đối tượng test', ph: 'src/lib/prompts/build.ts' }, { label: 'Loại test', ph: 'Unit test' }], rb: ['RB-06'], cl: ['CL-04'], dr: ['DR-01'], tc: ['TC-01'], tip: '' },
+  REVIEW: { name: 'Review code / bảo mật', desc: 'Rà soát thay đổi, tìm lỗi và lỗ hổng.', role: 'Security Reviewer', taskPh: 'Ví dụ: Review các thay đổi chưa commit', fields: [{ label: 'Phạm vi', ph: 'Thay đổi chưa commit / toàn dự án' }, { label: 'Tiêu chí ưu tiên', ph: 'Bảo mật, đúng logic' }], rb: [], cl: ['CL-04', 'CL-07'], dr: ['DR-06'], tc: [], tip: 'Chỉ báo các vấn đề có bằng chứng cụ thể trong code (file:dòng). Không báo vấn đề suy đoán.' },
+  KIEM_THU: { name: 'Kiểm thử toàn app', desc: 'Thử như người dùng thật, liệt kê lỗi.', role: 'QA Engineer', taskPh: 'Ví dụ: Kiểm thử toàn bộ luồng chính', fields: [{ label: 'Kịch bản cần thử', ph: 'Happy path, dữ liệu rỗng, mất mạng' }], rb: [], cl: ['CL-04'], dr: ['DR-06'], tc: [], tip: '' },
+  TRIEN_KHAI: { name: 'Triển khai / môi trường', desc: 'Cài đặt, chạy app, cấu hình môi trường.', role: 'DevOps Engineer', taskPh: 'Ví dụ: Hướng dẫn chạy app trên máy mới', fields: [{ label: 'Môi trường', ph: 'Chạy local trên Windows' }, { label: 'Cần thiết lập', ph: 'Node.js, biến môi trường' }], rb: ['RB-08', 'RB-09'], cl: ['CL-02', 'CL-05', 'CL-07'], dr: ['DR-01'], tc: ['TC-03'], tip: '' },
+  TAI_LIEU: { name: 'Viết tài liệu', desc: 'README, hướng dẫn sử dụng, CHANGELOG.', role: 'Technical Writer', taskPh: 'Ví dụ: Viết hướng dẫn sử dụng cho người mới', fields: [{ label: 'Loại tài liệu', ph: 'README / Hướng dẫn / CHANGELOG' }, { label: 'Người đọc', ph: 'Người không biết code' }], rb: [], cl: ['CL-04'], dr: ['DR-04'], tc: [], tip: '' },
+  GIAI_THICH: { name: 'Giải thích code', desc: 'Giải thích code, lỗi hay khái niệm cho dễ hiểu.', role: 'Senior Full-stack Developer', taskPh: 'Ví dụ: Giải thích file src/lib/db/schema.ts', fields: [{ label: 'Trình độ người nghe', ph: 'Không biết code' }], rb: [], cl: ['CL-04', 'CL-07'], dr: [], tc: [], tip: '' },
+  CAI_TIEN: { name: 'Phân tích phản hồi', desc: 'Phân loại phản hồi, lên kế hoạch phiên bản mới.', role: 'Product Manager', taskPh: 'Ví dụ: Lên kế hoạch phiên bản 1.1', fields: [{ label: 'Phản hồi / lỗi ghi nhận', ph: 'Dán danh sách vào đây' }], rb: [], cl: ['CL-07'], dr: ['DR-02', 'DR-04'], tc: [], tip: '' },
+  TU_DO: { name: 'Prompt tự do', desc: 'Khung 8 khối, không có trường riêng.', role: 'Senior Full-stack Developer', taskPh: 'Mô tả việc bạn muốn AI làm', fields: [], rb: ['RB-07'], cl: ['CL-01'], dr: ['DR-01'], tc: [], tip: '' }
+};
+
+var PS_GROUPS = [
+  { name: 'Sản phẩm & thiết kế', types: ['Y_TUONG', 'PRD', 'THIET_KE_UI'] },
+  { name: 'Kỹ thuật & kế hoạch', types: ['KIEN_TRUC', 'THIET_KE_DU_LIEU', 'KE_HOACH', 'KHOI_TAO'] },
+  { name: 'Viết code', types: ['TINH_NANG', 'SUA_LOI', 'REFACTOR', 'VIET_TEST'] },
+  { name: 'Chất lượng & vận hành', types: ['REVIEW', 'KIEM_THU', 'TRIEN_KHAI', 'TAI_LIEU', 'GIAI_THICH', 'CAI_TIEN'] },
+  { name: 'Tự do', types: ['TU_DO'] }
+];
+
+var PS_ROLES = ['Product Manager', 'UX/UI Designer', 'Software Architect', 'Tech Lead', 'Senior Frontend Developer', 'Senior Backend Developer', 'Senior Full-stack Developer', 'QA Engineer', 'Security Reviewer', 'DevOps Engineer', 'Technical Writer', 'Data Engineer'];
+
+var PS_PHASES = [
+  { name: 'Chuẩn bị', type: null }, { name: 'Ý tưởng', type: 'Y_TUONG' }, { name: 'PRD', type: 'PRD' },
+  { name: 'Thiết kế', type: 'THIET_KE_UI' }, { name: 'Kiến trúc', type: 'KIEN_TRUC' }, { name: 'Kế hoạch', type: 'KE_HOACH' },
+  { name: 'Dựng khung', type: 'KHOI_TAO' }, { name: 'Xây tính năng', type: 'TINH_NANG' }, { name: 'Kiểm thử', type: 'KIEM_THU' },
+  { name: 'Triển khai', type: 'TRIEN_KHAI' }, { name: 'Cải tiến', type: 'CAI_TIEN' }
+];
+
+var PS_PROJECTS = [
+  { name: 'Prompt Studio', desc: 'Web app cá nhân tạo, cải thiện và quản lý prompt, AGENTS.md theo từng dự án.', cur: 3, updated: 'Hôm nay', agents: '9/10 mục', prompts: 3 },
+  { name: 'Công cụ điền mẫu Word (ví dụ)', desc: 'Điền dữ liệu vào file Word/Excel mẫu, giữ nguyên 100% định dạng.', cur: 1, updated: '3 ngày trước', agents: 'Chưa có', prompts: 1 },
+  { name: 'Web bán hàng (ví dụ)', desc: 'Trang bán hàng nhỏ cho cửa hàng gia đình.', cur: 7, updated: '2 tuần trước', agents: '10/10 mục', prompts: 8 }
+];
+
+var PS_SECTIONS = [
+  { name: 'Tổng quan dự án', star: true, hint: 'App làm gì, cho ai, tech stack chính. 1–3 câu là đủ.', text: 'Prompt Studio là web app cá nhân tạo, cải thiện và quản lý prompt, AGENTS.md theo từng dự án.\n- Tech stack: React 19 + TypeScript (strict), Vite, Tailwind CSS v4, Dexie\n- Trạng thái: MVP' },
+  { name: 'Lệnh', star: true, hint: 'Lệnh phải copy là chạy được. Đặt trong khối code.', text: '```bash\nnpm install        # cài thư viện\nnpm run dev        # chạy local http://localhost:5173\nnpm run lint       # kiểm tra cách viết code\nnpm run typecheck  # kiểm tra kiểu dữ liệu\nnpm test           # unit test (vitest)\n```\nTrước khi báo xong phải chạy: npm run lint && npm run typecheck && npm test' },
+  { name: 'Cấu trúc thư mục', star: false, hint: 'Chỉ ghi thư mục quan trọng và thư mục không được sửa tay.', text: '- src/features/ – mỗi tính năng một thư mục\n- src/lib/ai/ – gọi Claude/Gemini qua AIProvider\n- src/lib/db/ – schema Dexie\n- Không sửa tay: dist/, package-lock.json' },
+  { name: 'Quy ước code', star: true, hint: 'Mỗi quy tắc một câu, kiểm tra được. Nên có ví dụ nên / không nên.', text: '- Chỉ dùng function component và hook\n- Không dùng any; dữ liệu bên ngoài kiểm tra bằng Zod\n- Mọi chữ hiển thị bằng tiếng Việt, gom trong src/lib/i18n/vi.ts\n- Viết code sạch, cẩn thận' },
+  { name: 'Kiểm thử', star: false, hint: 'Framework test, nơi đặt test, khi nào bắt buộc có test.', text: '- Vitest + Testing Library; e2e bằng Playwright\n- Sửa lỗi: viết test tái hiện lỗi trước rồi mới sửa' },
+  { name: 'Git & Pull Request', star: false, hint: 'Tên nhánh, kiểu commit, việc phải làm trước khi commit.', text: '- Commit dạng Conventional Commits, tiếng Anh\n- Xong mỗi bước: commit và push lên GitHub' },
+  { name: 'Bảo mật & bí mật', star: false, hint: 'Secret để ở đâu, dữ liệu nào nhạy cảm.', text: '- Không commit API key hay file .env\n- API key chỉ gửi tới Anthropic và Google' },
+  { name: 'Bẫy thường gặp', star: false, hint: 'Điều AI dễ làm sai mà không tự đọc ra từ code.', text: '' },
+  { name: 'Ranh giới', star: true, hint: 'Ba mức: Luôn làm / Hỏi trước / Không bao giờ.', text: '- Luôn làm: chạy lint, typecheck, test trước khi báo xong\n- Hỏi trước: thêm dependency; đổi schema Dexie; xóa file\n- Không bao giờ: commit secret; thêm server/analytics; tắt test' },
+  { name: 'Cách làm việc với tôi', star: false, hint: 'Ngôn ngữ, cách giải thích, mức tự chủ.', text: '- Trả lời bằng tiếng Việt, giải thích dễ hiểu cho người không biết code\n- Mỗi lần làm một bước trong PLAN.md' }
+];
+
+var PS_WIZ = [
+  { q: 'App làm gì, cho ai? Đang ở giai đoạn nào?', opts: ['MVP', 'Đang phát triển', 'Production'] },
+  { q: 'Dùng lệnh gì để cài đặt, chạy và test?', opts: ['npm', 'pnpm', 'bun', 'Python (pip/uv)', 'Chưa biết, để AI đề xuất'] },
+  { q: 'Thư mục nào quan trọng? Thư mục nào không được sửa tay?', opts: ['Lấy từ Hồ sơ dự án', 'Để AI tự đọc cấu trúc'] },
+  { q: 'Bạn muốn code được viết theo quy ước nào?', opts: ['TypeScript strict', 'Function components', 'Không dùng any', 'Comment tiếng Việt', 'Comment tiếng Anh'] },
+  { q: 'Kiểm thử thế nào?', opts: ['Vitest', 'Jest', 'Playwright', 'Pytest', 'Bắt buộc test cho code mới'] },
+  { q: 'Quy tắc khi lưu code lên git?', opts: ['Conventional Commits', 'Nhánh feat/ fix/', 'Không commit thẳng vào main', 'Tự push sau mỗi bước'] },
+  { q: 'Dự án có dữ liệu nhạy cảm nào?', opts: ['API key', 'Dữ liệu cá nhân', 'Không có'] },
+  { q: 'AI từng mắc lỗi gì lặp đi lặp lại?', opts: ['Tự thêm tính năng', 'Quên chạy test', 'Sửa lan sang chỗ khác', 'Viết giao diện tiếng Anh'] },
+  { q: 'Việc gì AI phải hỏi trước? Việc gì tuyệt đối không làm?', opts: ['Hỏi trước khi thêm thư viện', 'Hỏi trước khi xóa file', 'Không commit secret', 'Không force push'] },
+  { q: 'Bạn muốn AI làm việc với bạn thế nào?', opts: ['Trả lời tiếng Việt', 'Giải thích đơn giản', 'Lên kế hoạch trước', 'Tự làm hết, báo cáo cuối'] }
+];
+
+var PS_LIB = {
+  std: [
+    { id: 's1', title: 'GĐ 1 – Khám phá ý tưởng', desc: 'AI phỏng vấn từng câu, viết Idea Brief.', type: 'Y_TUONG', vars: '3 biến' },
+    { id: 's2', title: 'GĐ 2 – Yêu cầu sản phẩm (PRD)', desc: 'MoSCoW, user stories, acceptance criteria. Lưu PRD.md.', type: 'PRD', vars: '3 biến' },
+    { id: 's3', title: 'GĐ 3 – Thiết kế trải nghiệm', desc: 'Danh sách màn hình, user flow Mermaid, mockup HTML.', type: 'THIET_KE_UI', vars: '3 biến' },
+    { id: 's4', title: 'GĐ 4 – Kiến trúc và công nghệ', desc: 'Một phương án khuyến nghị, data model, chi phí.', type: 'KIEN_TRUC', vars: '2 biến' },
+    { id: 's5', title: 'GĐ 5 – Lập kế hoạch', desc: 'Chia vertical slice, lưu PLAN.md và AGENTS.md.', type: 'KE_HOACH', vars: '—' },
+    { id: 's6', title: 'GĐ 6 – Dựng khung dự án', desc: 'Cài đặt, lint/test, commit đầu tiên.', type: 'KHOI_TAO', vars: '—' },
+    { id: 's7', title: 'GĐ 7 – Xây tính năng', desc: 'Một task trong PLAN.md: kế hoạch → làm → test → commit.', type: 'TINH_NANG', vars: '4 biến' },
+    { id: 's8', title: 'GĐ 8 – Kiểm thử và rà soát', desc: 'Edge cases, responsive, bảo mật; bảng lỗi theo mức độ.', type: 'KIEM_THU', vars: '—' },
+    { id: 's9', title: 'GĐ 9 – Triển khai', desc: 'Chạy app trên môi trường thật, từng bước cụ thể.', type: 'TRIEN_KHAI', vars: '1 biến' },
+    { id: 's10', title: 'GĐ 10 – Vận hành và cải tiến', desc: 'Phân loại phản hồi, cập nhật PLAN.md.', type: 'CAI_TIEN', vars: '2 biến' }
+  ],
+  proj: [
+    { id: 'p1', title: 'Sửa lỗi nhanh', desc: 'Mô tả thao tác, hiện tượng, kết quả mong muốn.', type: 'SUA_LOI', vars: '3 biến' },
+    { id: 'p2', title: 'Làm task tiếp theo trong PLAN.md', desc: 'Lấy task chưa xong đầu tiên và làm theo quy trình.', type: 'TINH_NANG', vars: '1 biến' },
+    { id: 'p3', title: 'Kết thúc phiên làm việc', desc: 'Tóm tắt, cập nhật PLAN.md, commit và push.', type: 'TU_DO', vars: '—' }
+  ],
+  shared: [
+    { id: 'c1', title: 'Giải thích cho người không biết code', desc: 'Giải thích lại bằng ví dụ đời thường.', type: 'GIAI_THICH', vars: '1 biến' },
+    { id: 'c2', title: 'Rút kinh nghiệm vào AGENTS.md', desc: 'Từ lỗi vừa gặp, đề xuất 1 quy tắc ngắn.', type: 'TU_DO', vars: '—' },
+    { id: 'c3', title: 'AI làm sai hướng – dừng lại', desc: 'Hoàn tác thay đổi vừa rồi và làm lại đúng mục tiêu.', type: 'TU_DO', vars: '1 biến' }
+  ]
+};
+
+var PS_PROMPTS = {
+  p1: { vars: [{ key: 'thao_tac', label: 'Thao tác gây lỗi', ph: 'Mở dự án → sửa mô tả → bấm Lưu' }, { key: 'hien_tuong', label: 'Hiện tượng', ph: 'Màn hình trắng' }, { key: 'ket_qua', label: 'Kết quả mong muốn', ph: 'Lưu được và hiện "Đã lưu"' }],
+    text: 'Khi tôi [[thao_tac]] thì thấy [[hien_tuong]].\nMong muốn là [[ket_qua]].\n\nHãy tìm root cause, sửa, và giải thích ngắn gọn nguyên nhân bằng ngôn ngữ dễ hiểu.\n- Tuân thủ @AGENTS.md.\n- Viết test tái hiện lỗi trước khi sửa.\n- Chỉ sửa đúng chỗ gây lỗi, không sửa lan sang phần khác.\n- Kết thúc bằng báo cáo 3 phần: đã làm gì, cách tôi tự kiểm tra, việc tiếp theo.' },
+  p2: { vars: [{ key: 'so_task', label: 'Số thứ tự task trong PLAN.md', ph: 'Ví dụ: 4' }],
+    text: 'Làm task [[so_task]] trong @PLAN.md.\n- Đọc code liên quan, nêu kế hoạch ngắn và chờ tôi duyệt.\n- Tuân thủ @AGENTS.md; chỉ làm đúng phạm vi task.\n- Chạy lint, typecheck, test; tất cả phải pass.\n- Commit, push, đánh dấu task xong trong PLAN.md.\n- Báo cáo 3 phần: đã làm gì, cách tôi tự kiểm tra, việc tiếp theo.' },
+  p3: { vars: [],
+    text: 'Kết thúc phiên làm việc:\n1. Tóm tắt những gì đã làm trong phiên này.\n2. Liệt kê việc còn dở và vấn đề chưa giải quyết.\n3. Cập nhật trạng thái trong @PLAN.md.\n4. Chạy lint, typecheck, test.\n5. Commit và push lên GitHub.\nTrả lời bằng tiếng Việt, dễ hiểu cho người không biết code.' },
+  c1: { vars: [{ key: 'noi_dung', label: 'Nội dung cần giải thích', ph: 'Ví dụ: đoạn trả lời vừa rồi, file schema.ts' }],
+    text: 'Giải thích lại [[noi_dung]] cho người không biết lập trình.\n- Dùng ví dụ đời thường.\n- Nếu buộc phải dùng thuật ngữ thì giải thích ngắn kèm theo.\n- Tối đa 10 dòng.' },
+  c2: { vars: [],
+    text: 'Từ lỗi vừa gặp, đề xuất đúng 1 quy tắc ngắn (1 câu, kiểm tra được) để thêm vào @AGENTS.md, giúp không lặp lại lỗi này. Nêu mục nào trong AGENTS.md nên chứa quy tắc đó. Chờ tôi đồng ý rồi mới sửa file.' },
+  c3: { vars: [{ key: 'muc_tieu', label: 'Mục tiêu đúng là gì?', ph: 'Ví dụ: chỉ đổi màu nút, không đổi bố cục' }],
+    text: 'Dừng lại. Mục tiêu đúng là: [[muc_tieu]].\nHoàn tác các thay đổi vừa rồi không phục vụ mục tiêu này, sau đó nêu lại kế hoạch ngắn và chờ tôi duyệt trước khi làm tiếp.' }
+};
+
+function psRender(p, vals) {
+  var out = p.text;
+  p.vars.forEach(function (v) { out = out.split('[[' + v.key + ']]').join(vals[v.key] || '[' + v.label + ']'); });
+  return out;
+}
+
+function psFindLib(id) {
+  var all = PS_LIB.std.concat(PS_LIB.proj, PS_LIB.shared);
+  for (var i = 0; i < all.length; i++) { if (all[i].id === id) return all[i]; }
+  return null;
+}
+
+function psGroupOf(code) {
+  for (var i = 0; i < PS_GROUPS.length; i++) { if (PS_GROUPS[i].types.indexOf(code) >= 0) return PS_GROUPS[i].name; }
+  return '';
+}
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      screen: 'projects', projectIdx: 0, typeCode: null, role: 'Senior Full-stack Developer',
+      task: '', purpose: '', fieldVals: {}, sel: {}, lang: 'vi-en',
+      showDiff: false, toast: '', dark: false, sideMin: false,
+      pins: ['p1', 'p3', 'c1'],
+      agentsMode: 'edit', agentsSec: 1,
+      agentsOn: PS_SECTIONS.map(function (x, i) { return i !== 7; }),
+      agentsText: PS_SECTIONS.map(function (x) { return x.text; }),
+      wizStep: 0, wizSel: {},
+      libTab: 'std', showFill: false, fillVals: {}, keyOk: { claude: false, gemini: false },
+      projects: PS_PROJECTS.slice(), showNew: false, showDel: false, profileDirty: false
+    };
+  }
+
+  flash(msg) {
+    var self = this;
+    this.setState({ toast: msg });
+    clearTimeout(this._t);
+    this._t = setTimeout(function () { self.setState({ toast: '' }); }, 1800);
+  }
+
+  copyText(text, msg) {
+    try { if (navigator.clipboard) { navigator.clipboard.writeText(text); } } catch (e) {}
+    this.flash(msg || 'Đã copy. Dán vào công cụ lập trình của bạn.');
+  }
+
+  usePrompt(it) {
+    var p = PS_PROMPTS[it.id];
+    if (!p) { this.pickType(it.type); return; }
+    if (p.vars.length) { this.setState({ showFill: true, fillVals: {}, fillTitle: it.title, fillId: it.id }); }
+    else { this.copyText(p.text, 'Đã copy nội dung "' + it.title + '". Dán vào công cụ lập trình.'); }
+  }
+
+  pickType(code) {
+    var t = PS_TYPES[code];
+    var sel = {};
+    ['rb', 'cl', 'dr', 'tc'].forEach(function (k) { t[k].forEach(function (c) { sel[c] = true; }); });
+    this.setState({ screen: 'builder', typeCode: code, role: t.role, sel: sel, fieldVals: {}, task: '', purpose: '', showFill: false });
+  }
+
+  toggle(code) {
+    var sel = Object.assign({}, this.state.sel);
+    var on = !sel[code];
+    if (on && ['CL-01', 'CL-02', 'CL-03'].indexOf(code) >= 0) {
+      ['CL-01', 'CL-02', 'CL-03'].forEach(function (c) { sel[c] = false; });
+    }
+    sel[code] = on;
+    this.setState({ sel: sel });
+  }
+
+  buildPreview() {
+    var s = this.state;
+    var t = PS_TYPES[s.typeCode];
+    if (!t) return '';
+    var L = [];
+    var picked = function (k, prefix) { return PS_CHIPS[k].filter(function (c) { return s.sel[c.code]; }).map(function (c) { return prefix + c.text; }); };
+    L.push('# Vai trò', 'Bạn là ' + s.role + '.', '');
+    L.push('# Bối cảnh',
+      '- Dự án: Prompt Studio – web app cá nhân tạo và quản lý prompt, AGENTS.md theo từng dự án',
+      '- Tech stack: React 19 + TypeScript (strict), Vite, Tailwind CSS v4, Dexie (IndexedDB)',
+      '- Chạy local: npm run dev → http://localhost:5173',
+      '- Quy tắc dự án: @AGENTS.md', '');
+    L.push('# Nhiệm vụ', t.name + ': ' + (s.task.trim() || '[mô tả nhiệm vụ]'));
+    t.fields.forEach(function (f, i) { var v = (s.fieldVals[i] || '').trim(); if (v) L.push('- ' + f.label + ': ' + v); });
+    if (s.purpose.trim()) L.push('', '# Mục đích', s.purpose.trim());
+    var rb = picked('rb', '- ');
+    if (rb.length) { L.push('', '# Ràng buộc'); L.push.apply(L, rb); }
+    var cl = picked('cl', '- ');
+    if (t.tip) cl.push('- ' + t.tip);
+    if (cl.length) { L.push('', '# Cách làm việc'); L.push.apply(L, cl); }
+    var dr = picked('dr', '- ');
+    if (dr.length) { L.push('', '# Định dạng đầu ra'); L.push.apply(L, dr); }
+    var tc = picked('tc', '- [ ] ');
+    if (tc.length) { L.push('', '# Tiêu chí hoàn thành'); L.push.apply(L, tc); }
+    var langText = { 'vi-en': 'Trả lời bằng tiếng Việt, giữ nguyên thuật ngữ kỹ thuật tiếng Anh.', vi: 'Trả lời hoàn toàn bằng tiếng Việt.', en: 'Respond in English.' }[s.lang];
+    L.push('', '# Ngôn ngữ', langText);
+    return L.join('\n');
+  }
+
+  renderVals() {
+    var self = this;
+    var s = this.state;
+    var go = function (scr, extra) { return function () { self.setState(Object.assign({ screen: scr, showDiff: false, showFill: false }, extra || {})); }; };
+    var navCls = function (k) { return 'nav' + (s.screen === k ? ' nav-on' : ''); };
+    var t = s.typeCode ? PS_TYPES[s.typeCode] : null;
+    var proj = s.projects[s.projectIdx >= 0 && s.projectIdx < s.projects.length ? s.projectIdx : 0] || PS_PROJECTS[0];
+
+    var preview = this.buildPreview();
+    var lines = preview ? preview.split('\n').length : 0;
+
+    var chipGroups = [
+      ['rb', 'Ràng buộc', 'Giới hạn để AI không làm quá tay'],
+      ['cl', 'Cách làm việc', 'Chọn 1 trong 3 mục đầu, các mục khác tùy ý'],
+      ['dr', 'Định dạng đầu ra', 'Hình thức kết quả'],
+      ['tc', 'Tiêu chí hoàn thành', 'Khi nào được coi là xong']
+    ].map(function (g) {
+      var list = PS_CHIPS[g[0]];
+      var n = list.filter(function (c) { return s.sel[c.code]; }).length;
+      return {
+        title: g[1], hint: g[2], count: n + '/' + list.length + ' đã chọn',
+        items: list.map(function (c) {
+          var on = !!s.sel[c.code];
+          return { label: c.label, text: c.text, on: on, cls: 'opt' + (on ? ' opt-on' : ''), toggle: function () { self.toggle(c.code); } };
+        })
+      };
+    });
+
+    var sec = PS_SECTIONS[s.agentsSec];
+    var wizItem = PS_WIZ[s.wizStep];
+
+    var libList = PS_LIB[s.libTab].map(function (it) {
+      var pinned = s.pins.indexOf(it.id) >= 0;
+      return {
+        title: it.title, desc: it.desc, tag: PS_TYPES[it.type].name, vars: it.vars,
+        pinText: pinned ? 'Bỏ ghim' : 'Ghim', pinLabel: (pinned ? 'Bỏ ghim ' : 'Ghim ') + it.title,
+        pin: function () {
+          var p = self.state.pins.slice();
+          var idx = p.indexOf(it.id);
+          if (idx >= 0) { p.splice(idx, 1); } else { p.push(it.id); }
+          self.setState({ pins: p });
+          self.flash(idx >= 0 ? 'Đã bỏ ghim' : 'Đã ghim lên thanh bên');
+        },
+        use: function () { self.usePrompt(it); },
+        openForm: function () { self.pickType(it.type); }
+      };
+    });
+
+    var fv = s.fillVals;
+    var fp = s.fillId ? PS_PROMPTS[s.fillId] : null;
+    var fillPreview = fp ? psRender(fp, fv) : '';
+
+    var pinnedList = s.pins.map(psFindLib).filter(Boolean).map(function (it) {
+      var p = PS_PROMPTS[it.id];
+      var hasVars = !!(p && p.vars.length);
+      return { title: it.title, ini: it.title.charAt(0).toUpperCase(), hasVars: hasVars, tip: (hasVars ? 'Điền nhanh rồi copy: ' : 'Copy ngay: ') + it.title, copy: function () { self.usePrompt(it); } };
+    });
+
+    var onCount = s.agentsOn.filter(Boolean).length;
+
+    return {
+      rootCls: 'app' + (s.dark ? ' dark' : ''),
+      sideCls: 'side' + (s.sideMin ? ' min' : ''),
+      toggleSide: function () { self.setState({ sideMin: !self.state.sideMin }); },
+      sideToggleLabel: s.sideMin ? 'Mở rộng thanh bên' : 'Thu gọn thanh bên',
+      dark: s.dark, light: !s.dark,
+      toggleTheme: function () { self.setState({ dark: !self.state.dark }); },
+      themeLabel: s.dark ? 'Chuyển sang giao diện sáng' : 'Chuyển sang giao diện tối',
+      themeShort: s.dark ? 'Sáng' : 'Tối',
+      themeSeg: { light: 'seg' + (s.dark ? '' : ' seg-on'), dark: 'seg' + (s.dark ? ' seg-on' : '') },
+      setLight: function () { self.setState({ dark: false }); },
+      setDark: function () { self.setState({ dark: true }); },
+      pinned: pinnedList,
+      noPinned: pinnedList.length === 0,
+
+      nav: { projects: navCls('projects'), builder: navCls('builder'), agents: navCls('agents'), improve: navCls('improve'), library: navCls('library'), templates: navCls('templates'), settings: navCls('settings') },
+      is: {
+        projects: s.screen === 'projects', project: s.screen === 'project',
+        pick: s.screen === 'builder' && !t, form: s.screen === 'builder' && !!t,
+        agents: s.screen === 'agents', improve: s.screen === 'improve', library: s.screen === 'library', templates: s.screen === 'templates', settings: s.screen === 'settings'
+      },
+      goProjects: go('projects'), goBuilder: go('builder'), goAgents: go('agents'), goImprove: go('improve'),
+      goLibrary: go('library'), goTemplates: go('templates'), goSettings: go('settings'),
+      tplVars: [
+        { name: '{{ten_khach_hang}}', where: 'Word · Trang 1, đoạn 2', kind: 'Văn bản', sample: 'Công ty ABC' },
+        { name: '{{ngay_ky}}', where: 'Word · Trang 1, dòng tiêu đề', kind: 'Ngày (dd/mm/yyyy)', sample: '18/10/2026' },
+        { name: '{{so_tien}}', where: 'Excel · Sheet "Báo giá", ô F12', kind: 'Số tiền', sample: '12.500.000' },
+        { name: '{{#hang_hoa}} … {{/hang_hoa}}', where: 'Excel · Sheet "Báo giá", dòng 8–10', kind: 'Bảng lặp (nhiều dòng)', sample: '3 dòng hàng hóa' }
+      ], goLibraryProject: go('library', { libTab: 'proj' }),
+      projectIdxStr: String(s.projectIdx),
+      changeProject: function (e) { self.setState({ projectIdx: parseInt(e.target.value, 10) }); },
+      newProject: function () { self.setState({ showNew: true, newName: '', newDesc: '', newError: false }); },
+      showNew: !!s.showNew, newName: s.newName || '', newDesc: s.newDesc || '', newError: !!s.newError,
+      setNewName: function (e) { self.setState({ newName: e.target.value }); },
+      setNewDesc: function (e) { self.setState({ newDesc: e.target.value }); },
+      cancelNew: function () { self.setState({ showNew: false }); },
+      createNew: function () {
+        var n = (self.state.newName || '').trim();
+        if (!n) { self.setState({ newError: true }); return; }
+        var list = [{ name: n, desc: (self.state.newDesc || '').trim(), cur: 0, updated: 'Vừa xong', agents: 'Chưa có', prompts: 0 }].concat(self.state.projects);
+        self.setState({ projects: list, showNew: false, screen: 'project', projectIdx: 0, profileDirty: false });
+        self.flash('Đã tạo dự án "' + n + '"');
+      },
+      projOptions: s.projects.map(function (p, i) { return { value: String(i), name: p.name }; }),
+      build: (function () {
+        var map = { projects: [1, 'task 3'], project: [1, 'task 3'], templates: [1, 'task 2 (giữ chỗ)'], builder: [0, 'task 5'], library: [0, 'task 6'], settings: [0, 'task 7, 12'], agents: [0, 'task 9–10'], improve: [0, 'task 11'] };
+        var m = map[s.screen] || [0, ''];
+        return m[0] ? { cls: 'tag tag-green', text: '✓ Đã có trong app · ' + m[1] } : { cls: 'tag tag-warn', text: 'Bản mẫu · sẽ làm ở ' + m[1] };
+      })(),
+      profileDirty: !!s.profileDirty, saveDisabled: !s.profileDirty,
+      markDirty: function () { if (!self.state.profileDirty) self.setState({ profileDirty: true }); },
+      saveProfile: function () { self.setState({ profileDirty: false }); self.flash('Đã lưu hồ sơ dự án'); },
+      profileFields: [
+        ['goal', 'Mục tiêu', 'Ví dụ: bản MVP dùng cá nhân, chạy local', ''],
+        ['stack', 'Công nghệ (tech stack)', 'Ví dụ: React 19 + TypeScript, Vite, Tailwind', 'React 19 + TypeScript, Vite, Tailwind CSS v4, Dexie'],
+        ['cmd', 'Lệnh chạy / kiểm tra', 'Ví dụ: npm run dev · npm test · npm run lint', 'npm run dev · npm test · npm run lint'],
+        ['struct', 'Cấu trúc thư mục', 'Thư mục quan trọng, thư mục không được sửa tay', ''],
+        ['conv', 'Quy ước viết code', 'Ví dụ: không dùng any, chữ giao diện tiếng Việt', ''],
+        ['no', 'Điều AI không được làm', 'Ví dụ: không commit API key, không tắt test', 'Không commit API key. Không thêm server hay analytics. Không tắt test.'],
+        ['notes', 'Ghi chú khác', '', '']
+      ].map(function (f) { return { id: 'pf-' + f[0], label: f[1], ph: f[2], val: proj.name === 'Prompt Studio' ? f[3] : '' }; }),
+      duplicateProject: function () {
+        var list = self.state.projects.slice();
+        var copy = Object.assign({}, proj, { name: proj.name + ' (bản sao)', updated: 'Vừa xong' });
+        list.unshift(copy);
+        self.setState({ projects: list, projectIdx: 0, profileDirty: false });
+        self.flash('Đã tạo bản sao "' + copy.name + '"');
+      },
+      showDel: !!s.showDel,
+      askDelete: function () { self.setState({ showDel: true }); },
+      cancelDelete: function () { self.setState({ showDel: false }); },
+      confirmDelete: function () {
+        var list = self.state.projects.filter(function (p, i) { return i !== self.state.projectIdx; });
+        self.setState({ projects: list, showDel: false, screen: 'projects', projectIdx: 0 });
+        self.flash('Đã xóa dự án "' + proj.name + '"');
+      },
+
+      projects: s.projects.map(function (p, i) {
+        return { name: p.name, desc: p.desc, updated: p.updated, agents: p.agents, prompts: p.prompts, phase: p.cur + ' · ' + PS_PHASES[p.cur].name, open: function () { self.setState({ screen: 'project', projectIdx: i, profileDirty: false }); } };
+      }),
+      project: { name: proj.name, desc: proj.desc },
+      phases: PS_PHASES.map(function (ph, i) {
+        var st = i < proj.cur ? ' phase-done' : (i === proj.cur ? ' phase-cur' : '');
+        return { no: (i < proj.cur ? '✓ ' : '') + i, name: ph.name, cls: 'phase' + st, go: function () {
+          var list = self.state.projects.slice();
+          var idx = self.state.projectIdx >= 0 ? self.state.projectIdx : 0;
+          list[idx] = Object.assign({}, list[idx], { cur: i, updated: 'Vừa xong' });
+          self.setState({ projects: list });
+          self.flash('Đã chuyển sang giai đoạn ' + i + ' · ' + ph.name);
+        } };
+      }),
+
+      groups: PS_GROUPS.map(function (g) {
+        return { name: g.name, types: g.types.map(function (c) { return { name: PS_TYPES[c].name, desc: PS_TYPES[c].desc, pick: function () { self.pickType(c); } }; }) };
+      }),
+      pickSuggested: function () { self.pickType('THIET_KE_UI'); },
+      backToPick: function () { self.setState({ typeCode: null }); },
+      type: t ? { name: t.name, desc: t.desc, taskPh: t.taskPh, group: psGroupOf(s.typeCode) } : { name: '', desc: '', taskPh: '', group: '' },
+      roles: PS_ROLES,
+      role: s.role,
+      setRole: function (e) { self.setState({ role: e.target.value }); },
+      task: s.task,
+      setTask: function (e) { self.setState({ task: e.target.value }); },
+      purpose: s.purpose,
+      setPurpose: function (e) { self.setState({ purpose: e.target.value }); },
+      fields: t ? t.fields.map(function (f, i) {
+        return { id: 'fld-' + i, label: f.label, ph: f.ph, val: s.fieldVals[i] || '', change: function (e) { var fvs = Object.assign({}, self.state.fieldVals); fvs[i] = e.target.value; self.setState({ fieldVals: fvs }); } };
+      }) : [],
+      chipGroups: chipGroups,
+      lang: s.lang,
+      setLang: function (e) { self.setState({ lang: e.target.value }); },
+      preview: preview,
+      previewStats: lines + ' dòng · khoảng ' + Math.round(preview.length / 3.5) + ' token',
+      polishField: function () { self.setState({ showDiff: true }); },
+      openDiff: function () { self.setState({ showDiff: true }); },
+      closeDiff: function () { self.setState({ showDiff: false }); },
+      acceptDiff: function () { self.setState({ showDiff: false }); self.flash('Đã áp dụng đề xuất'); },
+      diffBefore: s.task.trim() || 'khi bấm nút lưu ở trang hồ sơ dự án thì màn hình bị trắng, sửa giúp',
+      savePrompt: function () { self.flash('Đã lưu vào Thư viện › Của dự án'); },
+      copyPrompt: function () { self.copyText(preview); },
+
+      agentsModeCls: { wizard: 'seg' + (s.agentsMode === 'wizard' ? ' seg-on' : ''), free: 'seg' + (s.agentsMode === 'free' ? ' seg-on' : ''), edit: 'seg' + (s.agentsMode === 'edit' ? ' seg-on' : '') },
+      agentsIs: { wizard: s.agentsMode === 'wizard', free: s.agentsMode === 'free', edit: s.agentsMode === 'edit' },
+      modeWizard: function () { self.setState({ agentsMode: 'wizard' }); },
+      modeFree: function () { self.setState({ agentsMode: 'free' }); },
+      modeEdit: function () { self.setState({ agentsMode: 'edit' }); },
+      wiz: {
+        no: s.wizStep + 1, section: PS_SECTIONS[s.wizStep].name, q: wizItem.q,
+        barCls: 'fill w' + (s.wizStep + 1),
+        nextLabel: s.wizStep === 9 ? '✨ Tạo AGENTS.md bằng AI' : 'Tiếp',
+        opts: wizItem.opts.map(function (o, i) {
+          var key = s.wizStep + '-' + i;
+          var on = !!s.wizSel[key];
+          return { label: o, on: on, cls: 'opt' + (on ? ' opt-on' : ''), toggle: function () { var w = Object.assign({}, self.state.wizSel); w[key] = !w[key]; self.setState({ wizSel: w }); } };
+        })
+      },
+      wizPrev: function () { self.setState({ wizStep: Math.max(0, s.wizStep - 1) }); },
+      wizNext: function () {
+        if (s.wizStep === 9) { self.setState({ agentsMode: 'edit' }); self.flash('Mô phỏng: AI đã viết xong AGENTS.md'); }
+        else { self.setState({ wizStep: s.wizStep + 1 }); }
+      },
+      classifyFree: function () { self.setState({ agentsMode: 'edit' }); self.flash('Mô phỏng: đã xếp nội dung vào 10 mục'); },
+      sectionsOnCount: onCount + '/10 đang bật',
+      sections: PS_SECTIONS.map(function (x, i) {
+        var on = s.agentsOn[i];
+        return {
+          no: i + 1, name: x.name, star: x.star, optional: !x.star, on: on,
+          cls: 'sec' + (i === s.agentsSec ? ' sec-on' : '') + (on ? '' : ' sec-off'),
+          select: function () { self.setState({ agentsSec: i }); },
+          toggleLabel: (on ? 'Tắt mục ' : 'Bật mục ') + x.name,
+          toggle: function () { var a = self.state.agentsOn.slice(); a[i] = !a[i]; self.setState({ agentsOn: a }); }
+        };
+      }),
+      curSection: { no: s.agentsSec + 1, name: sec.name, hint: sec.hint, text: s.agentsText[s.agentsSec] },
+      setSectionText: function (e) { var a = self.state.agentsText.slice(); a[self.state.agentsSec] = e.target.value; self.setState({ agentsText: a }); },
+      checks: [
+        { icon: '✓', cls: 'ok', text: 'Có đủ 4 mục bắt buộc' },
+        { icon: '✓', cls: 'ok', text: 'Các lệnh nằm trong khối code' },
+        { icon: '✓', cls: 'ok', text: 'Độ dài khoảng 60 dòng (mục tiêu dưới 150)' },
+        { icon: '!', cls: 'warn', text: 'Mục 4: "Viết code sạch, cẩn thận" là câu mơ hồ. Nên đổi thành quy tắc kiểm tra được.' },
+        { icon: '!', cls: 'warn', text: 'Mục 8 "Bẫy thường gặp" đang trống' },
+        { icon: '✓', cls: 'ok', text: 'Không phát hiện chuỗi giống API key' }
+      ],
+      recheck: function () { self.flash('Mô phỏng: đã kiểm tra lại'); },
+      downloadMd: function () { self.flash('Mô phỏng: đã tải AGENTS.md'); },
+      downloadZip: function () { self.flash('Mô phỏng: đã tải gói .zip'); },
+      copyAgents: function () { self.copyText(self.state.agentsText.filter(function (x, i) { return self.state.agentsOn[i]; }).join('\n\n'), 'Đã copy AGENTS.md'); },
+
+      analyze: function () { self.flash('Mô phỏng: đã phân tích xong'); },
+      scores: [
+        { label: 'Rõ ràng', v: 5 }, { label: 'Cụ thể', v: 3 }, { label: 'Đầy đủ bối cảnh', v: 2 }, { label: 'Không mâu thuẫn', v: 9 }, { label: 'Độ dài hợp lý', v: 8 }
+      ].map(function (x) { return { label: x.label, v: x.v, cls: 'fill w' + x.v }; }),
+      issues: [
+        { lvl: 'Cao', cls: 'tag tag-red', text: 'Thiếu bối cảnh: AI không biết app dùng công nghệ gì, đăng nhập bằng gì.' },
+        { lvl: 'Cao', cls: 'tag tag-red', text: '"Bảo mật" quá chung chung. Cần nêu cụ thể: hash mật khẩu, giới hạn số lần thử...' },
+        { lvl: 'TB', cls: 'tag tag-warn', text: '"Viết code sạch, cẩn thận" không kiểm tra được.' },
+        { lvl: 'TB', cls: 'tag tag-warn', text: 'Chưa có tiêu chí hoàn thành (test, cách tự kiểm tra).' }
+      ],
+
+      libTabCls: { std: 'tab' + (s.libTab === 'std' ? ' tab-on' : ''), proj: 'tab' + (s.libTab === 'proj' ? ' tab-on' : ''), shared: 'tab' + (s.libTab === 'shared' ? ' tab-on' : '') },
+      tabStd: function () { self.setState({ libTab: 'std' }); },
+      tabProj: function () { self.setState({ libTab: 'proj' }); },
+      tabShared: function () { self.setState({ libTab: 'shared' }); },
+      libItems: libList,
+      showFill: s.showFill,
+      fill: {
+        title: s.fillTitle || '',
+        preview: fillPreview,
+        vars: (fp ? fp.vars : []).map(function (v) {
+          return { id: 'fv-' + v.key, label: v.label, ph: v.ph, val: fv[v.key] || '', change: function (e) { var n = Object.assign({}, self.state.fillVals); n[v.key] = e.target.value; self.setState({ fillVals: n }); } };
+        })
+      },
+      closeFill: function () { self.setState({ showFill: false }); },
+      copyFill: function () { self.setState({ showFill: false }); self.copyText(fillPreview); },
+
+      keyOk: s.keyOk,
+      checkClaude: function () { self.setState({ keyOk: Object.assign({}, self.state.keyOk, { claude: true }) }); },
+      checkGemini: function () { self.setState({ keyOk: Object.assign({}, self.state.keyOk, { gemini: true }) }); },
+      backup: function () { self.flash('Mô phỏng: đã tải file sao lưu'); },
+
+      showDiff: s.showDiff,
+      hasToast: !!s.toast,
+      toast: s.toast
+    };
+  }
+}
+</script>
+</body>
+</html>

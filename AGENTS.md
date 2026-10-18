@@ -130,6 +130,7 @@ export function ProjectCard({ project }: { project: Project }) {
 
 - Sau mỗi bước, AI **tự commit và push lên GitHub**. Máy đang dùng có thể là máy tạm, nên việc chưa push thì coi như chưa lưu.
 - Không dùng `git push --force` lên nhánh `main`.
+- **Xong mỗi task phải cập nhật bản mẫu giao diện (mockup)** cho khớp với app thật: sửa `docs/mockup/Main.dc.html`, đăng lại lên cùng link trong `docs/mockup/README.md`, cập nhật nhãn "Đã có trong app / Bản mẫu" của màn hình liên quan. Chủ dự án theo dõi tiến độ qua mockup.
 
 ## 9. Ranh giới
 

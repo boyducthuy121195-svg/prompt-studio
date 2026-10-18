@@ -16,6 +16,7 @@ Làm task [số] trong @PLAN.md.
 - Nêu kế hoạch ngắn (các bước, file sẽ tạo/sửa) và chờ tôi duyệt rồi mới làm.
 - Chỉ làm đúng phạm vi task. Thấy cần thêm thư viện hay đổi thiết kế thì hỏi tôi trước.
 - Xong thì chạy lint, typecheck, test. Tất cả phải pass.
+- Cập nhật bản mẫu giao diện (mockup) cho khớp với app thật (xem `docs/mockup/README.md`).
 - Commit, push, đánh dấu ✅ trong PLAN.md.
 - Báo cáo 3 phần bằng tiếng Việt dễ hiểu: (1) đã làm gì, (2) cách tôi tự kiểm tra, (3) task tiếp theo.
 ```
