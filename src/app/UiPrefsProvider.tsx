@@ -12,6 +12,8 @@ import { UiPrefsContext, type UiPrefsValue } from './ui-prefs-context'
 export function UiPrefsProvider({ children }: { children: ReactNode }) {
   const [prefs, setPrefs] = useState<UiPrefs>(loadUiPrefs)
   const loadedFromDb = useRef(false)
+  // Người dùng đã đổi trước khi IndexedDB tải xong: giữ lựa chọn của người dùng
+  const touched = useRef<UiPrefs | null>(null)
 
   useEffect(() => {
     let cancelled = false
@@ -20,7 +22,8 @@ export function UiPrefsProvider({ children }: { children: ReactNode }) {
       .then((saved) => {
         if (cancelled) return
         loadedFromDb.current = true
-        if (saved) setPrefs({ theme: saved.theme, sidebarCollapsed: saved.sidebarCollapsed })
+        if (touched.current) void updateSettings(touched.current)
+        else if (saved) setPrefs({ theme: saved.theme, sidebarCollapsed: saved.sidebarCollapsed })
         else void updateSettings(loadUiPrefs()) // lần đầu: chuyển lựa chọn cũ vào Settings
       })
       .catch(() => {
@@ -40,6 +43,7 @@ export function UiPrefsProvider({ children }: { children: ReactNode }) {
     setPrefs((p) => {
       const next = fn(p)
       if (loadedFromDb.current) void updateSettings(next).catch(() => undefined)
+      else touched.current = next
       return next
     })
 

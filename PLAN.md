@@ -34,7 +34,7 @@ Làm task [số] trong @PLAN.md.
 | 4 | Dữ liệu cố định: loại prompt, gợi ý, quy trình, khung AGENTS.md | A2, A4, A5 | 1 | ✅ |
 | 5 | Trình tạo prompt (chưa dùng AI) | A4, A6 | 3, 4 | ✅ |
 | 6 | Thư viện, ghim, điền nhanh biến | A5, A9 | 5 | ✅ |
-| 7 | Cài đặt và lớp AI (Claude + Gemini) | A7 | 3 | ⬜ |
+| 7 | Cài đặt và lớp AI (Claude + Gemini) | A7 | 3 | ✅ |
 | 8 | ✨ Trau chuốt và hộp so sánh trước/sau | A3, A4 | 5, 7 | ⬜ |
 | 9 | AGENTS.md: chỉnh sửa theo mục, kiểm tra, xuất file | A2, A6 | 4, 3 | ⬜ |
 | 10 | AGENTS.md: Hỏi đáp, Nhập tự do, ✨ theo mục | A2 | 8, 9 | ⬜ |
@@ -143,7 +143,8 @@ Task này không có giao diện mới. AI báo kết quả test.
 - Bấm trên thanh bên, điền biến rồi Copy.
 - Tải lại trang, prompt ghim vẫn còn.
 
-### Task 7 – Cài đặt và lớp AI ⬜
+### Task 7 – Cài đặt và lớp AI ✅
+> Hoàn thành 18/10/2026. Chưa thử với key thật (môi trường làm việc không có key) – adapter được kiểm tra bằng SDK giả. Chủ dự án cần bấm "Kiểm tra" với key thật trên máy của mình.
 **Tài liệu:** `ARCHITECTURE.md` mục 6.
 
 **Làm gì:**

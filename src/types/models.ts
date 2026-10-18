@@ -60,7 +60,7 @@ export interface Revision {
   createdAt: number
 }
 
-/** Cài đặt: chỉ có một bản ghi, id = 'app'. Các trường AI/sao lưu được thêm ở task 7 và 12. */
+/** Cài đặt: chỉ có một bản ghi, id = 'app'. Thêm trường mới thì thêm mặc định trong DEFAULT_SETTINGS (không cần migration vì không đánh index). */
 export interface Settings {
   id: 'app'
   theme: 'light' | 'dark'
@@ -68,4 +68,16 @@ export interface Settings {
   /** null = "Không chọn dự án (dùng chung)" */
   currentProjectId: string | null
   pins: string[]
+  // ── AI (task 7) – key chỉ lưu trong trình duyệt này
+  claudeKey: string
+  geminiKey: string
+  defaultProvider: 'claude' | 'gemini'
+  claudeModel: string
+  geminiModel: string
+  /** Danh sách model Gemini lấy về khi bấm "Kiểm tra key" */
+  geminiModels: string[]
+  /** Ngôn ngữ mặc định của prompt tạo ra */
+  language: 'vi-en' | 'vi' | 'en'
+  // ── Sao lưu (task 12)
+  lastBackupAt: number | null
 }

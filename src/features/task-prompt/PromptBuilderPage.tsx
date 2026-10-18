@@ -6,7 +6,7 @@ import { CheckOption } from '@/components/CheckOption'
 import { Button, Kbd, PageHeader, Panel, PanelHeader, Tag } from '@/components/Primitives'
 import { useToast } from '@/components/toast-context'
 import { copyText } from '@/lib/clipboard'
-import { useCurrentProject } from '@/lib/db/hooks'
+import { useCurrentProject, useSettings } from '@/lib/db/hooks'
 import { vi } from '@/lib/i18n/vi'
 import {
   buildPrompt,
@@ -55,7 +55,20 @@ export function PromptBuilderPage() {
   }
   const state = location.state as BuilderLocationState | null
   const initial = state?.form?.typeCode === typeCode ? state.form : undefined
-  return <PromptBuilder key={`${typeCode}-${location.key}`} typeCode={typeCode} initial={initial} />
+  return (
+    <PromptBuilderWithSettings
+      key={`${typeCode}-${location.key}`}
+      typeCode={typeCode}
+      initial={initial}
+    />
+  )
+}
+
+function PromptBuilderWithSettings(props: { typeCode: PromptTypeCode; initial?: PromptForm }) {
+  const settings = useSettings()
+  if (settings.status === 'loading') return <p className="text-muted">{vi.common.loading}</p>
+  const language = settings.status === 'ready' ? settings.data.language : DEFAULT_LANGUAGE
+  return <PromptBuilder {...props} language={language} />
 }
 
 export function PromptBuilder({

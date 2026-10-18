@@ -1,4 +1,5 @@
 import type { Settings } from '@/types/models'
+import { DEFAULT_CLAUDE_MODEL } from '@/lib/ai/models'
 import { db } from './schema'
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -7,6 +8,14 @@ export const DEFAULT_SETTINGS: Settings = {
   sidebarCollapsed: false,
   currentProjectId: null,
   pins: [],
+  claudeKey: '',
+  geminiKey: '',
+  defaultProvider: 'claude',
+  claudeModel: DEFAULT_CLAUDE_MODEL,
+  geminiModel: '',
+  geminiModels: [],
+  language: 'vi-en',
+  lastBackupAt: null,
 }
 
 export async function getSettings(): Promise<Settings> {

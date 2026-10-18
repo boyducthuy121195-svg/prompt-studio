@@ -1,6 +1,8 @@
 import { Moon, Sun } from 'lucide-react'
 import { Button, Kbd, Tag } from '@/components/Primitives'
 import { useToast } from '@/components/toast-context'
+import { aiLabel } from '@/lib/ai'
+import { useSettings } from '@/lib/db/hooks'
 import { vi } from '@/lib/i18n/vi'
 import { ProjectSelect } from './ProjectSelect'
 import { useUiPrefs } from './ui-prefs-context'
@@ -8,13 +10,15 @@ import { useUiPrefs } from './ui-prefs-context'
 export function Header() {
   const { theme, toggleTheme } = useUiPrefs()
   const toast = useToast()
+  const settings = useSettings()
+  const ai = settings.status === 'ready' ? aiLabel(settings.data) : null
   const isDark = theme === 'dark'
   const themeLabel = isDark ? vi.header.toLight : vi.header.toDark
 
   return (
     <header className="flex min-h-[52px] flex-wrap items-center gap-2.5 border-b border-border bg-surface px-5 py-2">
       <ProjectSelect />
-      <Tag>{vi.header.aiNotSet}</Tag>
+      <Tag tone={ai ? 'accent' : 'default'}>{ai ? vi.header.aiLabel(ai) : vi.header.aiNotSet}</Tag>
       <div className="flex-[1_1_40px]" />
       <div className="relative flex-[0_1_300px] max-sm:flex-[1_1_100%]">
         <label htmlFor="search" className="sr-only">

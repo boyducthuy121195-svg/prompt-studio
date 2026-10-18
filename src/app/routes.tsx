@@ -6,6 +6,7 @@ import { ProjectDetailPage } from '@/features/projects/ProjectDetailPage'
 import { ProjectsPage } from '@/features/projects/ProjectsPage'
 import { PromptBuilderPage } from '@/features/task-prompt/PromptBuilderPage'
 import { PromptPickPage } from '@/features/task-prompt/PromptPickPage'
+import { SettingsPage } from '@/features/settings/SettingsPage'
 import { TemplatesPage } from '@/features/templates/TemplatesPage'
 import { vi } from '@/lib/i18n/vi'
 import { AppLayout } from './AppLayout'
@@ -27,7 +28,7 @@ export const routes: RouteObject[] = [
       { path: 'improve', element: <PlaceholderPage {...p.improve} /> },
       { path: 'library', element: <LibraryPage /> },
       { path: 'templates', element: <TemplatesPage /> },
-      { path: 'settings', element: <PlaceholderPage {...p.settings} /> },
+      { path: 'settings', element: <SettingsPage /> },
       { path: '*', element: <NotFoundPage /> },
     ],
   },
