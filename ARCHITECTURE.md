@@ -29,7 +29,8 @@ flowchart LR
 
 | Phần | Công nghệ | Phiên bản | Vì sao chọn |
 |---|---|---|---|
-| Ngôn ngữ | TypeScript (strict) | 7.0 | Bắt lỗi trước khi chạy. AI viết TypeScript rất tốt |
+| Ngôn ngữ | TypeScript (strict) | 6.0 | Bắt lỗi trước khi chạy. AI viết TypeScript rất tốt. Dùng 6.0 theo mẫu Vite vì các công cụ đi kèm chưa hỗ trợ 7.0 |
+| Kiểm tra cách viết code | oxlint + Prettier | 1.81 / 3.9 | Mặc định của mẫu Vite mới, chạy rất nhanh |
 | Giao diện | React | 19.3 | Phổ biến nhất, nhiều tài liệu, dễ bảo trì |
 | Công cụ build | Vite | 8.3 | Khởi động nhanh, cấu hình đơn giản |
 | Định tuyến trang | React Router | 8.4 | Chuyển giữa các màn hình, nút Back hoạt động đúng |

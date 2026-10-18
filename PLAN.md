@@ -27,7 +27,7 @@ Làm task [số] trong @PLAN.md.
 | # | Task | Tính năng PRD | Phụ thuộc | Trạng thái |
 |---|---|---|---|---|
 | 0 | Tài liệu dự án (PRD, AGENTS, thiết kế, kiến trúc, kế hoạch) | — | — | ✅ |
-| 1 | Dựng khung dự án | — | 0 | ⬜ |
+| 1 | Dựng khung dự án | — | 0 | ✅ |
 | 2 | Khung giao diện: thanh bên, header, sáng/tối, các trang trống | A9, M11 | 1 | ⬜ |
 | 3 | Lưu trữ và quản lý dự án | A1 | 2 | ⬜ |
 | 4 | Dữ liệu cố định: loại prompt, gợi ý, quy trình, khung AGENTS.md | A2, A4, A5 | 1 | ⬜ |
@@ -48,10 +48,11 @@ Thứ tự trên đã tính sẵn: có thể làm lần lượt từ trên xuố
 
 ## Chi tiết từng task
 
-### Task 1 – Dựng khung dự án ⬜
+### Task 1 – Dựng khung dự án ✅
+> Hoàn thành 18/10/2026. Ảnh chụp: `docs/screenshots/task-01.png`.
 **Làm gì:**
 - Tạo dự án Vite + React + TypeScript (strict). Cài Tailwind CSS v4, shadcn/ui, lucide-react.
-- Cài ESLint, Prettier, Vitest + Testing Library, Playwright.
+- Cài oxlint (mặc định của Vite, thay cho ESLint), Prettier, Vitest + Testing Library, Playwright.
 - Tạo đủ các lệnh trong mục 3 của `AGENTS.md`.
 - Tạo cấu trúc thư mục theo `ARCHITECTURE.md` mục 3.
 - Trang chủ tạm hiện chữ "Prompt Studio".
@@ -94,7 +95,7 @@ Thứ tự trên đã tính sẵn: có thể làm lần lượt từ trên xuố
 **Tài liệu:** `docs/01`, `docs/02`, `docs/03`, `docs/04`.
 
 **Làm gì:**
-- Chuyển nội dung tài liệu thành dữ liệu trong `src/lib/prompts/`: `prompt-types.ts` (18 loại), `suggestions.ts` (RB/CL/DR/TC + bảng tích sẵn), `standard-process.ts` (11 giai đoạn), `agents-skeleton.ts` (10 mục + câu hỏi Wizard), `glossary.ts`.
+- Chuyển nội dung tài liệu thành dữ liệu trong `src/lib/prompts/`: `prompt-types.ts` (18 loại), `suggestions.ts` (RB/CL/DR/TC + bảng tích sẵn), `standard-process.ts` (11 giai đoạn **và** phần "Phát triển thêm cho dự án đã có": 3 lối đi Nhỏ/Vừa/Lớn + prompt Nghiên cứu kỹ thuật), `agents-skeleton.ts` (10 mục + câu hỏi Wizard), `glossary.ts`.
 - Có kiểu TypeScript chặt cho tất cả dữ liệu.
 
 **Tự kiểm tra (bằng test):**

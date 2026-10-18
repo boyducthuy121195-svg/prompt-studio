@@ -32,11 +32,37 @@ Chọn **một** trong ba cách dưới đây.
 2. Mở Terminal, gõ: `git clone https://github.com/boyducthuy121195-svg/prompt-studio.git`
 3. Gõ `cd prompt-studio` rồi `claude`, sau đó yêu cầu Claude như ở Cách 1.
 
-### Chạy app trên máy (khi đã có code)
+---
+
+## Chạy app trên máy của bạn
+
+### Lần đầu trên mỗi máy (làm một lần)
+1. **Cài Node.js bản LTS** (bản 22 trở lên) từ https://nodejs.org. Bấm nút tải bản "LTS", sau đó cài như phần mềm bình thường (Next → Next → Finish).
+2. **Lấy code về máy**, dùng một trong ba cách ở phần trên.
+3. **Mở cửa sổ lệnh tại thư mục `prompt-studio`:**
+   - **Windows:** mở thư mục `prompt-studio` trong File Explorer, bấm vào thanh địa chỉ, gõ `cmd` rồi Enter.
+   - **macOS:** chuột phải vào thư mục `prompt-studio` → **Dịch vụ → Terminal mới tại thư mục**.
+4. Gõ lệnh dưới đây rồi Enter, đợi khoảng 1–2 phút:
+   ```bash
+   npm install
+   ```
+
+### Mỗi lần dùng app
+1. Mở cửa sổ lệnh tại thư mục `prompt-studio` như bước 3 ở trên.
+2. Gõ `npm run dev` rồi Enter.
+3. Mở trình duyệt, vào **http://localhost:5173**.
+4. Dùng xong thì quay lại cửa sổ lệnh, bấm `Ctrl+C` để tắt app.
+
+### Các lệnh khác (dành cho AI lập trình)
 ```bash
-npm install     # chỉ cần chạy lần đầu trên mỗi máy
-npm run dev     # mở http://localhost:5173 trên trình duyệt
+npm run build        # đóng gói bản chính thức
+npm run lint         # kiểm tra cách viết code (oxlint)
+npm run typecheck    # kiểm tra kiểu dữ liệu
+npm test             # kiểm thử đơn vị (Vitest)
+npm run test:e2e     # kiểm thử luồng chính (Playwright)
+npm run format       # tự định dạng code (Prettier)
 ```
+Trước lần đầu chạy `npm run test:e2e` trên một máy, cần chạy thêm `npx playwright install chromium`.
 
 ### ⚠️ Dữ liệu trong app KHÔNG nằm trên GitHub
 Dự án, prompt và API key bạn tạo **trong app** được lưu trong trình duyệt của từng máy.

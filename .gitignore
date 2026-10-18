@@ -1,7 +1,29 @@
+# Thư viện và bản build
 node_modules/
 dist/
+dist-ssr/
+
+# Bí mật – không bao giờ đưa lên GitHub
 .env
 .env.*
 *.local
+
+# File sao lưu của app (có thể chứa API key)
 *backup*.json
+
+# Kết quả kiểm thử
+test-results/
+playwright-report/
+coverage/
+
+# Nhật ký
+logs
+*.log
+
+# Trình soạn thảo, hệ điều hành
+.vscode/*
+!.vscode/extensions.json
+.idea
 .DS_Store
+*.suo
+*.sw?

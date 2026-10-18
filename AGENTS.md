@@ -29,6 +29,8 @@ Toàn bộ dữ liệu lưu trong IndexedDB của trình duyệt.
 - Kiến trúc chi tiết: `ARCHITECTURE.md`
 - Kiểm thử: **Vitest** + **Testing Library**. Kiểm thử luồng chính bằng **Playwright**
 - Quản lý gói: **npm**
+- Kiểm tra cách viết code: **oxlint** (mặc định của Vite) + **Prettier**. Dùng alias `@/` cho `src/`
+- Playwright: trên máy mới cần chạy `npx playwright install chromium` một lần. Môi trường có Chromium riêng thì đặt biến `PLAYWRIGHT_CHROMIUM_PATH`
 
 - Nơi lưu code chính: **GitHub** (kho `prompt-studio`). Chủ dự án làm việc trên nhiều máy và lấy code về bằng `git clone`. Mọi thứ cần để chạy lại dự án phải nằm trong kho này.
 - **Chưa làm** chế độ offline/PWA.
@@ -44,7 +46,8 @@ Toàn bộ dữ liệu lưu trong IndexedDB của trình duyệt.
 npm install          # cài thư viện
 npm run dev          # chạy thử trên máy (http://localhost:5173)
 npm run build        # đóng gói bản chính thức
-npm run lint         # kiểm tra lỗi cách viết code
+npm run lint         # kiểm tra lỗi cách viết code (oxlint)
+npm run format       # tự định dạng code (Prettier)
 npm run typecheck    # kiểm tra lỗi kiểu dữ liệu (tsc --noEmit)
 npm test             # chạy kiểm thử đơn vị (vitest run)
 npm run test:e2e     # chạy kiểm thử luồng chính (playwright test)

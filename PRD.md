@@ -73,6 +73,7 @@ và lấy lại được prompt hay dùng chỉ bằng một lần copy.
 - **Có sẵn bộ sưu tập "Quy trình chuẩn xây dựng app"** (chỉ đọc), gồm 11 giai đoạn và prompt mẫu cho từng giai đoạn
   (chi tiết: `docs/01-QUY-TRINH-XAY-DUNG-APP.md`). Có thể nhân bản về dự án của mình.
   Mỗi prompt mẫu mở được ngay trong Trình tạo prompt dưới dạng bảng nhập.
+- Bộ sưu tập này có thêm phần **"Phát triển thêm cho dự án đã có"**: chọn lối đi theo độ lớn thay đổi (Nhỏ / Vừa / Lớn), kèm prompt **Nghiên cứu kỹ thuật (spike)** dành cho module lớn.
 - Trong mỗi dự án có **thanh tiến độ theo giai đoạn**, cho biết dự án đang ở giai đoạn nào và đã có tài liệu nào (PRD, PLAN...).
 
 **A6. Trình soạn thảo và xuất file**
