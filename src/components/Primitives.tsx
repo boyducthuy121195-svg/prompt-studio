@@ -13,6 +13,7 @@ const buttonVariants = cva(
         ai: 'border-ai-line bg-ai-bg text-ai-ink hover:brightness-95',
         ghost: 'border-transparent bg-transparent text-ink hover:bg-hover',
         danger: 'border-border bg-surface text-red-ink hover:bg-hover',
+        dangerSolid: 'border-red-ink bg-red-ink text-surface hover:brightness-110',
       },
       size: {
         default: 'h-9 px-3 text-[13px]',

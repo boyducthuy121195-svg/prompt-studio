@@ -1,6 +1,6 @@
 /**
- * Tùy chọn giao diện (sáng/tối, thu gọn thanh bên) lưu tạm trong localStorage.
- * Task 3 sẽ chuyển sang bảng Settings trong IndexedDB.
+ * Bản sao tùy chọn giao diện (sáng/tối, thu gọn thanh bên) trong localStorage.
+ * Nơi lưu chính là bảng Settings (IndexedDB) – xem UiPrefsProvider.
  */
 export type Theme = 'light' | 'dark'
 

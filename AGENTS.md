@@ -25,7 +25,7 @@ Toàn bộ dữ liệu lưu trong IndexedDB của trình duyệt.
 - **React Router** để chuyển trang
 - Soạn và xem trước Markdown: **CodeMirror 6** + **react-markdown**
 - AI: SDK chính thức `@anthropic-ai/sdk` và `@google/genai`
-- Đã được duyệt thêm: **Zod** (kiểm tra dữ liệu), **diff** (so sánh trước/sau), **fflate** (nén .zip), **lucide-react** (biểu tượng)
+- Đã được duyệt thêm: **Zod** (kiểm tra dữ liệu), **diff** (so sánh trước/sau), **fflate** (nén .zip), **lucide-react** (biểu tượng), **fake-indexeddb** (chỉ dùng khi test)
 - Kiến trúc chi tiết: `ARCHITECTURE.md`
 - Kiểm thử: **Vitest** + **Testing Library**. Kiểm thử luồng chính bằng **Playwright**
 - Quản lý gói: **npm**

@@ -2,6 +2,7 @@ import { Moon, Sun } from 'lucide-react'
 import { Button, Kbd, Tag } from '@/components/Primitives'
 import { useToast } from '@/components/toast-context'
 import { vi } from '@/lib/i18n/vi'
+import { ProjectSelect } from './ProjectSelect'
 import { useUiPrefs } from './ui-prefs-context'
 
 export function Header() {
@@ -12,20 +13,7 @@ export function Header() {
 
   return (
     <header className="flex min-h-[52px] flex-wrap items-center gap-2.5 border-b border-border bg-surface px-5 py-2">
-      <label htmlFor="project-select" className="text-xs text-muted">
-        {vi.header.project}
-      </label>
-      {/* Task 3 sẽ nạp danh sách dự án thật */}
-      <select
-        id="project-select"
-        className="h-9 min-w-[200px] max-w-full rounded-md border border-border bg-surface px-2.5 text-ink"
-        defaultValue="shared"
-      >
-        <option value="none" disabled>
-          {vi.header.noProjectYet}
-        </option>
-        <option value="shared">{vi.header.sharedScope}</option>
-      </select>
+      <ProjectSelect />
       <Tag>{vi.header.aiNotSet}</Tag>
       <div className="flex-[1_1_40px]" />
       <div className="relative flex-[0_1_300px] max-sm:flex-[1_1_100%]">

@@ -29,7 +29,7 @@ Làm task [số] trong @PLAN.md.
 | 0 | Tài liệu dự án (PRD, AGENTS, thiết kế, kiến trúc, kế hoạch) | — | — | ✅ |
 | 1 | Dựng khung dự án | — | 0 | ✅ |
 | 2 | Khung giao diện: thanh bên, header, sáng/tối, các trang trống | A9, M11 | 1 | ✅ |
-| 3 | Lưu trữ và quản lý dự án | A1 | 2 | ⬜ |
+| 3 | Lưu trữ và quản lý dự án | A1 | 2 | ✅ |
 | 4 | Dữ liệu cố định: loại prompt, gợi ý, quy trình, khung AGENTS.md | A2, A4, A5 | 1 | ⬜ |
 | 5 | Trình tạo prompt (chưa dùng AI) | A4, A6 | 3, 4 | ⬜ |
 | 6 | Thư viện, ghim, điền nhanh biến | A5, A9 | 5 | ⬜ |
@@ -81,7 +81,8 @@ Thứ tự trên đã tính sẵn: có thể làm lần lượt từ trên xuố
 - Đổi sáng/tối, tải lại trang vẫn giữ đúng lựa chọn.
 - Thu nhỏ cửa sổ còn khoảng 360px, giao diện không bị vỡ.
 
-### Task 3 – Lưu trữ và quản lý dự án ⬜
+### Task 3 – Lưu trữ và quản lý dự án ✅
+> Hoàn thành 18/10/2026. Ảnh chụp: `docs/screenshots/task-03-*.png`. Thêm thư viện: dexie, @radix-ui/react-dialog (nền của shadcn/ui), fake-indexeddb (chỉ dùng khi test – đã được duyệt). Sáng/tối và thanh bên nay lưu trong bảng Settings, localStorage chỉ là bản sao để không bị nháy màu khi mở app.
 **Làm gì:**
 - Tạo schema Dexie phiên bản 1 (`ARCHITECTURE.md` mục 4) và các hàm đọc/ghi, kèm test.
 - **M1:** bảng dự án (tên, mô tả, giai đoạn, AGENTS.md, số prompt, sửa lần cuối), nút "Dự án mới", trạng thái trống.
