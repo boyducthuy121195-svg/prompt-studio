@@ -7,7 +7,8 @@ Web app cá nhân giúp tạo, cải thiện và quản lý prompt và file quy 
 | `PRD.md` | Yêu cầu sản phẩm: app làm gì |
 | `AGENTS.md` | Quy tắc cho AI lập trình làm việc trên dự án này (`CLAUDE.md` trỏ về file này) |
 | `docs/` | Tài liệu thiết kế chi tiết: quy trình, trình tạo prompt, khung AGENTS.md, thư viện gợi ý |
-| `PLAN.md` | Kế hoạch thực hiện từng bước (sẽ có ở Bước 5) |
+| `ARCHITECTURE.md` | Kiến trúc và công nghệ |
+| `PLAN.md` | Kế hoạch thực hiện từng bước (14 task) |
 
 ---
 
