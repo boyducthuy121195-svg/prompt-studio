@@ -23,7 +23,8 @@ và lấy lại được prompt hay dùng chỉ bằng một lần copy.
 
 | Hạng mục | Quyết định |
 |---|---|
-| Nơi chạy | Web app có link, mở bằng trình duyệt |
+| Nơi chạy | Chạy trên máy cá nhân, mở bằng trình duyệt tại link local `http://localhost:5173` (không đưa lên mạng) |
+| Lưu code | GitHub (kho riêng tư `prompt-studio`), clone về máy nào cũng dùng được |
 | Lưu dữ liệu | Ngay trong trình duyệt (IndexedDB), có sao lưu/khôi phục bằng file |
 | AI | Claude (Anthropic API) và Gemini (Google AI API), người dùng tự nhập API key |
 | API key | Chỉ lưu trong trình duyệt của người dùng, không gửi đi đâu ngoài Anthropic/Google |

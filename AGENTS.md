@@ -31,7 +31,7 @@ Toàn bộ dữ liệu lưu trong IndexedDB của trình duyệt.
 - Nơi lưu code chính: **GitHub** (kho `prompt-studio`). Chủ dự án làm việc trên nhiều máy và lấy code về bằng `git clone`. Mọi thứ cần để chạy lại dự án phải nằm trong kho này.
 - **Chưa làm** chế độ offline/PWA.
 
-❓ Có cần link online để mở app ở mọi nơi không? Nếu có thì dùng **Vercel** (khuyến nghị) hay **GitHub Pages**? Hiện tại app chạy trên máy bằng `npm run dev`.
+- App **chỉ chạy trên máy** (link local `http://localhost:5173`), không đưa lên hosting online. Không thêm cấu hình deploy.
 
 ✍️ Bổ sung của bạn:
 -
