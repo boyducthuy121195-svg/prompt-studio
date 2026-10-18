@@ -16,6 +16,7 @@ test('tạo 2 dự án, sửa hồ sơ, tải lại trang dữ liệu vẫn còn
   await page.getByRole('button', { name: /Lưu hồ sơ/ }).click()
   await expect(page.getByRole('status')).toHaveText('Đã lưu hồ sơ dự án')
   await page.getByRole('button', { name: /Kế hoạch/ }).click()
+  await expect(page.getByRole('status')).toHaveText('Đã chuyển sang giai đoạn 5 · Kế hoạch')
 
   await createProject(page, 'Web bán hàng')
 
