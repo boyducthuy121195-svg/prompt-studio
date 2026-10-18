@@ -25,6 +25,8 @@ Toàn bộ dữ liệu lưu trong IndexedDB của trình duyệt.
 - **React Router** để chuyển trang
 - Soạn và xem trước Markdown: **CodeMirror 6** + **react-markdown**
 - AI: SDK chính thức `@anthropic-ai/sdk` và `@google/genai`
+- Đã được duyệt thêm: **Zod** (kiểm tra dữ liệu), **diff** (so sánh trước/sau), **fflate** (nén .zip), **lucide-react** (biểu tượng)
+- Kiến trúc chi tiết: `ARCHITECTURE.md`
 - Kiểm thử: **Vitest** + **Testing Library**. Kiểm thử luồng chính bằng **Playwright**
 - Quản lý gói: **npm**
 
@@ -97,7 +99,9 @@ export function ProjectCard({ project }: { project: Project }) {
 
 - Tất cả lời gọi AI đi qua interface `AIProvider` trong `src/lib/ai/`. Mỗi nhà cung cấp viết một adapter riêng: `claude.ts`, `gemini.ts`.
 - Tên model **không được viết cứng** trong code. Danh sách model mặc định lưu ở `src/lib/ai/models.ts`, người dùng có thể đổi trong Cài đặt.
-  - Mặc định cho Claude: `claude-sonnet-5-5`. Gemini: lấy model mới nhất từ tài liệu chính thức tại thời điểm làm.
+  - Mặc định cho Claude: `claude-opus-5-5`. Danh sách chọn thêm: `claude-sonnet-5-5`, `claude-haiku-5-5`.
+  - Mặc định cho Gemini: **Gemini 3.8 Flash**, theo lựa chọn của chủ dự án. Tên model chính xác phải lấy từ danh sách model mà Google trả về khi kiểm tra key. Nếu danh sách không có model này thì chọn bản Flash mới nhất và báo người dùng.
+  - Sao lưu mặc định **không kèm API key**. Có ô tích "Kèm API key" kèm cảnh báo.
 - Gọi Claude từ trình duyệt phải bật `dangerouslyAllowBrowser: true`. Việc này chấp nhận được vì đây là app cá nhân và key do người dùng tự nhập.
 - Ưu tiên **streaming**: chữ hiện ra dần, kèm nút "Dừng".
 - Các meta-prompt nằm trong `src/lib/prompts/`. Mỗi prompt là một file riêng và có test kiểm tra rằng nó được ghép đúng với dữ liệu dự án.
