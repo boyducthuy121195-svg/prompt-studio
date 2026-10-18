@@ -55,7 +55,7 @@ Trước khi báo "xong", **phải chạy** `npm run lint && npm run typecheck &
 ```
 src/
   app/            # khung app, router, layout
-  features/       # mỗi tính năng một thư mục: projects/, wizard/, improve/, task-prompt/, library/, settings/, backup/
+  features/       # mỗi tính năng một thư mục: projects/, wizard/, improve/, task-prompt/, library/, settings/, backup/, templates/ (giữ chỗ cho module Word/Excel)
   components/     # thành phần giao diện dùng chung
   lib/
     ai/           # gọi Claude/Gemini, tất cả đi qua một interface chung (AIProvider)
