@@ -42,9 +42,13 @@ export function UsePromptProvider({ children }: { children: ReactNode }) {
     toast(ok ? t.copiedNamed(item.title) : vi.builder.copyFailed)
     if (ok) setItem(null)
   }
-  useHotkey('mod+enter', () => {
-    if (item) void copy()
-  })
+  useHotkey(
+    'mod+enter',
+    () => {
+      if (item) void copy()
+    },
+    { inDialog: true },
+  )
 
   return (
     <UsePromptContext value={use}>

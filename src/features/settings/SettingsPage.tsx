@@ -138,6 +138,7 @@ function SettingsForm({ s, backupSlot }: { s: Settings; backupSlot?: ReactNode }
                   ))}
                 </div>
               </div>
+              <p className="text-xs text-muted">{t.shortcutsNote}</p>
               <div className="overflow-x-auto rounded-md border border-border">
                 <table className="w-full border-collapse">
                   <caption className="sr-only">{t.shortcutsTitle}</caption>

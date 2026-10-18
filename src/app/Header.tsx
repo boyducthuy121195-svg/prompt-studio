@@ -1,15 +1,13 @@
-import { Moon, Sun } from 'lucide-react'
+import { Moon, Search, Sun } from 'lucide-react'
 import { Button, Kbd, Tag } from '@/components/Primitives'
-import { useToast } from '@/components/toast-context'
 import { aiLabel } from '@/lib/ai'
 import { useSettings } from '@/lib/db/hooks'
 import { vi } from '@/lib/i18n/vi'
 import { ProjectSelect } from './ProjectSelect'
 import { useUiPrefs } from './ui-prefs-context'
 
-export function Header() {
+export function Header({ onSearch }: { onSearch: () => void }) {
   const { theme, toggleTheme } = useUiPrefs()
-  const toast = useToast()
   const settings = useSettings()
   const ai = settings.status === 'ready' ? aiLabel(settings.data) : null
   const isDark = theme === 'dark'
@@ -20,19 +18,16 @@ export function Header() {
       <ProjectSelect />
       <Tag tone={ai ? 'accent' : 'default'}>{ai ? vi.header.aiLabel(ai) : vi.header.aiNotSet}</Tag>
       <div className="flex-[1_1_40px]" />
-      <div className="relative flex-[0_1_300px] max-sm:flex-[1_1_100%]">
-        <label htmlFor="search" className="sr-only">
-          {vi.header.search}
-        </label>
-        <input
-          id="search"
-          readOnly
-          onFocus={() => toast(vi.header.searchSoon)}
-          placeholder={vi.header.searchPlaceholder}
-          className="h-9 w-full rounded-md border border-border bg-surface pl-2.5 pr-16 text-ink placeholder:text-muted"
-        />
-        <Kbd className="absolute right-2 top-2.5">Ctrl+K</Kbd>
-      </div>
+      <button
+        type="button"
+        onClick={onSearch}
+        aria-label={vi.header.openSearch}
+        className="flex h-9 flex-[0_1_300px] cursor-pointer items-center gap-2 rounded-md border border-border bg-surface px-2.5 text-left text-muted hover:border-accent-line max-sm:flex-[1_1_100%]"
+      >
+        <Search className="size-4 shrink-0" aria-hidden="true" />
+        <span className="min-w-0 flex-1 truncate">{vi.header.searchPlaceholder}</span>
+        <Kbd>Ctrl+K</Kbd>
+      </button>
       <Button variant="ghost" onClick={toggleTheme} aria-label={themeLabel} title={themeLabel}>
         {isDark ? (
           <Sun className="size-[17px]" aria-hidden="true" />

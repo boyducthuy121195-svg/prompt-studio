@@ -41,7 +41,7 @@ Làm task [số] trong @PLAN.md.
 | 11 | Màn hình Cải thiện | A3 | 8 | ✅ |
 | 12 | Sao lưu và khôi phục | A8 | 3, 7 | ✅ |
 | 12A | ✨ AI theo ngữ cảnh: gợi ý bổ sung, Cải thiện 2 bước | A2, A3, A4 | 8, 10, 11 | ✅ |
-| 13 | Tìm nhanh (Ctrl+K) và hoàn thiện phím tắt | A9 | 6, 9 | ⬜ |
+| 13 | Tìm nhanh (Ctrl+K) và hoàn thiện phím tắt | A9 | 6, 9 | ✅ |
 | 14 | Hoàn thiện và kiểm thử toàn app | Tất cả | 1–13 | ⬜ |
 
 Thứ tự trên đã tính sẵn: có thể làm lần lượt từ trên xuống. Các task 1–6 **chưa cần API key**.
@@ -240,7 +240,8 @@ Task này không có giao diện mới. AI báo kết quả test.
 - Chọn dự án có hồ sơ, mở "Sửa lỗi", bấm ✨ ở ô Nhiệm vụ: gợi ý nhắc tới đúng công nghệ của dự án.
 - Ở Cải thiện, bỏ tích bớt vấn đề rồi viết lại: AI chỉ sửa các vấn đề còn tích.
 
-### Task 13 – Tìm nhanh và hoàn thiện phím tắt ⬜
+### Task 13 – Tìm nhanh và hoàn thiện phím tắt ✅
+> Hoàn thành 18/10/2026. Tìm được khi gõ không dấu. Enter trên một prompt: có biến thì mở Điền nhanh, không có biến thì copy ngay. Sửa lỗi: khi đang mở hộp thoại, Ctrl+Enter / Ctrl+S của trang bên dưới không chạy nữa.
 **Làm gì:**
 - `Ctrl+K` mở hộp tìm nhanh: tìm dự án, prompt, loại prompt. Bấm Enter để mở.
 - Ô tìm kiếm trên header cũng mở hộp này.

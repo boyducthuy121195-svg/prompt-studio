@@ -174,11 +174,9 @@ mark{background:#FFE3A1;color:#3A2600;padding:0 2px;border-radius:3px}
     <span class="tag tag-acc">AI: Claude · opus-5-5</span>
     <span class="{{build.cls}}" title="Màn hình này đã có trong app thật chưa">{{build.text}}</span>
     <div style="flex: 1 1 120px"></div>
-    <div style="position: relative; flex: 0 1 300px">
-      <label for="search" class="sr">Tìm kiếm</label>
-      <input id="search" class="in" style="padding-right: 64px" placeholder="Tìm dự án, prompt...">
-      <span style="position: absolute; right: 8px; top: 8px"><kbd>Ctrl+K</kbd></span>
-    </div>
+    <button class="in" style="flex: 0 1 300px; display: flex; align-items: center; gap: 8px; text-align: left; cursor: pointer; color: var(--muted)" onClick="{{openSearch}}" aria-label="Mở hộp Tìm nhanh (Ctrl+K)">
+      <span style="flex: 1">Tìm dự án, prompt...</span><kbd>Ctrl+K</kbd>
+    </button>
     <button class="btn btn-ghost" onClick="{{toggleTheme}}" aria-label="{{themeLabel}}" title="{{themeLabel}}">
       <sc-if value="{{dark}}" hint-placeholder-val="{{ false }}">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
@@ -823,6 +821,23 @@ mark{background:#FFE3A1;color:#3A2600;padding:0 2px;border-radius:3px}
   </div>
 </sc-if>
 
+<sc-if value="{{showSearch}}" hint-placeholder-val="{{ false }}">
+  <div class="overlay" onClick="{{closeSearch}}">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Tìm nhanh" style="max-width: 620px">
+      <div style="display: flex; align-items: center; gap: 8px; padding: 0 14px; border-bottom: 1px solid var(--border)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="color: var(--muted)"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+        <input class="in" style="border: 0; height: 48px; font-size: 15px; background: transparent" defaultValue="sua loi" aria-label="Từ khóa tìm kiếm">
+      </div>
+      <div style="padding: 6px; display: flex; flex-direction: column; gap: 2px">
+        <div style="display: flex; gap: 10px; align-items: center; padding: 8px 10px; border-radius: 6px; background: var(--accent-weak)"><span class="tag">Loại prompt</span><span style="flex: 1"><b>Sửa lỗi</b><br><span class="muted" style="font-size: 12px">Mô tả lỗi, AI tìm nguyên nhân gốc và sửa.</span></span></div>
+        <div style="display: flex; gap: 10px; align-items: center; padding: 8px 10px"><span class="tag tag-acc">Prompt</span><span style="flex: 1"><b>Sửa lỗi: màn hình trắng khi bấm Lưu</b><br><span class="muted" style="font-size: 12px">Prompt đã lưu · có biến → Enter mở Điền nhanh</span></span></div>
+        <div style="display: flex; gap: 10px; align-items: center; padding: 8px 10px"><span class="tag">Dự án</span><span style="flex: 1"><b>Web bán hàng</b><br><span class="muted" style="font-size: 12px">Cửa hàng gia đình</span></span></div>
+      </div>
+      <div class="muted" style="padding: 8px 14px; border-top: 1px solid var(--border); background: var(--soft); font-size: 12px">↑ ↓ để chọn · Enter để mở · Esc để đóng · Gõ không dấu cũng được</div>
+    </div>
+  </div>
+</sc-if>
+
 <sc-if value="{{showFill}}" hint-placeholder-val="{{ false }}">
   <div class="overlay">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="fill-title" style="max-width: 880px">
@@ -1296,6 +1311,9 @@ class Component extends DCLogic {
       polishField: function () { self.setState({ showDiff: true }); },
       openDiff: function () { self.setState({ showDiff: true }); },
       closeDiff: function () { self.setState({ showDiff: false }); },
+      showSearch: !!s.showSearch,
+      openSearch: function () { self.setState({ showSearch: true }); },
+      closeSearch: function () { self.setState({ showSearch: false }); },
       acceptDiff: function () { self.setState({ showDiff: false }); self.flash('Đã áp dụng đề xuất'); },
       diffBefore: s.task.trim() || 'khi bấm nút lưu ở trang hồ sơ dự án thì màn hình bị trắng, sửa giúp',
       savePrompt: function () { self.flash('Đã lưu vào Thư viện › Của dự án'); },
