@@ -106,3 +106,59 @@
     outline-offset: 1px;
   }
 }
+
+/* Kiểu chữ cho khung xem trước Markdown */
+.prose-ps h1 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+.prose-ps h2 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 16px 0 6px;
+}
+.prose-ps h3 {
+  font-size: 13px;
+  font-weight: 600;
+  margin: 12px 0 4px;
+}
+.prose-ps p {
+  margin: 0 0 8px;
+}
+.prose-ps ul,
+.prose-ps ol {
+  margin: 0 0 8px;
+  padding-left: 20px;
+}
+.prose-ps ul {
+  list-style: disc;
+}
+.prose-ps ol {
+  list-style: decimal;
+}
+.prose-ps code {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  background: var(--soft);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0 3px;
+}
+.prose-ps pre {
+  background: var(--code-bg);
+  color: var(--code-ink);
+  border-radius: 6px;
+  padding: 10px;
+  overflow: auto;
+  margin: 0 0 8px;
+}
+.prose-ps pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: inherit;
+}
+.prose-ps strong {
+  font-weight: 600;
+}

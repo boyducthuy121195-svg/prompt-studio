@@ -11,6 +11,22 @@ export default defineConfig({
     alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
   },
   server: { port: 5173, strictPort: true },
+  // Chuẩn bị sẵn thư viện lớn khi khởi động, tránh việc Vite tự tải lại trang lần đầu mở một màn hình
+  optimizeDeps: {
+    include: [
+      '@uiw/react-codemirror',
+      '@codemirror/lang-markdown',
+      'react-markdown',
+      'diff',
+      'fflate',
+      'dexie',
+      'zod',
+      '@anthropic-ai/sdk',
+      '@anthropic-ai/sdk/helpers/beta/zod',
+      '@google/genai',
+      '@radix-ui/react-dialog',
+    ],
+  },
   test: {
     environment: 'jsdom',
     globals: true,

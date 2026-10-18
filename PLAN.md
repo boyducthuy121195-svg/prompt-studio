@@ -36,7 +36,7 @@ Làm task [số] trong @PLAN.md.
 | 6 | Thư viện, ghim, điền nhanh biến | A5, A9 | 5 | ✅ |
 | 7 | Cài đặt và lớp AI (Claude + Gemini) | A7 | 3 | ✅ |
 | 8 | ✨ Trau chuốt và hộp so sánh trước/sau | A3, A4 | 5, 7 | ✅ |
-| 9 | AGENTS.md: chỉnh sửa theo mục, kiểm tra, xuất file | A2, A6 | 4, 3 | ⬜ |
+| 9 | AGENTS.md: chỉnh sửa theo mục, kiểm tra, xuất file | A2, A6 | 4, 3 | ✅ |
 | 10 | AGENTS.md: Hỏi đáp, Nhập tự do, ✨ theo mục | A2 | 8, 9 | ⬜ |
 | 11 | Màn hình Cải thiện | A3 | 8 | ⬜ |
 | 12 | Sao lưu và khôi phục | A8 | 3, 7 | ⬜ |
@@ -175,7 +175,8 @@ Task này không có giao diện mới. AI báo kết quả test.
 - Gõ "khi bấm lưu thì màn hình trắng", bấm ✨, thấy câu được viết lại đúng thuật ngữ.
 - Chấp nhận thay đổi, nội dung trong ô được cập nhật.
 
-### Task 9 – AGENTS.md: chỉnh sửa theo mục, kiểm tra, xuất file ⬜
+### Task 9 – AGENTS.md: chỉnh sửa theo mục, kiểm tra, xuất file ✅
+> Hoàn thành 18/10/2026. Kéo thả để đổi thứ tự, kèm nút lên/xuống cho người dùng bàn phím.
 **Tài liệu:** `docs/03`.
 
 **Làm gì:**

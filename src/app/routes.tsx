@@ -1,6 +1,7 @@
 import { Navigate, type RouteObject } from 'react-router'
 import { PlaceholderPage } from '@/components/PlaceholderPage'
 import { NotFoundPage } from '@/components/NotFoundPage'
+import { AgentsPage } from '@/features/wizard/AgentsPage'
 import { LibraryPage } from '@/features/library/LibraryPage'
 import { ProjectDetailPage } from '@/features/projects/ProjectDetailPage'
 import { ProjectsPage } from '@/features/projects/ProjectsPage'
@@ -24,7 +25,7 @@ export const routes: RouteObject[] = [
       { path: 'projects/:id', element: <ProjectDetailPage /> },
       { path: 'prompt', element: <PromptPickPage /> },
       { path: 'prompt/:typeCode', element: <PromptBuilderPage /> },
-      { path: 'agents', element: <PlaceholderPage {...p.agents} /> },
+      { path: 'agents', element: <AgentsPage /> },
       { path: 'improve', element: <PlaceholderPage {...p.improve} /> },
       { path: 'library', element: <LibraryPage /> },
       { path: 'templates', element: <TemplatesPage /> },
