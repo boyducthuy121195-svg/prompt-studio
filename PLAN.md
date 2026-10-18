@@ -31,7 +31,7 @@ Làm task [số] trong @PLAN.md.
 | 1 | Dựng khung dự án | — | 0 | ✅ |
 | 2 | Khung giao diện: thanh bên, header, sáng/tối, các trang trống | A9, M11 | 1 | ✅ |
 | 3 | Lưu trữ và quản lý dự án | A1 | 2 | ✅ |
-| 4 | Dữ liệu cố định: loại prompt, gợi ý, quy trình, khung AGENTS.md | A2, A4, A5 | 1 | ⬜ |
+| 4 | Dữ liệu cố định: loại prompt, gợi ý, quy trình, khung AGENTS.md | A2, A4, A5 | 1 | ✅ |
 | 5 | Trình tạo prompt (chưa dùng AI) | A4, A6 | 3, 4 | ⬜ |
 | 6 | Thư viện, ghim, điền nhanh biến | A5, A9 | 5 | ⬜ |
 | 7 | Cài đặt và lớp AI (Claude + Gemini) | A7 | 3 | ⬜ |
@@ -94,7 +94,8 @@ Thứ tự trên đã tính sẵn: có thể làm lần lượt từ trên xuố
 - Tạo 2 dự án, sửa hồ sơ, tải lại trang thì dữ liệu vẫn còn.
 - Nhân bản một dự án, xóa bản nhân bản.
 
-### Task 4 – Dữ liệu cố định ⬜
+### Task 4 – Dữ liệu cố định ✅
+> Hoàn thành 18/10/2026. 17 test kiểm tra dữ liệu trong `src/lib/prompts/data.test.ts`. Bảng thuật ngữ hiện có 54 mục.
 **Tài liệu:** `docs/01`, `docs/02`, `docs/03`, `docs/04`.
 
 **Làm gì:**

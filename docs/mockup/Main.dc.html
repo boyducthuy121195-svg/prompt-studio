@@ -562,6 +562,21 @@ mark{background:#FFE3A1;color:#3A2600;padding:0 2px;border-radius:3px}
           <button role="tab" class="{{libTabCls.proj}}" onClick="{{tabProj}}">Của dự án</button>
           <button role="tab" class="{{libTabCls.shared}}" onClick="{{tabShared}}">Dùng chung</button>
         </div>
+        <sc-if value="{{libIsStd}}" hint-placeholder-val="{{ true }}">
+          <div style="padding: 12px 14px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px">
+            <div style="display: flex; align-items: center; gap: 8px"><span class="h3" style="flex: 1">Phát triển thêm cho dự án đã có – chọn lối đi theo độ lớn thay đổi</span><span class="tag tag-green">✓ Dữ liệu đã có trong app · task 4</span></div>
+            <div class="tblwrap" style="border: 1px solid var(--border); border-radius: 6px">
+              <table class="tbl">
+                <thead><tr><th>Độ lớn</th><th>Ví dụ</th><th>Các giai đoạn cần làm</th><th>Bỏ qua</th></tr></thead>
+                <tbody>
+                  <sc-for list="{{extPaths}}" as="ep" hint-placeholder-count="3">
+                    <tr><td style="font-weight: 600; white-space: nowrap">{{ep.name}}</td><td class="muted">{{ep.example}}</td><td>{{ep.steps}}</td><td class="muted" style="white-space: nowrap">{{ep.skip}}</td></tr>
+                  </sc-for>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </sc-if>
         <div class="tblwrap">
           <table class="tbl">
             <thead><tr><th>Tên prompt</th><th>Loại</th><th>Biến</th><th style="text-align: right">Thao tác</th></tr></thead>
@@ -880,10 +895,10 @@ var PS_TYPES = {
   REFACTOR: { name: 'Cải tổ code (refactor)', desc: 'Làm code gọn, dễ đọc mà không đổi hành vi.', role: 'Senior Full-stack Developer', taskPh: 'Ví dụ: Tách component trang Thư viện', fields: [{ label: 'Phạm vi', ph: 'src/features/library/' }, { label: 'Mục tiêu', ph: 'Dễ đọc hơn, bỏ trùng lặp' }], rb: ['RB-02', 'RB-04', 'RB-07'], cl: ['CL-02', 'CL-04'], dr: ['DR-01'], tc: ['TC-01', 'TC-06'], tip: 'Chia thành các bước nhỏ, chạy test sau mỗi bước.' },
   VIET_TEST: { name: 'Viết test', desc: 'Bổ sung unit / e2e test cho phần đã có.', role: 'QA Engineer', taskPh: 'Ví dụ: Viết test cho hàm ghép prompt', fields: [{ label: 'Đối tượng test', ph: 'src/lib/prompts/build.ts' }, { label: 'Loại test', ph: 'Unit test' }], rb: ['RB-06'], cl: ['CL-04'], dr: ['DR-01'], tc: ['TC-01'], tip: '' },
   REVIEW: { name: 'Review code / bảo mật', desc: 'Rà soát thay đổi, tìm lỗi và lỗ hổng.', role: 'Security Reviewer', taskPh: 'Ví dụ: Review các thay đổi chưa commit', fields: [{ label: 'Phạm vi', ph: 'Thay đổi chưa commit / toàn dự án' }, { label: 'Tiêu chí ưu tiên', ph: 'Bảo mật, đúng logic' }], rb: [], cl: ['CL-04', 'CL-07'], dr: ['DR-06'], tc: [], tip: 'Chỉ báo các vấn đề có bằng chứng cụ thể trong code (file:dòng). Không báo vấn đề suy đoán.' },
-  KIEM_THU: { name: 'Kiểm thử toàn app', desc: 'Thử như người dùng thật, liệt kê lỗi.', role: 'QA Engineer', taskPh: 'Ví dụ: Kiểm thử toàn bộ luồng chính', fields: [{ label: 'Kịch bản cần thử', ph: 'Happy path, dữ liệu rỗng, mất mạng' }], rb: [], cl: ['CL-04'], dr: ['DR-06'], tc: [], tip: '' },
+  KIEM_THU: { name: 'Kiểm thử toàn app (QA)', desc: 'Thử như người dùng thật, liệt kê lỗi.', role: 'QA Engineer', taskPh: 'Ví dụ: Kiểm thử toàn bộ luồng chính', fields: [{ label: 'Kịch bản cần thử', ph: 'Happy path, dữ liệu rỗng, mất mạng' }], rb: [], cl: ['CL-04'], dr: ['DR-06'], tc: [], tip: '' },
   TRIEN_KHAI: { name: 'Triển khai / môi trường', desc: 'Cài đặt, chạy app, cấu hình môi trường.', role: 'DevOps Engineer', taskPh: 'Ví dụ: Hướng dẫn chạy app trên máy mới', fields: [{ label: 'Môi trường', ph: 'Chạy local trên Windows' }, { label: 'Cần thiết lập', ph: 'Node.js, biến môi trường' }], rb: ['RB-08', 'RB-09'], cl: ['CL-02', 'CL-05', 'CL-07'], dr: ['DR-01'], tc: ['TC-03'], tip: '' },
   TAI_LIEU: { name: 'Viết tài liệu', desc: 'README, hướng dẫn sử dụng, CHANGELOG.', role: 'Technical Writer', taskPh: 'Ví dụ: Viết hướng dẫn sử dụng cho người mới', fields: [{ label: 'Loại tài liệu', ph: 'README / Hướng dẫn / CHANGELOG' }, { label: 'Người đọc', ph: 'Người không biết code' }], rb: [], cl: ['CL-04'], dr: ['DR-04'], tc: [], tip: '' },
-  GIAI_THICH: { name: 'Giải thích code', desc: 'Giải thích code, lỗi hay khái niệm cho dễ hiểu.', role: 'Senior Full-stack Developer', taskPh: 'Ví dụ: Giải thích file src/lib/db/schema.ts', fields: [{ label: 'Trình độ người nghe', ph: 'Không biết code' }], rb: [], cl: ['CL-04', 'CL-07'], dr: [], tc: [], tip: '' },
+  GIAI_THICH: { name: 'Giải thích code / khái niệm', desc: 'Giải thích code, lỗi hay khái niệm cho dễ hiểu.', role: 'Senior Full-stack Developer', taskPh: 'Ví dụ: Giải thích file src/lib/db/schema.ts', fields: [{ label: 'Trình độ người nghe', ph: 'Không biết code' }], rb: [], cl: ['CL-04', 'CL-07'], dr: [], tc: [], tip: '' },
   CAI_TIEN: { name: 'Phân tích phản hồi', desc: 'Phân loại phản hồi, lên kế hoạch phiên bản mới.', role: 'Product Manager', taskPh: 'Ví dụ: Lên kế hoạch phiên bản 1.1', fields: [{ label: 'Phản hồi / lỗi ghi nhận', ph: 'Dán danh sách vào đây' }], rb: [], cl: ['CL-07'], dr: ['DR-02', 'DR-04'], tc: [], tip: '' },
   TU_DO: { name: 'Prompt tự do', desc: 'Khung 8 khối, không có trường riêng.', role: 'Senior Full-stack Developer', taskPh: 'Mô tả việc bạn muốn AI làm', fields: [], rb: ['RB-07'], cl: ['CL-01'], dr: ['DR-01'], tc: [], tip: '' }
 };
@@ -948,7 +963,13 @@ var PS_LIB = {
     { id: 's7', title: 'GĐ 7 – Xây tính năng', desc: 'Một task trong PLAN.md: kế hoạch → làm → test → commit.', type: 'TINH_NANG', vars: '4 biến' },
     { id: 's8', title: 'GĐ 8 – Kiểm thử và rà soát', desc: 'Edge cases, responsive, bảo mật; bảng lỗi theo mức độ.', type: 'KIEM_THU', vars: '—' },
     { id: 's9', title: 'GĐ 9 – Triển khai', desc: 'Chạy app trên môi trường thật, từng bước cụ thể.', type: 'TRIEN_KHAI', vars: '1 biến' },
-    { id: 's10', title: 'GĐ 10 – Vận hành và cải tiến', desc: 'Phân loại phản hồi, cập nhật PLAN.md.', type: 'CAI_TIEN', vars: '2 biến' }
+    { id: 's10', title: 'GĐ 10 – Vận hành và cải tiến', desc: 'Phân loại phản hồi, cập nhật PLAN.md.', type: 'CAI_TIEN', vars: '2 biến' },
+    { id: 's11', title: 'Phát triển thêm – Nghiên cứu kỹ thuật (spike)', desc: 'Dùng cho module lớn: làm thử nhanh với file mẫu thật trước khi thiết kế.', type: 'KIEN_TRUC', vars: '3 biến' },
+    { id: 's12', title: 'Hằng ngày – Không hiểu kết quả', desc: 'Giải thích lại cho người không biết code.', type: 'GIAI_THICH', vars: '—' },
+    { id: 's13', title: 'Hằng ngày – AI làm sai hướng', desc: 'Dừng lại, hoàn tác và làm lại đúng mục tiêu.', type: 'TU_DO', vars: '1 biến' },
+    { id: 's14', title: 'Hằng ngày – Gặp lỗi', desc: 'Mô tả thao tác, hiện tượng, kết quả đúng.', type: 'SUA_LOI', vars: '3 biến' },
+    { id: 's15', title: 'Hằng ngày – Rút kinh nghiệm', desc: 'Đề xuất 1 quy tắc ngắn cho AGENTS.md.', type: 'TU_DO', vars: '—' },
+    { id: 's16', title: 'Hằng ngày – Kết thúc phiên làm việc', desc: 'Tóm tắt, cập nhật PLAN.md, commit.', type: 'TU_DO', vars: '—' }
   ],
   proj: [
     { id: 'p1', title: 'Sửa lỗi nhanh', desc: 'Mô tả thao tác, hiện tượng, kết quả mong muốn.', type: 'SUA_LOI', vars: '3 biến' },
@@ -1320,6 +1341,12 @@ class Component extends DCLogic {
       tabProj: function () { self.setState({ libTab: 'proj' }); },
       tabShared: function () { self.setState({ libTab: 'shared' }); },
       libItems: libList,
+      libIsStd: s.libTab === 'std',
+      extPaths: [
+        { name: 'Nhỏ', example: 'Sửa lỗi, chỉnh chi tiết (đổi màu nút)', steps: '7 Xây tính năng → 8 Kiểm thử', skip: 'GĐ 0–6' },
+        { name: 'Vừa', example: 'Thêm tính năng dùng công nghệ sẵn có', steps: '2 PRD → 3 Thiết kế → 5 Kế hoạch → 7 → 8', skip: 'GĐ 0, 1, 4, 6' },
+        { name: 'Lớn', example: 'Module mới, ví dụ Điền mẫu Word/Excel', steps: '1 → 2 → Nghiên cứu kỹ thuật (spike) → 3 → 4 → 5 → 7 → 8 → 10', skip: 'GĐ 0, 6' }
+      ],
       showFill: s.showFill,
       fill: {
         title: s.fillTitle || '',
