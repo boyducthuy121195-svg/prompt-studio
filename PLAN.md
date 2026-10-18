@@ -38,7 +38,7 @@ Làm task [số] trong @PLAN.md.
 | 8 | ✨ Trau chuốt và hộp so sánh trước/sau | A3, A4 | 5, 7 | ✅ |
 | 9 | AGENTS.md: chỉnh sửa theo mục, kiểm tra, xuất file | A2, A6 | 4, 3 | ✅ |
 | 10 | AGENTS.md: Hỏi đáp, Nhập tự do, ✨ theo mục | A2 | 8, 9 | ✅ |
-| 11 | Màn hình Cải thiện | A3 | 8 | ⬜ |
+| 11 | Màn hình Cải thiện | A3 | 8 | ✅ |
 | 12 | Sao lưu và khôi phục | A8 | 3, 7 | ⬜ |
 | 13 | Tìm nhanh (Ctrl+K) và hoàn thiện phím tắt | A9 | 6, 9 | ⬜ |
 | 14 | Hoàn thiện và kiểm thử toàn app | Tất cả | 1–13 | ⬜ |
@@ -204,7 +204,8 @@ Task này không có giao diện mới. AI báo kết quả test.
 **Tự kiểm tra:**
 - Đi hết Wizard cho dự án Prompt Studio, so kết quả với `AGENTS.md` thật của dự án.
 
-### Task 11 – Màn hình Cải thiện ⬜
+### Task 11 – Màn hình Cải thiện ✅
+> Hoàn thành 18/10/2026. Tải file tên AGENTS/CLAUDE/GEMINI thì tự chọn loại AGENTS.md. "Dùng làm AGENTS.md" tách nội dung theo tiêu đề `##` vào 10 mục, bản cũ vẫn còn trong lịch sử. Kiểm tra bằng AI giả.
 **Làm gì:**
 - **M7:** dán nội dung hoặc tải file `.md`, chọn loại (Prompt / AGENTS.md).
 - Bấm "✨ Phân tích" (`improveAnalyze`) để thấy điểm theo 5 tiêu chí và bảng vấn đề theo mức độ.
