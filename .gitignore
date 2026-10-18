@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.env
+.env.*
+*.local
+*backup*.json
+.DS_Store
