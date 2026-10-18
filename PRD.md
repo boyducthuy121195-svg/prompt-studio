@@ -92,7 +92,10 @@ và lấy lại được prompt hay dùng chỉ bằng một lần copy.
 **A9. Tiện ích giao diện** – chi tiết: `docs/05-MAN-HINH-VA-LUONG.md`
 - Thanh menu bên trái thu gọn / mở rộng được.
 - Chuyển giao diện sáng / tối. App nhớ lựa chọn này.
-- Ghim prompt hay dùng lên thanh bên để copy một chạm.
+- Ghim prompt hay dùng lên thanh bên. Bấm vào prompt đã ghim:
+  - Prompt **không có ô trống** `{{...}}` → copy ngay **toàn bộ nội dung** prompt, kèm thông báo tên prompt vừa copy.
+  - Prompt **có ô trống** → mở hộp "Điền nhanh" (xem trước nội dung sẽ copy) → điền → Copy.
+  - Prompt có ô trống được đánh dấu nhãn "Điền" trên thanh bên. Ghim / bỏ ghim trong Thư viện.
 - Phím tắt: `Ctrl+K` tìm nhanh, `Ctrl+Enter` Copy, `Ctrl+S` lưu, `Ctrl+B` thu gọn thanh bên, `Esc` đóng hộp thoại.
 
 ### Mức B – Nên có (phiên bản 1.1)
