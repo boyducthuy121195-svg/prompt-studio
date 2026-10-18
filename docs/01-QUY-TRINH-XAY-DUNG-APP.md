@@ -148,6 +148,46 @@ Khối 1–3 là bắt buộc. Các khối còn lại nên điền nếu có th�
 
 ---
 
+## Phát triển thêm cho dự án đã có
+
+Không phải lúc nào cũng làm lại từ đầu. Chọn **lối đi** theo độ lớn của thay đổi:
+
+| Độ lớn | Ví dụ | Các giai đoạn cần làm | Bỏ qua |
+|---|---|---|---|
+| **Nhỏ**: sửa lỗi, chỉnh chi tiết | Đổi màu nút, sửa lỗi lưu | 7 → 8 | 0–6 |
+| **Vừa**: thêm một tính năng dùng công nghệ sẵn có | Thêm nút "Nhân bản prompt" | 2 (thêm user story vào PRD) → 3 (nếu có màn hình mới) → 5 (thêm task vào PLAN) → 7 → 8 | 0, 1, 4, 6 |
+| **Lớn**: module mới, có công nghệ hoặc dữ liệu mới | Module Điền mẫu Word/Excel | 1 → 2 → **Nghiên cứu kỹ thuật** → 3 → 4 (chỉ phần thay đổi) → 5 → 7 → 8 → 10 | 0, 6 |
+
+**Vì sao được bỏ qua:**
+- **Giai đoạn 0 (Chuẩn bị) và 6 (Dựng khung):** dự án, kho GitHub và khung code đã có sẵn.
+- **Giai đoạn 4 (Kiến trúc):** chỉ cần làm khi có thư viện mới, kiểu dữ liệu mới hoặc thay đổi cách lưu trữ. Khi đó chỉ viết **phần thay đổi**, không viết lại toàn bộ.
+
+**Bước "Nghiên cứu kỹ thuật" (spike)** dành cho module lớn có rủi ro kỹ thuật. Đây là bước làm thử nhanh để chứng minh cách làm khả thi **trước khi** thiết kế chi tiết. Loại prompt: `KIEN_TRUC`.
+
+```
+[Vai trò] Bạn là Software Architect.
+[Bối cảnh] Dự án @AGENTS.md đã chạy ổn. Tôi muốn thêm module: {{ten_module}}.
+[Nhiệm vụ] Làm thử nghiệm kỹ thuật (spike) để trả lời: {{cau_hoi_ky_thuat}}.
+  Thử với các file mẫu thật trong {{thu_muc_file_mau}}.
+[Ràng buộc] Code thử nghiệm để trong thư mục spike/, không đụng vào code chính.
+[Định dạng đầu ra] Báo cáo: cách làm, kết quả thử với từng file mẫu, giới hạn, rủi ro,
+  thư viện cần thêm, phương án khuyến nghị.
+[Tiêu chí hoàn thành] Có bằng chứng (file kết quả) cho thấy cách làm đạt hoặc không đạt yêu cầu.
+```
+
+**Tài liệu cho module lớn:** mỗi module có một bộ tài liệu riêng, các tài liệu chung chỉ thêm liên kết tới:
+- `docs/modules/<ten>/PRD.md`: yêu cầu chi tiết của module. Trong `PRD.md` chính chỉ cần tóm tắt và đặt liên kết.
+- `docs/modules/<ten>/SPIKE.md`: kết quả nghiên cứu kỹ thuật.
+- `ARCHITECTURE.md`: thêm một mục mới cho module.
+- `PLAN.md`: thêm một nhóm task mới (ví dụ task 15–22). Không xóa các task cũ.
+- `AGENTS.md`: thêm các quy tắc và bẫy riêng của module, nếu có.
+
+**Nguyên tắc chung:**
+- Luôn cập nhật **tài liệu trước, code sau**.
+- Giai đoạn 8 (Kiểm thử) phải chạy **toàn bộ test cũ**, để chắc chắn tính năng mới không làm hỏng phần đã có.
+
+---
+
 ## Prompt dùng trong mọi giai đoạn
 
 | Tình huống | Prompt |
