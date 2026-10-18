@@ -7,6 +7,8 @@ test('nhập API key, tải lại vẫn còn; header hiện AI đang dùng', asy
   await key.pressSequentially('sk-ant-thu-nghiem-123')
   await expect(page.getByText('AI: Claude · opus-5-5')).toBeVisible()
   await page.getByLabel('Model Claude').selectOption('claude-haiku-5-5')
+  // Lưu theo thứ tự: header đổi sang haiku nghĩa là mọi thay đổi trước đó đã lưu xong
+  await expect(page.getByText('AI: Claude · haiku-5-5')).toBeVisible()
   await page.reload()
   await expect(page.getByLabel('API key Claude (Anthropic)')).toHaveValue('sk-ant-thu-nghiem-123')
   await expect(page.getByLabel('API key Claude (Anthropic)')).toHaveAttribute('type', 'password')
