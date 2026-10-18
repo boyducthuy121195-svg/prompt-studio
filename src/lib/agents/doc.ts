@@ -76,3 +76,14 @@ export function renderAgentsMd(projectName: string, sections: readonly AgentsSec
     .map((s, i) => `## ${i + 1}. ${s.title}\n\n${s.content.trim()}`)
   return `# AGENTS.md – ${projectName.trim() || 'Dự án'}\n\n${parts.join('\n\n')}\n`
 }
+
+/** Ghép nội dung AI viết vào các mục cùng key; mục được AI viết sẽ được bật lại. Mục không có trong kết quả giữ nguyên. */
+export function applyAiSections(
+  sections: readonly AgentsSection[],
+  results: readonly { key: string; content: string }[],
+): AgentsSection[] {
+  const map = new Map(results.filter((r) => r.content.trim()).map((r) => [r.key, r.content.trim()]))
+  return sections.map((s) =>
+    map.has(s.key) ? { ...s, content: map.get(s.key)!, enabled: true } : s,
+  )
+}

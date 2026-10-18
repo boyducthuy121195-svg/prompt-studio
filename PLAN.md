@@ -37,7 +37,7 @@ Làm task [số] trong @PLAN.md.
 | 7 | Cài đặt và lớp AI (Claude + Gemini) | A7 | 3 | ✅ |
 | 8 | ✨ Trau chuốt và hộp so sánh trước/sau | A3, A4 | 5, 7 | ✅ |
 | 9 | AGENTS.md: chỉnh sửa theo mục, kiểm tra, xuất file | A2, A6 | 4, 3 | ✅ |
-| 10 | AGENTS.md: Hỏi đáp, Nhập tự do, ✨ theo mục | A2 | 8, 9 | ⬜ |
+| 10 | AGENTS.md: Hỏi đáp, Nhập tự do, ✨ theo mục | A2 | 8, 9 | ✅ |
 | 11 | Màn hình Cải thiện | A3 | 8 | ⬜ |
 | 12 | Sao lưu và khôi phục | A8 | 3, 7 | ⬜ |
 | 13 | Tìm nhanh (Ctrl+K) và hoàn thiện phím tắt | A9 | 6, 9 | ⬜ |
@@ -193,7 +193,8 @@ Task này không có giao diện mới. AI báo kết quả test.
 **Tự kiểm tra:**
 - Tạo AGENTS.md cho một dự án, tắt một mục, tải `.zip` về và giải nén, thấy đủ 3 file.
 
-### Task 10 – AGENTS.md: Hỏi đáp, Nhập tự do, ✨ theo mục ⬜
+### Task 10 – AGENTS.md: Hỏi đáp, Nhập tự do, ✨ theo mục ✅
+> Hoàn thành 18/10/2026. "Tạo AGENTS.md" dùng JSON có cấu trúc (mỗi mục một phần) thay vì chữ hiện dần, để xếp đúng nội dung vào từng mục. Kiểm tra bằng AI giả.
 **Làm gì:**
 - **Hỏi đáp:** đi qua 10 câu (ô tích lựa chọn nhanh + ô tự do, Bỏ qua, Quay lại). Bấm "✨ Tạo AGENTS.md" (`agentsGenerate`) thì nội dung hiện dần vào chế độ chỉnh sửa.
 - **Nhập tự do:** dán nội dung rồi bấm ✨ (`agentsClassify`) để AI xếp vào 10 mục và báo mục còn thiếu.

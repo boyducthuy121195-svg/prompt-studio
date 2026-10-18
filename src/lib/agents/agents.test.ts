@@ -111,3 +111,19 @@ describe('xuất file và lưu', () => {
     expect(revs[0].content).toContain('App A')
   })
 })
+
+describe('ghép kết quả AI', () => {
+  it('thay nội dung mục cùng key, bật lại mục đã tắt, bỏ qua nội dung rỗng', async () => {
+    const { applyAiSections } = await import('./doc')
+    let s = toggleSection(skeletonSections(), 'gotchas')
+    s = applyAiSections(s, [
+      { key: 'gotchas', content: '- Build lại trước khi test' },
+      { key: 'overview', content: '  ' },
+    ])
+    expect(s.find((x) => x.key === 'gotchas')).toMatchObject({
+      enabled: true,
+      content: '- Build lại trước khi test',
+    })
+    expect(s.find((x) => x.key === 'overview')?.content).toContain('{{1–3 câu')
+  })
+})
