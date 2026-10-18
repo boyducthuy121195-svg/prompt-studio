@@ -1,6 +1,9 @@
 import { PanelLeft, Pin, Terminal } from 'lucide-react'
 import { NavLink } from 'react-router'
 import { Kbd, Tag } from '@/components/Primitives'
+import { useUsePrompt } from '@/components/use-prompt-context'
+import { useAllPrompts, useSettings } from '@/lib/db/hooks'
+import { hasVariables, resolvePins } from '@/lib/library'
 import { vi } from '@/lib/i18n/vi'
 import { cn } from '@/lib/utils'
 import { NAV_ITEMS } from './nav-items'
@@ -15,6 +18,13 @@ export function Sidebar() {
   const label = cn('max-md:hidden', sidebarCollapsed && 'hidden')
   const center = cn('max-md:justify-center max-md:px-0', sidebarCollapsed && 'justify-center px-0')
   const toggleLabel = sidebarCollapsed ? vi.nav.expand : vi.nav.collapse
+  const settings = useSettings()
+  const prompts = useAllPrompts()
+  const use = useUsePrompt()
+  const pinned =
+    settings.status === 'ready' && prompts.status === 'ready'
+      ? resolvePins(settings.data.pins, prompts.data)
+      : []
 
   return (
     <aside
@@ -70,7 +80,35 @@ export function Sidebar() {
             {vi.nav.pinned}
           </span>
         </div>
-        <p className={cn('px-1.5 text-xs text-muted', label)}>{vi.nav.noPinned}</p>
+        {pinned.length === 0 && (
+          <p className={cn('px-1.5 text-xs text-muted', label)}>{vi.nav.noPinned}</p>
+        )}
+        {pinned.map((item) => {
+          const fill = hasVariables(item)
+          const tip = `${fill ? vi.nav.pinFill : vi.nav.pinCopy}: ${item.title}`
+          return (
+            <button
+              key={item.pinId}
+              type="button"
+              onClick={() => use(item)}
+              title={tip}
+              aria-label={tip}
+              className={cn(
+                'flex h-8 w-full cursor-pointer items-center gap-2 rounded-md px-1.5 text-left text-[12.5px] hover:bg-hover',
+                center,
+              )}
+            >
+              <span
+                aria-hidden="true"
+                className="flex size-5 shrink-0 items-center justify-center rounded-[5px] border border-accent-line bg-accent-weak text-[11px] font-bold text-accent-ink"
+              >
+                {item.title.charAt(0).toUpperCase()}
+              </span>
+              <span className={cn('min-w-0 flex-1 truncate', label)}>{item.title}</span>
+              {fill && <Tag className={label}>{vi.fill.fillTag}</Tag>}
+            </button>
+          )
+        })}
       </div>
 
       <div className="mt-auto border-t border-border pt-2.5">

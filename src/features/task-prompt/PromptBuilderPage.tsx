@@ -1,4 +1,4 @@
-import { Copy, RotateCcw } from 'lucide-react'
+import { Copy, RotateCcw, Save } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router'
 import { useHotkey } from '@/app/use-hotkey'
@@ -28,6 +28,7 @@ import {
 import { SUGGESTION_GROUPS, SUGGESTIONS, toggleSuggestion } from '@/lib/prompts/suggestions'
 import { PROMPT_TYPE_CODES, type PromptTypeCode } from '@/lib/prompts/types'
 import { FieldInput, inputClass } from './FieldInput'
+import { SavePromptDialog } from './SavePromptDialog'
 
 const t = vi.builder
 
@@ -79,6 +80,11 @@ export function PromptBuilder({
 
   const copy = async () => toast((await copyText(preview)) ? t.copied : t.copyFailed)
   useHotkey('mod+enter', () => void copy())
+  const [saving, setSaving] = useState(false)
+  useHotkey('mod+s', () => setSaving(true))
+  const defaultTitle = form.task.trim()
+    ? `${type.name}: ${form.task.trim().slice(0, 60)}`
+    : type.name
 
   const aiSoon = () => toast(t.aiNotReady)
   const polishButton = (label: string) => (
@@ -334,6 +340,11 @@ export function PromptBuilder({
               <Button variant="ai" onClick={aiSoon}>
                 {t.polishAll}
               </Button>
+              <Button onClick={() => setSaving(true)}>
+                <Save className="size-3.5" aria-hidden="true" />
+                {t.save}
+                <Kbd>Ctrl+S</Kbd>
+              </Button>
               <div className="flex-1" />
               <Button variant="primary" onClick={() => void copy()}>
                 <Copy className="size-3.5" aria-hidden="true" />
@@ -345,6 +356,18 @@ export function PromptBuilder({
           </div>
         </Panel>
       </div>
+
+      {saving && (
+        <SavePromptDialog
+          open
+          onOpenChange={setSaving}
+          defaultTitle={defaultTitle}
+          typeCode={typeCode}
+          body={preview}
+          formState={form}
+          project={project}
+        />
+      )}
     </>
   )
 }

@@ -1,3 +1,4 @@
+import { listAllPrompts, listPrompts } from './prompts'
 import { getProject, listProjects, projectStats } from './projects'
 import { getSettings } from './settings'
 import { useLiveQuery } from './use-live-query'
@@ -14,3 +15,7 @@ export function useCurrentProject() {
     return s.currentProjectId ? ((await getProject(s.currentProjectId)) ?? null) : null
   }, [])
 }
+
+export const usePrompts = (projectId: string | null) =>
+  useLiveQuery(() => listPrompts(projectId), [projectId])
+export const useAllPrompts = () => useLiveQuery(listAllPrompts, [])

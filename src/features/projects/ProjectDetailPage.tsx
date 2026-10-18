@@ -215,7 +215,10 @@ function ProjectDetail({ project }: { project: Project }) {
               </span>
             </li>
             <li className="flex items-center gap-2 border-b border-border px-3.5 py-2">
-              <Link to="/library" className="flex-1 font-semibold text-accent hover:underline">
+              <Link
+                to="/library?tab=proj"
+                className="flex-1 font-semibold text-accent hover:underline"
+              >
                 {t.docPrompts}
               </Link>
               <span className="text-muted">{t.promptsCount(s?.prompts ?? 0)}</span>

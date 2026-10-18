@@ -33,7 +33,7 @@ Làm task [số] trong @PLAN.md.
 | 3 | Lưu trữ và quản lý dự án | A1 | 2 | ✅ |
 | 4 | Dữ liệu cố định: loại prompt, gợi ý, quy trình, khung AGENTS.md | A2, A4, A5 | 1 | ✅ |
 | 5 | Trình tạo prompt (chưa dùng AI) | A4, A6 | 3, 4 | ✅ |
-| 6 | Thư viện, ghim, điền nhanh biến | A5, A9 | 5 | ⬜ |
+| 6 | Thư viện, ghim, điền nhanh biến | A5, A9 | 5 | ✅ |
 | 7 | Cài đặt và lớp AI (Claude + Gemini) | A7 | 3 | ⬜ |
 | 8 | ✨ Trau chuốt và hộp so sánh trước/sau | A3, A4 | 5, 7 | ⬜ |
 | 9 | AGENTS.md: chỉnh sửa theo mục, kiểm tra, xuất file | A2, A6 | 4, 3 | ⬜ |
@@ -129,7 +129,8 @@ Task này không có giao diện mới. AI báo kết quả test.
 - Tích hoặc bỏ tích một ô, phần xem trước đổi theo.
 - Copy, dán vào Notepad, thấy đúng nội dung.
 
-### Task 6 – Thư viện, ghim, điền nhanh biến ⬜
+### Task 6 – Thư viện, ghim, điền nhanh biến ✅
+> Hoàn thành 18/10/2026.
 **Làm gì:**
 - Nút "Lưu vào thư viện" (`Ctrl+S`) ở M4. Prompt được lưu cùng trạng thái các ô, nên sau này "Mở trong bảng nhập" khôi phục đúng.
 - **M8:** 3 tab (Quy trình chuẩn, Của dự án, Dùng chung) dạng bảng, lọc theo thẻ, Sửa, Xóa, Ghim/Bỏ ghim.

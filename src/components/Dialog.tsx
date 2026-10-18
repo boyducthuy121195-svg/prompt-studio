@@ -12,6 +12,7 @@ export function Dialog({
   description,
   children,
   footer,
+  wide = false,
 }: {
   open: boolean
   onOpenChange: (open: boolean) => void
@@ -19,6 +20,7 @@ export function Dialog({
   description?: string
   children?: ReactNode
   footer?: ReactNode
+  wide?: boolean
 }) {
   return (
     <RadixDialog.Root open={open} onOpenChange={onOpenChange}>
@@ -26,7 +28,10 @@ export function Dialog({
         <RadixDialog.Overlay className="fixed inset-0 z-20 bg-[rgba(14,22,20,.5)] dark:bg-black/60" />
         <RadixDialog.Content
           {...(description ? {} : { 'aria-describedby': undefined })}
-          className="fixed left-1/2 top-[12vh] z-20 flex max-h-[80vh] w-[calc(100%-32px)] max-w-[520px] -translate-x-1/2 flex-col rounded-[10px] border border-border bg-surface text-ink shadow-xl"
+          className={cn(
+            'fixed left-1/2 top-[12vh] z-20 flex max-h-[80vh] w-[calc(100%-32px)] -translate-x-1/2 flex-col rounded-[10px] border border-border bg-surface text-ink shadow-xl',
+            wide ? 'max-w-[880px]' : 'max-w-[520px]',
+          )}
         >
           <div className="flex items-start gap-3 border-b border-border px-[18px] py-3">
             <div className="min-w-0 flex-1">
