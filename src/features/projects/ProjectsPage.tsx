@@ -2,6 +2,7 @@ import { FolderPlus, Plus } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router'
 import { Button, PageHeader, Panel, Tag } from '@/components/Primitives'
+import { BackupReminder } from '@/features/backup/BackupReminder'
 import { useProjects, useProjectStats } from '@/lib/db/hooks'
 import { formatRelativeTime } from '@/lib/format'
 import { vi } from '@/lib/i18n/vi'
@@ -29,6 +30,7 @@ export function ProjectsPage() {
   return (
     <>
       <PageHeader title={vi.pages.projects.title} desc={vi.pages.projects.desc} aside={newButton} />
+      <BackupReminder />
 
       {projects.status === 'error' && (
         <p role="alert" className="text-red-ink">

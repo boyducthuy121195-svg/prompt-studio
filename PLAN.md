@@ -39,7 +39,7 @@ Làm task [số] trong @PLAN.md.
 | 9 | AGENTS.md: chỉnh sửa theo mục, kiểm tra, xuất file | A2, A6 | 4, 3 | ✅ |
 | 10 | AGENTS.md: Hỏi đáp, Nhập tự do, ✨ theo mục | A2 | 8, 9 | ✅ |
 | 11 | Màn hình Cải thiện | A3 | 8 | ✅ |
-| 12 | Sao lưu và khôi phục | A8 | 3, 7 | ⬜ |
+| 12 | Sao lưu và khôi phục | A8 | 3, 7 | ✅ |
 | 13 | Tìm nhanh (Ctrl+K) và hoàn thiện phím tắt | A9 | 6, 9 | ⬜ |
 | 14 | Hoàn thiện và kiểm thử toàn app | Tất cả | 1–13 | ⬜ |
 
@@ -214,7 +214,8 @@ Task này không có giao diện mới. AI báo kết quả test.
 **Tự kiểm tra:**
 - Dán prompt mẫu "Bạn là lập trình viên giỏi, viết code sạch...", thấy AI chỉ ra các câu mơ hồ.
 
-### Task 12 – Sao lưu và khôi phục ⬜
+### Task 12 – Sao lưu và khôi phục ✅
+> Hoàn thành 18/10/2026. File sao lưu không kèm key thì khi khôi phục giữ nguyên key đang có trên máy. Chưa sao lưu lần nào thì tính 7 ngày từ lúc tạo dự án đầu tiên.
 **Làm gì:**
 - Tải file sao lưu `.json`. Ô tích "Kèm API key" mặc định tắt, có cảnh báo.
 - Khôi phục từ file: kiểm tra bằng Zod, xem trước số dự án và prompt, xác nhận trước khi ghi đè.

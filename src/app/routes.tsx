@@ -1,5 +1,6 @@
 import { Navigate, type RouteObject } from 'react-router'
 import { NotFoundPage } from '@/components/NotFoundPage'
+import { BackupPanel } from '@/features/backup/BackupPanel'
 import { AgentsPageWithAi } from '@/features/wizard/AgentsAi'
 import { ImprovePage } from '@/features/improve/ImprovePage'
 import { LibraryPage } from '@/features/library/LibraryPage'
@@ -25,7 +26,7 @@ export const routes: RouteObject[] = [
       { path: 'improve', element: <ImprovePage /> },
       { path: 'library', element: <LibraryPage /> },
       { path: 'templates', element: <TemplatesPage /> },
-      { path: 'settings', element: <SettingsPage /> },
+      { path: 'settings', element: <SettingsPage backupSlot={<BackupPanel />} /> },
       { path: '*', element: <NotFoundPage /> },
     ],
   },

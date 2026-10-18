@@ -62,7 +62,9 @@ describe('Cài đặt', () => {
       within(input.closest('div')!.parentElement!).getByRole('button', { name: 'Kiểm tra' }),
     )
     expect(await screen.findByText('Đã chọn Gemini 3.8 Flash.')).toBeInTheDocument()
-    expect(screen.getByLabelText('Model Gemini')).toHaveValue('gemini-3.8-flash')
+    await waitFor(() =>
+      expect(screen.getByLabelText('Model Gemini')).toHaveValue('gemini-3.8-flash'),
+    )
     expect((await getSettings()).geminiModels).toHaveLength(3)
   })
 

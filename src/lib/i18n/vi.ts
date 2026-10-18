@@ -345,7 +345,6 @@ export const vi = {
       ['Esc', 'Đóng hộp thoại'],
     ],
     shortcutCols: ['Phím tắt', 'Chức năng'],
-    backupTitle: 'Sao lưu và khôi phục',
   },
   diff: {
     running: 'AI đang viết…',
@@ -449,6 +448,45 @@ export const vi = {
     useAsAgents: (name: string) => `Dùng làm AGENTS.md của "${name}"`,
     agentsSaved: 'Đã lưu vào AGENTS.md của dự án. Bản cũ vẫn còn trong lịch sử phiên bản.',
     savedTitle: 'Cải thiện: ',
+  },
+  backup: {
+    title: 'Sao lưu và khôi phục',
+    last: (when: string) => `Lần sao lưu gần nhất: ${when}.`,
+    never: 'Chưa sao lưu lần nào.',
+    note: 'Dữ liệu chỉ nằm trong trình duyệt này. Sao lưu để mang sang máy khác hoặc phòng khi xóa trình duyệt.',
+    includeKeys: 'Kèm API key trong file sao lưu',
+    keysWarning: 'Cảnh báo: file sẽ chứa API key. Không gửi file cho ai và không đưa lên GitHub.',
+    download: 'Tải file sao lưu (.json)',
+    downloaded: 'Đã tải file sao lưu',
+    restore: 'Khôi phục từ file...',
+    restoreFile: 'Chọn file sao lưu',
+    badJson:
+      'File này không phải file sao lưu (không đọc được nội dung). Hãy chọn file .json do Prompt Studio tạo.',
+    badFormat:
+      'File sao lưu bị hỏng hoặc không đúng định dạng của Prompt Studio. Hãy chọn file khác.',
+    readError: 'Không đọc được file. Hãy thử chọn lại.',
+    previewTitle: 'Khôi phục dữ liệu từ file?',
+    previewDesc: (date: string) => `File sao lưu tạo lúc ${date}.`,
+    previewCounts: (p: number, pr: number, a: number) =>
+      `${p} dự án · ${pr} prompt · ${a} AGENTS.md`,
+    previewKeys: (has: boolean) =>
+      has ? 'File có kèm API key.' : 'File không kèm API key: giữ nguyên key đang có trên máy này.',
+    previewWarning: 'Toàn bộ dữ liệu hiện tại sẽ bị thay bằng dữ liệu trong file.',
+    restoreConfirm: 'Khôi phục',
+    restored: 'Đã khôi phục dữ liệu từ file sao lưu',
+    cancel: 'Hủy',
+    wipe: 'Xóa toàn bộ dữ liệu',
+    wipe1Title: 'Xóa toàn bộ dữ liệu?',
+    wipe1Desc:
+      'Mọi dự án, prompt, AGENTS.md và cài đặt (kể cả API key) trong trình duyệt này sẽ bị xóa. Nên tải file sao lưu trước.',
+    wipe1Next: 'Tiếp tục',
+    wipe2Title: 'Xác nhận lần cuối',
+    wipe2Desc: 'Việc này không thể hoàn tác. Bạn chắc chắn muốn xóa hết?',
+    wipe2Confirm: 'Xóa vĩnh viễn',
+    wiped: 'Đã xóa toàn bộ dữ liệu',
+    reminder: (days: number) =>
+      `Đã ${days} ngày chưa sao lưu. Sao lưu để không mất dữ liệu khi đổi máy.`,
+    reminderAction: 'Sao lưu ngay',
   },
   common: {
     comingSoonBadge: 'Đang xây dựng',
