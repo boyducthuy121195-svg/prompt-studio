@@ -70,15 +70,29 @@ describe('AGENTS.md – dùng AI', () => {
     expect(screen.getByLabelText('Nội dung mục')).toHaveValue('- Vitest')
   })
 
-  it('✨ Ngắn gọn hơn cho một mục: xem so sánh rồi chấp nhận', async () => {
+  it('✨ Ngắn gọn hơn cho một mục: AI biết các mục khác và giai đoạn; tích quy tắc gợi ý thì thêm vào mục', async () => {
     const user = userEvent.setup()
-    const mock = await setup({ text: '- `npm run dev`' })
+    const mock = await setup({
+      json: {
+        content: '- `npm run dev`',
+        suggestions: ['Chạy `npm test` trước khi commit', 'Không sửa `dist/`'],
+      },
+    })
     await user.click(screen.getByRole('button', { name: '✨ Ngắn gọn hơn' }))
     const dialog = await screen.findByRole('dialog', { name: '✨ Ngắn gọn hơn: Tổng quan dự án' })
     expect(await within(dialog).findByText('npm run dev', { exact: false })).toBeInTheDocument()
-    await user.click(within(dialog).getByRole('button', { name: 'Chấp nhận thay đổi' }))
-    expect(screen.getByLabelText('Nội dung mục')).toHaveValue('- `npm run dev`')
+    expect(dialog).toHaveTextContent('theo hồ sơ dự án, giai đoạn hiện tại và các mục khác')
     expect(mock.calls[0].system).toContain('Rút gọn tối đa')
+    expect(mock.calls[0].system).toContain('Mục này dùng để: App làm gì')
+    expect(mock.calls[0].prompt).toContain('Giai đoạn hiện tại: 0 · Chuẩn bị')
+    expect(mock.calls[0].prompt).toContain('<cac_muc_khac>\n## Lệnh')
+    await user.click(
+      within(dialog).getByRole('checkbox', { name: 'Chạy `npm test` trước khi commit' }),
+    )
+    await user.click(within(dialog).getByRole('button', { name: 'Chấp nhận thay đổi' }))
+    expect(screen.getByLabelText('Nội dung mục')).toHaveValue(
+      '- `npm run dev`\n- Chạy `npm test` trước khi commit',
+    )
   })
 
   it('✨ Kiểm tra lại bằng AI hiện nhận xét', async () => {

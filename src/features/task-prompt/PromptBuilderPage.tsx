@@ -31,16 +31,20 @@ import { DiffDialog } from '@/components/DiffDialog'
 import { useAITask } from '@/components/use-ai-task'
 import {
   appendAnswers,
-  PolishPromptSchema,
+  appendLines,
+  insertAdditions,
+  PolishFieldSchema,
   polishFieldRequest,
+  PolishPromptSchema,
   polishPromptRequest,
+  type PolishFieldResult,
   type PolishPromptResult,
 } from '@/lib/prompts/meta/polish'
 import { FieldInput, inputClass } from './FieldInput'
+import { SavePromptDialog } from './SavePromptDialog'
 
 type PolishTarget =
   { kind: 'field'; key: string; label: string; before: string } | { kind: 'all'; before: string }
-import { SavePromptDialog } from './SavePromptDialog'
 
 const t = vi.builder
 
@@ -116,7 +120,8 @@ export function PromptBuilder({
     ? `${type.name}: ${form.task.trim().slice(0, 60)}`
     : type.name
 
-  const ai = useAITask<PolishPromptResult>()
+  const fieldAi = useAITask<PolishFieldResult>()
+  const allAi = useAITask<PolishPromptResult>()
   const [polishing, setPolishing] = useState<PolishTarget | null>(null)
 
   const fieldText = (key: string) => {
@@ -129,21 +134,30 @@ export function PromptBuilder({
     if (key === 'task' || key === 'purpose') set(key, value)
     else set('fields', { ...form.fields, [key]: value })
   }
+  const fieldDef = (key: string, label: string) =>
+    type.fields.find((f) => f.key === key) ?? {
+      key,
+      label,
+      placeholder: key === 'task' ? type.taskPlaceholder : undefined,
+    }
 
   const polishField = (key: string, label: string) => {
     const text = fieldText(key)
     if (!text.trim()) return toast(t.emptyToPolish)
     setPolishing({ kind: 'field', key, label, before: text })
-    void ai.start({
-      kind: 'stream',
+    void fieldAi.start({
+      kind: 'json',
       run: (p, signal) =>
-        p.streamText(
+        p.generateJson(
           polishFieldRequest({
-            fieldLabel: label,
+            field: fieldDef(key, label),
             text,
-            promptTypeName: type.name,
+            type,
+            form,
+            project,
             language: form.language,
           }),
+          PolishFieldSchema,
           signal,
         ),
     })
@@ -151,11 +165,11 @@ export function PromptBuilder({
 
   const polishAll = () => {
     setPolishing({ kind: 'all', before: preview })
-    void ai.start({
+    void allAi.start({
       kind: 'json',
       run: (p, signal) =>
         p.generateJson(
-          polishPromptRequest({ prompt: preview, language: form.language }),
+          polishPromptRequest({ prompt: preview, type, form, project, language: form.language }),
           PolishPromptSchema,
           signal,
         ),
@@ -163,29 +177,45 @@ export function PromptBuilder({
   }
 
   const closePolish = () => {
-    ai.reset()
+    fieldAi.reset()
+    allAi.reset()
     setPolishing(null)
   }
-  const accept = (answers: { question: string; answer: string }[]) => {
+  const fieldResult = fieldAi.state.status === 'done' ? fieldAi.state.data : undefined
+  const allResult = allAi.state.status === 'done' ? allAi.state.data : undefined
+  const accept = (answers: { question: string; answer: string }[], picked: number[]) => {
     if (!polishing) return
-    if (polishing.kind === 'field') {
-      setFieldText(
-        polishing.key,
-        ai.state.status === 'done' ? ai.state.text.trim() : polishing.before,
+    if (polishing.kind === 'field' && fieldResult) {
+      const extra = picked.map((i) => fieldResult.suggestions[i])
+      setFieldText(polishing.key, appendLines(fieldResult.rewritten.trim(), extra))
+    } else if (polishing.kind === 'all' && allResult) {
+      const withAdds = insertAdditions(
+        allResult.improved,
+        picked.map((i) => allResult.additions[i]),
       )
-    } else if (ai.state.status === 'done' && ai.state.data) {
-      setPolished(appendAnswers(ai.state.data.improved, answers))
+      setPolished(appendAnswers(withAdds, answers))
     }
     toast(vi.diff.accepted)
     closePolish()
   }
-  const result = ai.state.status === 'done' ? ai.state.data : undefined
+  const active = polishing?.kind === 'field' ? fieldAi : allAi
   const after =
-    polishing?.kind === 'all'
-      ? (result?.improved ?? '')
-      : ai.state.status === 'idle'
-        ? ''
-        : ai.state.text
+    polishing?.kind === 'field' ? (fieldResult?.rewritten ?? '') : (allResult?.improved ?? '')
+  const picks =
+    polishing?.kind === 'field'
+      ? fieldResult && {
+          title: t.fieldPicksTitle,
+          hint: t.fieldPicksHint,
+          items: fieldResult.suggestions.map((label) => ({ label })),
+        }
+      : allResult && {
+          title: t.allPicksTitle,
+          hint: t.allPicksHint,
+          items: allResult.additions.map((a) => ({
+            label: t.pickLabel(a.block, a.text),
+            detail: a.reason,
+          })),
+        }
 
   const polishButton = (key: string, label: string) => (
     <Button
@@ -476,13 +506,17 @@ export function PromptBuilder({
           open
           title={polishing.kind === 'field' ? t.polishTitle(polishing.label) : t.polishAllTitle}
           before={polishing.before}
+          hint={
+            polishing.kind === 'field' ? t.polishFieldHint(type.name) : t.polishAllHint(type.name)
+          }
           after={after}
-          running={ai.state.status === 'running'}
-          error={ai.state.status === 'error' ? ai.state.error : null}
-          changes={result?.changes}
-          questions={result?.questions}
-          onStop={ai.stop}
-          onRetry={ai.retry}
+          running={active.state.status === 'running'}
+          error={active.state.status === 'error' ? active.state.error : null}
+          changes={polishing.kind === 'all' ? allResult?.changes : undefined}
+          questions={polishing.kind === 'all' ? allResult?.questions : undefined}
+          picks={picks}
+          onStop={active.stop}
+          onRetry={active.retry}
           onAccept={accept}
           onClose={closePolish}
         />

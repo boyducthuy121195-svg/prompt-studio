@@ -50,7 +50,8 @@ và lấy lại được prompt hay dùng chỉ bằng một lần copy.
 **A3. Cải thiện file và prompt có sẵn**
 - Dán hoặc tải lên nội dung có sẵn (AGENTS.md, CLAUDE.md, một prompt bất kỳ).
 - AI chấm điểm theo tiêu chí (rõ ràng, cụ thể, đầy đủ, không mâu thuẫn, độ dài hợp lý),
-  liệt kê vấn đề và đề xuất bản mới.
+  liệt kê vấn đề kèm cách sửa, dựa trên hồ sơ dự án nếu có. Tiêu chí khác nhau cho prompt và cho file quy tắc.
+- Người dùng **tích chọn vấn đề cần sửa**, AI chỉ viết lại theo các vấn đề đã chọn.
 - Xem **so sánh trước/sau** và chọn "Chấp nhận" hoặc "Bỏ qua".
 
 **A4. Trình tạo prompt theo loại, dạng bảng nhập** – chi tiết: `docs/02-TRINH-TAO-PROMPT.md`
@@ -64,6 +65,8 @@ và lấy lại được prompt hay dùng chỉ bằng một lần copy.
 - Có trường **lựa chọn gợi ý** (chọn một hoặc nhiều, có mục "Khác…"), trường tự do và trường tự lấy từ Hồ sơ dự án.
 - **✨ Trau chuốt bằng AI** (chỉ chạy khi bấm nút) cho từng ô hoặc toàn bộ prompt: chuẩn hóa thuật ngữ kỹ thuật, phát hiện chỗ thiếu
   hoặc mâu thuẫn, hiện so sánh trước/sau. AI không được tự thêm yêu cầu mới.
+- ✨ dựa trên **ngữ cảnh**: loại prompt (có trọng tâm riêng), hồ sơ dự án, giai đoạn hiện tại và các ô đã điền.
+  AI đưa thêm **gợi ý bổ sung** riêng (cho ô, hoặc ràng buộc / tiêu chí cho cả prompt); người dùng tích cái muốn dùng.
 - Có sẵn bảng thuật ngữ Việt ↔ Anh để AI dùng thuật ngữ nhất quán.
 
 **A5. Thư viện prompt theo dự án**

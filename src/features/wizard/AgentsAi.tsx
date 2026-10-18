@@ -19,13 +19,16 @@ import {
   AgentsClassifySchema,
   agentsGenerateRequest,
   agentsRewriteRequest,
+  AgentsRewriteSchema,
   AgentsSectionsSchema,
   type AgentsCheckResult,
   type AgentsClassifyResult,
+  type AgentsRewriteResult,
   type AgentsSectionsResult,
   type RewriteMode,
   type WizardAnswer,
 } from '@/lib/prompts/meta/agents'
+import { appendLines } from '@/lib/prompts/meta/polish'
 import { cn } from '@/lib/utils'
 import { AgentsPage, type AgentsAiSlots, type AgentsSlotContext } from './AgentsPage'
 
@@ -260,24 +263,30 @@ function SectionActions({
   ctx: AgentsSlotContext
   section: AgentsSlotContext['sections'][number]
 }) {
-  const ai = useAITask()
+  const ai = useAITask<AgentsRewriteResult>()
   const language = useLanguage()
   const toast = useToast()
   const [open, setOpen] = useState<{ label: string; before: string; key: string } | null>(null)
 
   const run = (mode: RewriteMode, label: string) => {
     setOpen({ label, before: section.content, key: section.key })
+    const others = ctx.sections
+      .filter((s) => s.enabled && s.key !== section.key)
+      .map((s) => ({ title: s.title, content: s.content }))
     void ai.start({
-      kind: 'stream',
+      kind: 'json',
       run: (p, signal) =>
-        p.streamText(
+        p.generateJson(
           agentsRewriteRequest({
+            sectionKey: section.key,
             sectionTitle: section.title,
             content: section.content,
             mode,
             project: ctx.project,
+            others,
             language,
           }),
+          AgentsRewriteSchema,
           signal,
         ),
     })
@@ -286,6 +295,7 @@ function SectionActions({
     ai.reset()
     setOpen(null)
   }
+  const result = ai.state.status === 'done' ? ai.state.data : undefined
 
   return (
     <>
@@ -298,15 +308,30 @@ function SectionActions({
         <DiffDialog
           open
           title={t.rewriteTitle(open.label, section.title)}
+          hint={t.rewriteHint(section.title)}
           before={open.before}
-          after={ai.state.status === 'idle' ? '' : ai.state.text}
+          after={result?.content ?? ''}
+          picks={
+            result && {
+              title: t.rewritePicksTitle(section.title),
+              hint: t.rewritePicksHint,
+              items: result.suggestions.map((label) => ({ label })),
+            }
+          }
           running={ai.state.status === 'running'}
           error={ai.state.status === 'error' ? ai.state.error : null}
           onStop={ai.stop}
           onRetry={ai.retry}
           onClose={close}
-          onAccept={() => {
-            if (ai.state.status === 'done') ctx.setSectionContent(open.key, ai.state.text.trim())
+          onAccept={(_answers, picked) => {
+            if (result)
+              ctx.setSectionContent(
+                open.key,
+                appendLines(
+                  result.content.trim(),
+                  picked.map((i) => result.suggestions[i]),
+                ),
+              )
             toast(vi.diff.accepted)
             close()
           }}

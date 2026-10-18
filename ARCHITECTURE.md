@@ -162,13 +162,20 @@ Giao diện chỉ làm việc với `AIProvider`. Muốn đổi hoặc thêm nh�
 
 | Tác vụ | Nút bấm | Đầu ra | Mức suy nghĩ (effort) mặc định |
 |---|---|---|---|
-| `polishField` | ✨ cạnh một ô | Chữ đã viết lại (streaming) | low |
-| `polishPrompt` | ✨ Trau chuốt toàn bộ | JSON: `{ improved, changes[], questions[] }` | medium |
+| `polishField` | ✨ cạnh một ô | JSON: `{ rewritten, suggestions[] }` | low |
+| `polishPrompt` | ✨ Trau chuốt toàn bộ | JSON: `{ improved, changes[], questions[], additions{block,text,reason}[] }` | medium |
 | `agentsGenerate` | ✨ Tạo AGENTS.md (cuối Wizard) | Markdown theo 10 mục (streaming) | high |
 | `agentsClassify` | ✨ Phân loại vào 10 mục | JSON: `{ sections: {key, content}[], missing[] }` | medium |
-| `agentsRewriteSection` | ✨ Viết lại / Ngắn gọn hơn / Thêm ví dụ | Chữ (streaming) | low |
+| `agentsRewriteSection` | ✨ Viết lại / Ngắn gọn hơn / Thêm ví dụ | JSON: `{ content, suggestions[] }` | low |
 | `agentsCheck` | ✨ Kiểm tra lại bằng AI | JSON: `{ checks: {level, text, section}[] }` | medium |
-| `improveAnalyze` | ✨ Phân tích (màn hình Cải thiện) | JSON: `{ scores{}, issues[], proposal }` | high |
+| `improveAnalyze` | ✨ Phân tích (màn hình Cải thiện) | JSON: `{ scores{}, issues{level,text,fix}[] }` | high |
+| `improveRewrite` | ✨ Viết lại theo các vấn đề đã chọn | JSON: `{ proposal, changes[] }` | high |
+
+**AI theo ngữ cảnh (task 12A).** Mỗi lần bấm ✨, chỉ dẫn gửi AI được ghép từ các khối trong `src/lib/prompts/meta/context.ts`:
+`<ho_so_du_an>` (hồ sơ + giai đoạn hiện tại), `<loai_prompt>` (mô tả, vai trò, lưu ý riêng, trọng tâm cố định trong
+`src/lib/prompts/polish-focus.ts`), `<cac_o_khac>` (các ô đã điền) hoặc `<cac_muc_khac>` (các mục AGENTS.md khác).
+Gợi ý thêm của AI (`suggestions`, `additions`) luôn tách riêng khỏi bản viết lại; người dùng tự tích chọn trong hộp so sánh.
+Màn hình Cải thiện chia 2 bước: phân tích → người dùng chọn vấn đề → AI chỉ viết lại theo vấn đề đã chọn.
 
 Một số kiểm tra **không cần AI** vì app tự làm được trên máy: đủ mục bắt buộc chưa, độ dài, lệnh có nằm trong khối code không, có chuỗi giống API key không. Nhờ vậy không tốn tiền.
 

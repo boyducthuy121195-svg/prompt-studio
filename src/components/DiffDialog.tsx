@@ -3,6 +3,7 @@ import { Loader2, Square } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router'
 import { Dialog } from '@/components/Dialog'
+import { CheckOption } from '@/components/CheckOption'
 import { TextField } from '@/components/Field'
 import { Button, Tag } from '@/components/Primitives'
 import type { AIError } from '@/lib/ai/errors'
@@ -12,8 +13,15 @@ const t = vi.diff
 
 /**
  * M5 – hộp so sánh trước/sau: chữ AI viết hiện dần, phần thay đổi được tô màu,
- * câu hỏi của AI cho người dùng trả lời, Chấp nhận / Bỏ qua.
+ * câu hỏi của AI cho người dùng trả lời, gợi ý bổ sung để tích chọn, Chấp nhận / Bỏ qua.
+ * Mỗi nơi gọi tự đặt `hint`, `changesTitle` và `picks` cho hợp ngữ cảnh.
  */
+export interface DiffPicks {
+  title: string
+  hint?: string
+  items: { label: string; detail?: string }[]
+}
+
 export function DiffDialog({
   open,
   title,
@@ -23,6 +31,9 @@ export function DiffDialog({
   error,
   changes = [],
   questions = [],
+  picks,
+  hint,
+  changesTitle,
   onStop,
   onRetry,
   onAccept,
@@ -36,12 +47,19 @@ export function DiffDialog({
   error?: AIError | null
   changes?: string[]
   questions?: string[]
+  /** Gợi ý AI đề xuất thêm theo ngữ cảnh; người dùng tích cái muốn dùng */
+  picks?: DiffPicks
+  hint?: string
+  changesTitle?: string
   onStop: () => void
   onRetry: () => void
-  onAccept: (answers: { question: string; answer: string }[]) => void
+  onAccept: (answers: { question: string; answer: string }[], picked: number[]) => void
   onClose: () => void
 }) {
   const [answers, setAnswers] = useState<Record<number, string>>({})
+  const [picked, setPicked] = useState<number[]>([])
+  const togglePick = (i: number) =>
+    setPicked((p) => (p.includes(i) ? p.filter((x) => x !== i) : [...p, i].sort((a, b) => a - b)))
   const parts = !running && after ? diffWords(before, after) : null
   const canAccept = !running && !error && after.trim() !== ''
 
@@ -50,7 +68,7 @@ export function DiffDialog({
       open={open}
       onOpenChange={(o) => !o && onClose()}
       title={title}
-      description={running ? t.running : t.hint}
+      description={running ? t.running : (hint ?? t.hint)}
       wide
       footer={
         <>
@@ -71,7 +89,10 @@ export function DiffDialog({
             variant="primary"
             disabled={!canAccept}
             onClick={() =>
-              onAccept(questions.map((q, i) => ({ question: q, answer: answers[i] ?? '' })))
+              onAccept(
+                questions.map((q, i) => ({ question: q, answer: answers[i] ?? '' })),
+                picked,
+              )
             }
           >
             {t.accept}
@@ -140,13 +161,37 @@ export function DiffDialog({
 
         {changes.length > 0 && (
           <div>
-            <h3 className="mb-1 text-[13px] font-semibold">{t.changes}</h3>
+            <h3 className="mb-1 text-[13px] font-semibold">{changesTitle ?? t.changes}</h3>
             <ul className="list-disc pl-5 text-[12.5px] text-muted">
               {changes.map((c) => (
                 <li key={c}>{c}</li>
               ))}
             </ul>
           </div>
+        )}
+
+        {picks && picks.items.length > 0 && (
+          <section
+            aria-label={picks.title}
+            className="flex flex-col gap-2 rounded-lg border border-ai-line bg-ai-bg p-3"
+          >
+            <div className="flex flex-wrap items-center gap-2">
+              <h3 className="text-[13px] font-semibold text-ai-ink">{picks.title}</h3>
+              <Tag>{t.optional}</Tag>
+              {picks.hint && <span className="text-xs text-muted">{picks.hint}</span>}
+            </div>
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-1.5">
+              {picks.items.map((it, i) => (
+                <CheckOption
+                  key={`${i}-${it.label}`}
+                  checked={picked.includes(i)}
+                  onChange={() => togglePick(i)}
+                  label={it.label}
+                  detail={it.detail}
+                />
+              ))}
+            </div>
+          </section>
         )}
 
         {questions.length > 0 && (

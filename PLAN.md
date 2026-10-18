@@ -40,6 +40,7 @@ Làm task [số] trong @PLAN.md.
 | 10 | AGENTS.md: Hỏi đáp, Nhập tự do, ✨ theo mục | A2 | 8, 9 | ✅ |
 | 11 | Màn hình Cải thiện | A3 | 8 | ✅ |
 | 12 | Sao lưu và khôi phục | A8 | 3, 7 | ✅ |
+| 12A | ✨ AI theo ngữ cảnh: gợi ý bổ sung, Cải thiện 2 bước | A2, A3, A4 | 8, 10, 11 | ✅ |
 | 13 | Tìm nhanh (Ctrl+K) và hoàn thiện phím tắt | A9 | 6, 9 | ⬜ |
 | 14 | Hoàn thiện và kiểm thử toàn app | Tất cả | 1–13 | ⬜ |
 
@@ -225,6 +226,19 @@ Task này không có giao diện mới. AI báo kết quả test.
 **Tự kiểm tra:**
 - Sao lưu, xóa toàn bộ, khôi phục, mọi thứ quay lại đủ.
 - Thử nhập một file hỏng, thấy thông báo lỗi dễ hiểu.
+
+### Task 12A – ✨ AI theo ngữ cảnh ✅
+> Thêm theo yêu cầu của chủ dự án ngày 18/10/2026: kết quả ✨ đang theo một khuôn chung, chưa sát từng phần.
+**Làm gì:**
+- Mỗi lần bấm ✨, AI nhận thêm: loại prompt (mô tả, vai trò, lưu ý riêng, trọng tâm cố định), hồ sơ dự án, giai đoạn hiện tại, các ô / các mục khác đã điền.
+- Trọng tâm cố định cho từng loại prompt và từng ô hay gặp (`src/lib/prompts/polish-focus.ts`).
+- Hộp so sánh có khu **gợi ý bổ sung** để tích chọn: ✨ một ô → ý thêm vào cuối ô; ✨ toàn bộ → ràng buộc / tiêu chí chèn vào đúng khối (ưu tiên lấy từ bộ gợi ý cố định chưa tích); ✨ một mục AGENTS.md → quy tắc thêm vào cuối mục.
+- Cải thiện 2 bước: ✨ Phân tích (điểm + vấn đề kèm cách sửa, tiêu chí riêng cho prompt / AGENTS.md) → tích vấn đề cần sửa (mặc định mức Cao và TB) → ✨ Viết lại theo vấn đề đã chọn.
+- Đổi ✨ một ô và ✨ một mục AGENTS.md từ chữ hiện dần sang JSON có cấu trúc để tách bản viết lại và gợi ý.
+
+**Tự kiểm tra:**
+- Chọn dự án có hồ sơ, mở "Sửa lỗi", bấm ✨ ở ô Nhiệm vụ: gợi ý nhắc tới đúng công nghệ của dự án.
+- Ở Cải thiện, bỏ tích bớt vấn đề rồi viết lại: AI chỉ sửa các vấn đề còn tích.
 
 ### Task 13 – Tìm nhanh và hoàn thiện phím tắt ⬜
 **Làm gì:**

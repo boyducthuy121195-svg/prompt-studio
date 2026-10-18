@@ -13,11 +13,14 @@ import { ensureAgentsDoc, saveAgentsDoc } from '@/lib/db/agents'
 import { useCurrentProject, useSettings } from '@/lib/db/hooks'
 import { vi } from '@/lib/i18n/vi'
 import {
+  ImproveRewriteSchema,
+  improveRewriteRequest,
   ImproveSchema,
   improveRequest,
   SCORE_LABELS,
   type ImproveKind,
   type ImproveResult,
+  type ImproveRewriteResult,
 } from '@/lib/prompts/meta/improve'
 import { cn } from '@/lib/utils'
 
@@ -37,6 +40,9 @@ export function ImprovePage() {
   const [saving, setSaving] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
   const ai = useAITask<ImproveResult>()
+  const rewriteAi = useAITask<ImproveRewriteResult>()
+  // Chỉ số các vấn đề người dùng chọn để AI sửa (mặc định: mức Cao và TB)
+  const [picked, setPicked] = useState<number[]>([])
   const settings = useSettings()
   const current = useCurrentProject()
   const project = current.status === 'ready' ? current.data : null
@@ -46,14 +52,45 @@ export function ImprovePage() {
   const result = ai.state.status === 'done' ? ai.state.data : undefined
   const running = ai.state.status === 'running'
 
-  const analyze = () => {
+  const analyze = async () => {
     setApplied(false)
-    void ai.start({
+    setPicked([])
+    await ai.start({
       kind: 'json',
-      run: (p, signal) =>
-        p.generateJson(improveRequest({ kind, content, language }), ImproveSchema, signal),
+      run: async (p, signal) => {
+        const r = await p.generateJson(
+          improveRequest({ kind, content, project, language }),
+          ImproveSchema,
+          signal,
+        )
+        setPicked(r.issues.flatMap((is, i) => (is.level === 'low' ? [] : [i])))
+        return r
+      },
     })
   }
+
+  const togglePick = (i: number) =>
+    setPicked((p) => (p.includes(i) ? p.filter((x) => x !== i) : [...p, i].sort((a, b) => a - b)))
+
+  const rewrite = () => {
+    if (!result || !picked.length) return
+    const issues = picked.map((i) => result.issues[i])
+    setShowProposal(true)
+    void rewriteAi.start({
+      kind: 'json',
+      run: (p, signal) =>
+        p.generateJson(
+          improveRewriteRequest({ kind, content, issues, project, language }),
+          ImproveRewriteSchema,
+          signal,
+        ),
+    })
+  }
+  const closeProposal = () => {
+    rewriteAi.reset()
+    setShowProposal(false)
+  }
+  const proposal = rewriteAi.state.status === 'done' ? rewriteAi.state.data : undefined
 
   const readFile = async (file: File | undefined) => {
     if (!file) return
@@ -124,7 +161,11 @@ export function ImprovePage() {
                 <FileUp className="size-3.5" aria-hidden="true" />
                 {t.upload}
               </Button>
-              <Button variant="ai" onClick={analyze} disabled={!content.trim() || running}>
+              <Button
+                variant="ai"
+                onClick={() => void analyze()}
+                disabled={!content.trim() || running}
+              >
                 {running ? <Loader2 className="size-3.5 animate-spin" aria-hidden="true" /> : null}
                 {running ? t.analyzing : t.analyze}
               </Button>
@@ -135,6 +176,9 @@ export function ImprovePage() {
                 </Button>
               )}
             </div>
+            <p className="text-xs text-muted">
+              {project ? t.contextNote(project.name) : t.noContextNote}
+            </p>
             {applied && (
               <div className="flex flex-col gap-2 rounded-md border border-accent-line bg-accent-weak p-3">
                 <span className="text-[13px] font-semibold text-accent-ink">{t.afterTitle}</span>
@@ -215,7 +259,12 @@ export function ImprovePage() {
                   <caption className="sr-only">{t.issuesTitle}</caption>
                   <thead>
                     <tr>
-                      {[t.levelCol, t.issueCol].map((c) => (
+                      <th className="w-8 border-b border-border bg-soft px-3 py-2">
+                        <span className="sr-only">
+                          {t.pickedCount(picked.length, result.issues.length)}
+                        </span>
+                      </th>
+                      {[t.levelCol, t.issueCol, t.fixCol].map((c) => (
                         <th
                           key={c}
                           className="border-b border-border bg-soft px-3 py-2 text-left text-[11.5px] font-semibold uppercase tracking-wide text-muted"
@@ -228,48 +277,65 @@ export function ImprovePage() {
                   <tbody>
                     {result.issues.length === 0 && (
                       <tr>
-                        <td colSpan={2} className="px-3 py-2 text-muted">
+                        <td colSpan={4} className="px-3 py-2 text-muted">
                           {t.noIssues}
                         </td>
                       </tr>
                     )}
                     {result.issues.map((is, i) => (
                       <tr key={i} className="border-b border-border last:border-b-0">
-                        <td className="w-16 px-3 py-2">
+                        <td className="px-3 py-2 align-top">
+                          <input
+                            type="checkbox"
+                            checked={picked.includes(i)}
+                            onChange={() => togglePick(i)}
+                            aria-label={t.pickIssue(is.text)}
+                            className="mt-0.5 size-[15px] accent-accent"
+                          />
+                        </td>
+                        <td className="w-16 px-3 py-2 align-top">
                           <Tag className={cn('border-transparent', LEVEL_TONE[is.level])}>
                             {t.levels[is.level]}
                           </Tag>
                         </td>
-                        <td className="px-3 py-2 leading-snug">{is.text}</td>
+                        <td className="px-3 py-2 align-top leading-snug">{is.text}</td>
+                        <td className="px-3 py-2 align-top leading-snug text-muted">{is.fix}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-              <div className="border-t border-border p-3.5">
-                <Button variant="primary" onClick={() => setShowProposal(true)}>
-                  {t.viewProposal}
+              <div className="flex flex-wrap items-center gap-2.5 border-t border-border p-3.5">
+                <Button variant="ai" onClick={rewrite} disabled={!picked.length}>
+                  {t.rewrite(picked.length)}
                 </Button>
+                <span className="text-xs text-muted">
+                  {picked.length ? t.pickedCount(picked.length, result.issues.length) : t.pickSome}
+                </span>
               </div>
             </>
           )}
         </Panel>
       </div>
 
-      {showProposal && result && (
+      {showProposal && (
         <DiffDialog
           open
-          title={t.proposalTitle}
+          title={t.proposalTitle(picked.length)}
+          hint={t.proposalHint}
+          changesTitle={t.changesTitle}
           before={content}
-          after={result.proposal}
-          running={false}
-          onStop={ai.stop}
-          onRetry={analyze}
-          onClose={() => setShowProposal(false)}
+          after={proposal?.proposal ?? ''}
+          changes={proposal?.changes}
+          running={rewriteAi.state.status === 'running'}
+          error={rewriteAi.state.status === 'error' ? rewriteAi.state.error : null}
+          onStop={rewriteAi.stop}
+          onRetry={rewriteAi.retry}
+          onClose={closeProposal}
           onAccept={() => {
-            setContent(result.proposal)
+            if (proposal) setContent(proposal.proposal)
             setApplied(true)
-            setShowProposal(false)
+            closeProposal()
             toast(t.applied)
           }}
         />
