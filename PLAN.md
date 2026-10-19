@@ -44,6 +44,7 @@ Làm task [số] trong @PLAN.md.
 | 13 | Tìm nhanh (Ctrl+K) và hoàn thiện phím tắt | A9 | 6, 9 | ✅ |
 | 14 | Hoàn thiện và kiểm thử toàn app | Tất cả | 1–13 | ✅ |
 | 15 | Lưu dữ liệu ra thư mục trên máy | A8 (mở rộng) | 12 | ✅ |
+| 16 | Nâng chất lượng prompt (học từ "Trợ lý tạo prompt") | A4, A7 | 5, 7 | ✅ |
 
 Thứ tự trên đã tính sẵn: có thể làm lần lượt từ trên xuống. Các task 1–6 **chưa cần API key**.
 
@@ -289,6 +290,20 @@ Task này không có giao diện mới. AI báo kết quả test.
 - Sửa hồ sơ một dự án, bấm Ctrl+S, mở lại `du-an/<ten>/ho-so.md` thấy nội dung mới. Mở file `.json` bằng Notepad, tìm "sk-ant" không thấy.
 - Trang dự án → "Chọn thư mục code…" → chọn thư mục code thật của dự án. Sửa AGENTS.md trong app: file AGENTS.md trong thư mục code đổi theo; nếu trước đó đã có AGENTS.md khác thì thấy thêm `AGENTS.backup-<ngày>.md`.
 - Đổi máy: cài app, mở Cài đặt → "Nạp từ thư mục…" → chọn đúng thư mục (ví dụ qua OneDrive) → "Nạp dữ liệu". Nhập lại API key.
+
+### Task 16 – Nâng chất lượng prompt ✅
+> Thêm theo đề xuất trong `docs/07` (mục 3, nhóm 1), chủ dự án duyệt ngày 19/10/2026. Hoàn thành 19/10/2026.
+> Chưa làm "tự chuyển sang model Gemini dự phòng" (cần đổi thiết kế Cài đặt) – thông báo lỗi gợi ý đổi model thay vào đó.
+**Làm gì:**
+- CL-02 "Lên kế hoạch → chờ duyệt" viết chặt hơn: chờ trả lời "Đồng ý", bị yêu cầu chỉnh thì sửa kế hoạch và chờ lại, chỉ làm đúng phạm vi đã duyệt.
+- Gợi ý mới CL-08 "Báo cáo trung thực" (không đọc được AGENTS.md thì báo; tách việc đã kiểm tra thật với điều suy luận). Tích sẵn cho Tính năng, Sửa lỗi, Refactor, Viết test, Kiểm thử. `docs/04` đã cập nhật.
+- Ô "Khi trống / lỗi / đang tải" (có ✨) cho loại Xây tính năng mới và Thiết kế giao diện.
+- Thanh "Độ hoàn thiện" trên phần xem trước: % các ô chữ quan trọng đã điền và danh sách ô còn thiếu (`src/lib/prompts/completeness.ts`, không gọi AI).
+- Gemini tự thử lại tối đa 2 lần (sau 1 giây, 2 giây) khi quá tải / gửi quá nhanh; hết hạn mức trong ngày thì báo riêng và gợi ý đổi model (`src/lib/ai/retry.ts`).
+
+**Tự kiểm tra:**
+- Mở Tạo prompt → "Xây tính năng mới": thanh Độ hoàn thiện 0%, gõ Nhiệm vụ thì tăng; thấy ô "Khi trống / lỗi / đang tải".
+- Phần xem trước có câu "Dừng lại chờ tôi trả lời "Đồng ý"" và "không giả vờ đã đọc".
 
 ---
 

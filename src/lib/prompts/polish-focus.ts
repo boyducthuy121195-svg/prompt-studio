@@ -58,6 +58,8 @@ const FIELD_FOCUS: Readonly<Record<string, string>> = {
   feedback: 'Mỗi phản hồi một dòng: ai gặp, gặp ở đâu, mức độ ảnh hưởng.',
   scope: 'Chỉ rõ file / thư mục / phần nào nằm trong phạm vi, phần nào không.',
   target: 'Chỉ rõ file hoặc hàm cần test.',
+  states:
+    'Với từng màn hình / khu vực: chưa có dữ liệu thì hiện gì, lỗi (mạng, dữ liệu sai) thì báo gì và cho làm gì tiếp, đang tải thì hiện gì; nội dung quá dài hiển thị ra sao.',
 }
 
 export function fieldFocus(key: string, field?: Pick<FieldDef, 'label' | 'placeholder'>): string {

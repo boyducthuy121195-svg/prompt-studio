@@ -76,6 +76,7 @@ describe('loại prompt', () => {
         'RB-07',
         'CL-04',
         'CL-06',
+        'CL-08',
         'DR-01',
         'TC-01',
         'TC-02',
@@ -88,9 +89,19 @@ describe('loại prompt', () => {
 })
 
 describe('bộ gợi ý', () => {
-  it('đủ số lượng theo docs/04: 12 RB, 7 CL, 7 DR, 7 TC, mã không trùng', () => {
+  it('task 16: CL-02 chờ "Đồng ý"; CL-08 báo cáo trung thực, tích sẵn cho các loại viết code', () => {
+    const text = (code: string) => SUGGESTIONS.cl.find((s) => s.code === code)?.text ?? ''
+    expect(text('CL-02')).toMatch(/"Đồng ý".*sửa kế hoạch và chờ duyệt lại.*đúng phạm vi/)
+    expect(text('CL-08')).toMatch(/không giả vờ đã đọc.*đã kiểm tra thật/)
+    for (const code of ['TINH_NANG', 'SUA_LOI', 'REFACTOR', 'VIET_TEST', 'KIEM_THU'] as const)
+      expect(defaultSelection(code).has('CL-08'), code).toBe(true)
+    for (const code of ['TINH_NANG', 'THIET_KE_UI'] as const)
+      expect(getPromptType(code).fields.find((f) => f.key === 'states')?.polish, code).toBe(true)
+  })
+
+  it('đủ số lượng theo docs/04: 12 RB, 8 CL, 7 DR, 7 TC, mã không trùng', () => {
     expect(SUGGESTIONS.rb).toHaveLength(12)
-    expect(SUGGESTIONS.cl).toHaveLength(7)
+    expect(SUGGESTIONS.cl).toHaveLength(8)
     expect(SUGGESTIONS.dr).toHaveLength(7)
     expect(SUGGESTIONS.tc).toHaveLength(7)
     const codes = Object.values(SUGGESTIONS)

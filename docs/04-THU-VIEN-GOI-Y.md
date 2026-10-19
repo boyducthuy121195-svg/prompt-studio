@@ -46,12 +46,15 @@
 | Mã | Nhãn | Câu chuẩn |
 |---|---|---|
 | CL-01 | Hỏi trước khi làm | Nếu yêu cầu chưa rõ, hỏi tôi tối đa 3 câu trước khi bắt đầu. Không tự đoán ý tôi. |
-| CL-02 | Lên kế hoạch → chờ duyệt | Trước tiên đọc code liên quan và trình bày kế hoạch ngắn (các bước, file sẽ sửa, rủi ro). Chờ tôi duyệt rồi mới làm. |
+| CL-02 | Lên kế hoạch → chờ duyệt | Trước tiên đọc code liên quan và trình bày kế hoạch ngắn (các bước, file sẽ sửa, rủi ro). Dừng lại chờ tôi trả lời "Đồng ý" rồi mới sửa code, tạo/xóa file hay cài thư viện. Nếu tôi yêu cầu chỉnh thì sửa kế hoạch và chờ duyệt lại. Sau khi được duyệt, chỉ làm đúng phạm vi đó; phát sinh thay đổi lớn thì hỏi lại. |
 | CL-03 | Tự làm đến cùng | Làm liên tục cho đến khi hoàn thành. Gặp điểm chưa chắc chắn thì chọn phương án hợp lý nhất, ghi lại giả định và báo cáo ở cuối. Riêng các mục trong RB-08 vẫn phải hỏi. |
 | CL-04 | Tìm hiểu trước khi kết luận | Không suy đoán về code chưa mở. Đọc các file liên quan trước khi trả lời hoặc sửa. |
 | CL-05 | Báo tiến độ | Mở đầu bằng việc nhắc lại mục tiêu trong 1 câu và nêu kế hoạch. Trong lúc làm, báo ngắn từng bước. Kết thúc bằng tóm tắt. |
 | CL-06 | Tự rà soát trước khi nộp | Trước khi báo xong, tự rà lại kết quả theo từng tiêu chí hoàn thành và sửa chỗ chưa đạt. |
 | CL-07 | Giải thích cho người không biết code | Tôi không biết lập trình. Giải thích bằng ngôn ngữ đời thường. Nếu phải dùng thuật ngữ thì giải thích ngắn kèm theo. |
+| CL-08 | Báo cáo trung thực | Nếu không đọc được @AGENTS.md hoặc file được nhắc tới thì báo ngay, không giả vờ đã đọc. Khi báo cáo, tách rõ việc đã kiểm tra thật với điều mới suy luận, và nêu phần chưa kiểm tra được. |
+
+> CL-02 (bản chặt) và CL-08 thêm ở task 16, học từ dự án "Trợ lý tạo prompt" (`docs/07`).
 
 ### Khối Định dạng đầu ra (DR)
 | Mã | Nhãn | Câu chuẩn |
@@ -94,12 +97,12 @@ Khi chọn loại prompt, app **tích sẵn** các gợi ý dưới đây. Ngư�
 | THIET_KE_DU_LIEU | Software Architect | RB-05 | CL-02 | DR-03, DR-02 | — |
 | KE_HOACH | Tech Lead | RB-07 | CL-02 | DR-02, DR-04 (PLAN.md) | — |
 | KHOI_TAO | Senior Full-stack Dev | RB-09, RB-10 | CL-03, CL-05 | DR-01 | TC-01, TC-03, TC-06 |
-| TINH_NANG | Senior Full-stack Dev | RB-01, RB-02, RB-07, RB-08, RB-12 | CL-02, CL-04, CL-06 | DR-01 | TC-01, TC-02, TC-03, TC-04, TC-06, TC-07 |
-| SUA_LOI | Senior Full-stack Dev | RB-01, RB-06, RB-07 | CL-04, CL-06 | DR-01 | TC-01, TC-02, TC-03, TC-06 |
-| REFACTOR | Senior Full-stack Dev | RB-02, RB-04, RB-07 | CL-02, CL-04 | DR-01 | TC-01, TC-06 |
-| VIET_TEST | QA Engineer | RB-06 | CL-04 | DR-01 | TC-01 |
+| TINH_NANG | Senior Full-stack Dev | RB-01, RB-02, RB-07, RB-08, RB-12 | CL-02, CL-04, CL-06, CL-08 | DR-01 | TC-01, TC-02, TC-03, TC-04, TC-06, TC-07 |
+| SUA_LOI | Senior Full-stack Dev | RB-01, RB-06, RB-07 | CL-04, CL-06, CL-08 | DR-01 | TC-01, TC-02, TC-03, TC-06 |
+| REFACTOR | Senior Full-stack Dev | RB-02, RB-04, RB-07 | CL-02, CL-04, CL-08 | DR-01 | TC-01, TC-06 |
+| VIET_TEST | QA Engineer | RB-06 | CL-04, CL-08 | DR-01 | TC-01 |
 | REVIEW | Security Reviewer | — | CL-04, CL-07 | DR-06 | — |
-| KIEM_THU | QA Engineer | — | CL-04 | DR-06 | — |
+| KIEM_THU | QA Engineer | — | CL-04, CL-08 | DR-06 | — |
 | TRIEN_KHAI | DevOps Engineer | RB-08, RB-09 | CL-02, CL-05, CL-07 | DR-01 | TC-03 |
 | TAI_LIEU | Technical Writer | — | CL-04 | DR-04 | — |
 | GIAI_THICH | Senior Full-stack Dev | — | CL-04, CL-07 | — | — |

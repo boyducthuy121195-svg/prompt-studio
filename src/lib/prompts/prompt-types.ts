@@ -184,6 +184,13 @@ export const PROMPT_TYPES: readonly PromptTypeDef[] = [
         kind: 'multiselect',
         options: ['Dark mode', 'Accessibility (WCAG AA)', 'Đa ngôn ngữ'],
       },
+      {
+        key: 'states',
+        label: 'Khi trống / lỗi / đang tải',
+        kind: 'textarea',
+        placeholder: 'Màn hình nào cần thiết kế trạng thái chưa có dữ liệu, lỗi, đang tải…',
+        polish: true,
+      },
     ],
     defaults: { rb: ['RB-11'], cl: ['CL-02'], dr: ['DR-03', 'DR-04'], tc: ['TC-03'] },
     tip: 'Tạo bố cục có chủ đích, tránh giao diện mặc định nhàm chán. Chú ý khoảng cách, phân cấp chữ và trạng thái rỗng/lỗi/đang tải.',
@@ -379,6 +386,13 @@ export const PROMPT_TYPES: readonly PromptTypeDef[] = [
         ],
       },
       {
+        key: 'states',
+        label: 'Khi trống / lỗi / đang tải',
+        kind: 'textarea',
+        placeholder: 'Chưa có dữ liệu thì hiện…; lỗi mạng thì báo… và cho thử lại; đang tải thì…',
+        polish: true,
+      },
+      {
         key: 'tests',
         label: 'Loại test',
         kind: 'multiselect',
@@ -387,7 +401,7 @@ export const PROMPT_TYPES: readonly PromptTypeDef[] = [
     ],
     defaults: {
       rb: ['RB-01', 'RB-02', 'RB-07', 'RB-08', 'RB-12'],
-      cl: ['CL-02', 'CL-04', 'CL-06'],
+      cl: ['CL-02', 'CL-04', 'CL-06', 'CL-08'],
       dr: ['DR-01'],
       tc: ['TC-01', 'TC-02', 'TC-03', 'TC-04', 'TC-06', 'TC-07'],
     },
@@ -452,7 +466,7 @@ export const PROMPT_TYPES: readonly PromptTypeDef[] = [
     ],
     defaults: {
       rb: ['RB-01', 'RB-06', 'RB-07'],
-      cl: ['CL-04', 'CL-06'],
+      cl: ['CL-04', 'CL-06', 'CL-08'],
       dr: ['DR-01'],
       tc: ['TC-01', 'TC-02', 'TC-03', 'TC-06'],
     },
@@ -493,7 +507,7 @@ export const PROMPT_TYPES: readonly PromptTypeDef[] = [
     ],
     defaults: {
       rb: ['RB-02', 'RB-04', 'RB-07'],
-      cl: ['CL-02', 'CL-04'],
+      cl: ['CL-02', 'CL-04', 'CL-08'],
       dr: ['DR-01'],
       tc: ['TC-01', 'TC-06'],
     },
@@ -532,7 +546,7 @@ export const PROMPT_TYPES: readonly PromptTypeDef[] = [
         options: ['Happy path', 'Happy path + edge cases', 'Toàn diện'],
       },
     ],
-    defaults: { rb: ['RB-06'], cl: ['CL-04'], dr: ['DR-01'], tc: ['TC-01'] },
+    defaults: { rb: ['RB-06'], cl: ['CL-04', 'CL-08'], dr: ['DR-01'], tc: ['TC-01'] },
   },
   // ── D. Chất lượng & vận hành ────────────────────────────────────────────
   {
@@ -593,7 +607,7 @@ export const PROMPT_TYPES: readonly PromptTypeDef[] = [
         options: ['Bảng lỗi theo mức độ', 'Checklist kiểm thử'],
       },
     ],
-    defaults: { rb: none, cl: ['CL-04'], dr: ['DR-06'], tc: none },
+    defaults: { rb: none, cl: ['CL-04', 'CL-08'], dr: ['DR-06'], tc: none },
   },
   {
     code: 'TRIEN_KHAI',

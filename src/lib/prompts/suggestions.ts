@@ -73,7 +73,7 @@ export const SUGGESTIONS: Readonly<Record<SuggestionGroup, readonly Suggestion[]
     {
       code: 'CL-02',
       label: 'Lên kế hoạch → chờ duyệt',
-      text: 'Trước tiên đọc code liên quan và trình bày kế hoạch ngắn (các bước, file sẽ sửa, rủi ro). Chờ tôi duyệt rồi mới làm.',
+      text: 'Trước tiên đọc code liên quan và trình bày kế hoạch ngắn (các bước, file sẽ sửa, rủi ro). Dừng lại chờ tôi trả lời "Đồng ý" rồi mới sửa code, tạo/xóa file hay cài thư viện. Nếu tôi yêu cầu chỉnh thì sửa kế hoạch và chờ duyệt lại. Sau khi được duyệt, chỉ làm đúng phạm vi đó; phát sinh thay đổi lớn thì hỏi lại.',
     },
     {
       code: 'CL-03',
@@ -99,6 +99,11 @@ export const SUGGESTIONS: Readonly<Record<SuggestionGroup, readonly Suggestion[]
       code: 'CL-07',
       label: 'Giải thích cho người không biết code',
       text: 'Tôi không biết lập trình. Giải thích bằng ngôn ngữ đời thường. Nếu phải dùng thuật ngữ thì giải thích ngắn kèm theo.',
+    },
+    {
+      code: 'CL-08',
+      label: 'Báo cáo trung thực',
+      text: 'Nếu không đọc được @AGENTS.md hoặc file được nhắc tới thì báo ngay, không giả vờ đã đọc. Khi báo cáo, tách rõ việc đã kiểm tra thật với điều mới suy luận, và nêu phần chưa kiểm tra được.',
     },
   ],
   dr: [
