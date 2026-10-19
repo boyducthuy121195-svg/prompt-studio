@@ -1,4 +1,12 @@
-import { MANIFEST_FILE, planSync, type FolderFile, type Manifest } from './files'
+import {
+  backupName,
+  codeFileAction,
+  hashText,
+  MANIFEST_FILE,
+  planSync,
+  type FolderFile,
+  type Manifest,
+} from './files'
 
 /** Trình duyệt có hỗ trợ chọn thư mục trên máy không (Chrome / Edge: có; Firefox / Safari: chưa). */
 export function folderSupported(): boolean {
@@ -79,6 +87,11 @@ export async function removeFile(root: FileSystemDirectoryHandle, path: string):
   }
 }
 
+/** Thư mục có chứa gì không (file hoặc thư mục con). */
+export async function hasEntries(root: FileSystemDirectoryHandle): Promise<boolean> {
+  return !(await root.keys().next()).done
+}
+
 async function readManifest(root: FileSystemDirectoryHandle): Promise<Manifest> {
   const text = await readTextFile(root, MANIFEST_FILE)
   if (!text) return {}
@@ -107,4 +120,38 @@ export async function syncFolder(
   if (write.length || remove.length)
     await writeTextFile(root, MANIFEST_FILE, JSON.stringify(next, null, 2) + '\n')
   return { written: write.length, removed: remove.length }
+}
+
+/**
+ * Ghi AGENTS.md / CLAUDE.md thẳng vào thư mục code của dự án.
+ * File ở đó khác nội dung mà không phải bản app ghi lần trước → giữ bản cũ thành *.backup-<ngày>.md trước.
+ * `written`: mã băm của bản app ghi lần trước, theo từng file.
+ */
+export async function syncCodeFolder(
+  root: FileSystemDirectoryHandle,
+  files: readonly FolderFile[],
+  written: Manifest,
+  now: number = Date.now(),
+): Promise<{ written: Manifest; backups: string[] }> {
+  const next: Manifest = {}
+  const backups: string[] = []
+  for (const f of files) {
+    const existing = await readTextFile(root, f.path)
+    const action = codeFileAction(existing, f.content, written[f.path])
+    if (action === 'backup' && existing !== null) {
+      for (let n = 1; ; n++) {
+        const name = backupName(f.path, now, n)
+        const old = await readTextFile(root, name)
+        if (old === existing) break
+        if (old === null) {
+          await writeTextFile(root, name, existing)
+          backups.push(name)
+          break
+        }
+      }
+    }
+    if (action !== 'skip') await writeTextFile(root, f.path, f.content)
+    next[f.path] = hashText(f.content)
+  }
+  return { written: next, backups }
 }

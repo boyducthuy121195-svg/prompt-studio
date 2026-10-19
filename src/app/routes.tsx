@@ -57,11 +57,23 @@ export const routes: RouteObject[] = [
       {
         path: 'settings',
         lazy: async () => {
-          const [{ SettingsPage }, { BackupPanel }] = await Promise.all([
+          const [{ SettingsPage }, { BackupPanel }, { FolderPanel }] = await Promise.all([
             import('@/features/settings/SettingsPage'),
             import('@/features/backup/BackupPanel'),
+            import('@/features/folder/FolderPanel'),
           ])
-          return { element: <SettingsPage backupSlot={<BackupPanel />} /> }
+          return {
+            element: (
+              <SettingsPage
+                backupSlot={
+                  <>
+                    <FolderPanel />
+                    <BackupPanel />
+                  </>
+                }
+              />
+            ),
+          }
         },
       },
       { path: '*', element: <NotFoundPage /> },

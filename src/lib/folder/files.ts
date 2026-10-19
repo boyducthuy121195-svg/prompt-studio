@@ -61,31 +61,48 @@ export function promptMarkdown(p: SavedPrompt): string {
   return `<!-- ${p.title} · ${meta.join(' · ')} -->\n\n${p.body.trim()}\n`
 }
 
-/** Các file AGENTS.md / CLAUDE.md / .gemini/settings.json cho một dự án (giống gói .zip). */
+/** AGENTS.md và CLAUDE.md (`@AGENTS.md`) của một dự án. */
 export function agentsFiles(projectName: string, sections: readonly AgentsSection[]): FolderFile[] {
   return [
     { path: 'AGENTS.md', content: renderAgentsMd(projectName, sections) },
-    ...Object.entries(COMPANION_FILES).map(([path, content]) => ({ path, content })),
+    { path: 'CLAUDE.md', content: COMPANION_FILES['CLAUDE.md'] },
   ]
 }
 
 const README = `# Dữ liệu Prompt Studio
 
 Thư mục này do app Prompt Studio tự ghi sau mỗi lần bạn sửa trong app.
-- \`${DATA_FILE}\`: toàn bộ dữ liệu (không có API key). Dùng nút "Nạp từ thư mục" trong Cài đặt để lấy lại.
-- \`du-an/\`: mỗi dự án một thư mục (hồ sơ, AGENTS.md, prompt đã lưu).
+- \`${DATA_FILE}\`: toàn bộ dữ liệu (không có API key). Đổi máy thì dùng nút "Nạp từ thư mục" trong Cài đặt.
+- \`du-an/\`: mỗi dự án một thư mục (hồ sơ, AGENTS.md, CLAUDE.md, prompt đã lưu).
 - \`dung-chung/\`: prompt không thuộc dự án nào.
 
-Hãy sửa trong app. Sửa tay các file ở đây sẽ bị ghi đè ở lần lưu sau.
+Hãy sửa trong app. App chỉ ghi ra đây, không đọc lại: sửa tay các file này sẽ bị ghi đè ở lần lưu sau.
 `
 
+/** App chưa có dự án và prompt nào – không ghi ra thư mục để khỏi xóa dữ liệu cũ ở đó. */
+export function isEmptyData(backup: BackupFile): boolean {
+  return backup.data.projects.length === 0 && backup.data.prompts.length === 0
+}
+
+/** Thời điểm sửa gần nhất trong dữ liệu (để file dữ liệu không đổi khi chỉ mở lại app). */
+function latestChange({ projects, prompts, agentsDocs, revisions }: BackupFile['data']): number {
+  return Math.max(
+    0,
+    ...projects.map((p) => p.updatedAt),
+    ...prompts.map((p) => p.updatedAt),
+    ...agentsDocs.map((d) => d.updatedAt),
+    ...revisions.map((r) => r.createdAt),
+  )
+}
+
 /**
- * Toàn bộ file của thư mục dữ liệu, dựng từ một bản sao lưu KHÔNG kèm API key.
+ * Toàn bộ file của thư mục dữ liệu, dựng từ một bản sao lưu. API key luôn bị bỏ ra.
  * Hàm thuần: cùng dữ liệu luôn ra cùng danh sách file.
  */
 export function buildDataFolderFiles(backup: BackupFile): FolderFile[] {
   const safe: BackupFile = {
     ...backup,
+    exportedAt: latestChange(backup.data) || backup.exportedAt,
     includesKeys: false,
     data: {
       ...backup.data,
@@ -143,4 +160,32 @@ export function planSync(previous: Manifest, files: readonly FolderFile[]) {
   }
   const remove = Object.keys(previous).filter((p) => !(p in next))
   return { write, remove, next }
+}
+
+/**
+ * Ghi một file vào thư mục code của dự án thì làm gì:
+ * - `skip`: file ở đó đã đúng nội dung.
+ * - `write`: chưa có file, hoặc file ở đó chính là bản app ghi lần trước.
+ * - `backup`: file ở đó do người khác viết (khác nội dung) → giữ bản cũ thành *.backup-<ngày>.md rồi mới ghi.
+ */
+export function codeFileAction(
+  existing: string | null,
+  content: string,
+  lastWrittenHash: string | undefined,
+): 'skip' | 'write' | 'backup' {
+  if (existing === null) return 'write'
+  if (existing === content) return 'skip'
+  return lastWrittenHash !== undefined && hashText(existing) === lastWrittenHash
+    ? 'write'
+    : 'backup'
+}
+
+/** "AGENTS.md" → "AGENTS.backup-2026-10-19.md" (lần thứ 2 trong ngày: "AGENTS.backup-2026-10-19-2.md"). */
+export function backupName(path: string, now: number, n = 1): string {
+  const d = new Date(now)
+  const pad = (x: number) => String(x).padStart(2, '0')
+  const day = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
+  const dot = path.lastIndexOf('.')
+  const [stem, ext] = dot > 0 ? [path.slice(0, dot), path.slice(dot)] : [path, '']
+  return `${stem}.backup-${day}${n > 1 ? `-${n}` : ''}${ext}`
 }

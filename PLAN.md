@@ -43,6 +43,7 @@ Làm task [số] trong @PLAN.md.
 | 12A | ✨ AI theo ngữ cảnh: gợi ý bổ sung, Cải thiện 2 bước | A2, A3, A4 | 8, 10, 11 | ✅ |
 | 13 | Tìm nhanh (Ctrl+K) và hoàn thiện phím tắt | A9 | 6, 9 | ✅ |
 | 14 | Hoàn thiện và kiểm thử toàn app | Tất cả | 1–13 | ✅ |
+| 15 | Lưu dữ liệu ra thư mục trên máy | A8 (mở rộng) | 12 | ✅ |
 
 Thứ tự trên đã tính sẵn: có thể làm lần lượt từ trên xuống. Các task 1–6 **chưa cần API key**.
 
@@ -269,8 +270,30 @@ Task này không có giao diện mới. AI báo kết quả test.
 **Tự kiểm tra:**
 - Làm theo checklist trong báo cáo cuối mà AI gửi.
 
+### Task 15 – Lưu dữ liệu ra thư mục trên máy ✅
+> Thêm sau MVP theo yêu cầu của chủ dự án (đã duyệt thiết kế ngày 19/10/2026). Hoàn thành 19/10/2026.
+> - Chỉ chạy trên **Chrome / Edge** (File System Access API). Trình duyệt khác thấy thông báo "chưa hỗ trợ".
+> - Thư mục đã chọn được nhớ trong một cơ sở dữ liệu riêng của trình duyệt (`prompt-studio-folders`), **không đổi** cấu trúc dữ liệu cũ và không nằm trong file sao lưu.
+> - Mở lại trình duyệt, Chrome có thể hỏi lại quyền ghi: app hiện thanh nhắc "Cho phép ghi" ở đầu mọi trang.
+> - Chọn thư mục đã có file khác (không phải dữ liệu Prompt Studio) thì app từ chối, để không ghi đè.
+> - Xóa dần hết dự án và prompt thì app coi là "trống" và không ghi nữa: thư mục giữ bản cuối cùng.
+**Làm gì:**
+- Cài đặt có khối "Lưu ra thư mục trên máy": nút "Chọn thư mục lưu dữ liệu…", "Nạp từ thư mục…", "Ngừng ghi ra thư mục" và dòng trạng thái lần ghi gần nhất.
+- Sau mỗi lần sửa, app tự ghi **một chiều** ra thư mục: `du-lieu-prompt-studio.json` (không kèm API key), `du-an/<ten>/ho-so.md`, `AGENTS.md`, `CLAUDE.md`, `prompts/*.md`, `dung-chung/prompts/*.md`, kèm `README.md`. Sửa tay các file đó thì app không đọc lại.
+- "Nạp từ thư mục" để lấy lại dữ liệu khi đổi máy. Thư mục đã có dữ liệu thì hỏi trước (xem trước số dự án, prompt), không ghi đè. Không ghi khi app đang trống. "Xóa toàn bộ dữ liệu" thì ngừng ghi ra thư mục.
+- Mỗi dự án (M2) có khối "Thư mục code": ghi thẳng AGENTS.md / CLAUDE.md vào đó. Nếu ở đó đã có file khác nội dung thì giữ bản cũ thành `AGENTS.backup-<ngày>.md` trước khi ghi.
+- API key không bao giờ ghi ra thư mục. Test đơn vị (`src/lib/folder/*.test.ts`, `src/features/folder/folder.test.tsx`) và e2e (`tests/e2e/folder.spec.ts`).
+
+**Tự kiểm tra (trên Chrome hoặc Edge):**
+- Cài đặt → "Chọn thư mục lưu dữ liệu…" → tạo một thư mục trống mới (ví dụ `Documents\Prompt Studio`) → bấm "Cho phép". Mở thư mục bằng File Explorer: thấy `du-lieu-prompt-studio.json` và thư mục `du-an`.
+- Sửa hồ sơ một dự án, bấm Ctrl+S, mở lại `du-an/<ten>/ho-so.md` thấy nội dung mới. Mở file `.json` bằng Notepad, tìm "sk-ant" không thấy.
+- Trang dự án → "Chọn thư mục code…" → chọn thư mục code thật của dự án. Sửa AGENTS.md trong app: file AGENTS.md trong thư mục code đổi theo; nếu trước đó đã có AGENTS.md khác thì thấy thêm `AGENTS.backup-<ngày>.md`.
+- Đổi máy: cài app, mở Cài đặt → "Nạp từ thư mục…" → chọn đúng thư mục (ví dụ qua OneDrive) → "Nạp dữ liệu". Nhập lại API key.
+
 ---
 
 ## Sau MVP
+- **Task 15** (ở trên): lưu dữ liệu ra thư mục trên máy.
+- **Đề xuất học hỏi từ "Trợ lý tạo prompt"** (chưa duyệt): xem `docs/07-SO-SANH-TRO-LY-TAO-PROMPT.md` mục 3.
 - **Phiên bản 1.1 (mức B trong PRD):** lịch sử phiên bản, mẫu khởi đầu, so sánh Claude và Gemini, ước tính chi phí.
 - **Giai đoạn 2 (mức D):** module Điền mẫu Word/Excel. Sẽ nghiên cứu và lập PLAN riêng.

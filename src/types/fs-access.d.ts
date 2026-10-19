@@ -9,6 +9,12 @@ interface FileSystemHandle {
   requestPermission?(descriptor?: FsPermissionMode): Promise<PermissionState>
 }
 
+interface FileSystemDirectoryHandle {
+  keys(): AsyncIterableIterator<string>
+}
+
 interface Window {
-  showDirectoryPicker?(options?: FsPermissionMode & { id?: string }): Promise<FileSystemDirectoryHandle>
+  showDirectoryPicker?(
+    options?: FsPermissionMode & { id?: string },
+  ): Promise<FileSystemDirectoryHandle>
 }

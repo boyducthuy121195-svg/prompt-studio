@@ -5,6 +5,7 @@ import { Dialog } from '@/components/Dialog'
 import { TextAreaField, TextField } from '@/components/Field'
 import { Button, Kbd, PageHeader, Panel, PanelHeader, Tag } from '@/components/Primitives'
 import { useToast } from '@/components/toast-context'
+import { CodeFolderPanel } from '@/features/folder/CodeFolderPanel'
 import { useProject, useProjectStats } from '@/lib/db/hooks'
 import { deleteProject, duplicateProject, updateProject } from '@/lib/db/projects'
 import { updateSettings } from '@/lib/db/settings'
@@ -233,6 +234,8 @@ function ProjectDetail({ project }: { project: Project }) {
             </Link>
           </div>
         </Panel>
+
+        <CodeFolderPanel projectId={project.id} />
       </div>
 
       <Dialog

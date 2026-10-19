@@ -21,7 +21,14 @@ flowchart LR
   AI --> C[Claude API<br/>Anthropic]
   AI --> G[Gemini API<br/>Google]
   UI -- Sao lưu / Khôi phục --> F[[File .json trên máy]]
+  UI -- tự ghi một chiều (task 15) --> D[[Thư mục trên máy<br/>+ thư mục code của dự án]]
 ```
+
+**Lưu ra thư mục (task 15).** Trên Chrome / Edge, người dùng chọn được một thư mục (File System Access API). Sau mỗi lần sửa
+(chờ 0,6 giây), app ghi ra đó `du-lieu-prompt-studio.json` (không có API key) và mỗi dự án một thư mục Markdown; mỗi dự án
+còn có thể ghi thẳng AGENTS.md / CLAUDE.md vào thư mục code. App chỉ ghi, không đọc lại – trừ nút "Nạp từ thư mục" khi đổi máy.
+Code ở `src/lib/folder/` (`files.ts` dựng danh sách file, `fs.ts` đọc/ghi, `store.ts` nhớ thư mục, `sync.ts` điều phối) và
+`src/features/folder/` (giao diện). Thư mục đã chọn được nhớ trong IndexedDB riêng `prompt-studio-folders`.
 
 **Chi phí vận hành:** máy chủ 0 đồng, vì app chạy trên máy bạn. Bạn chỉ trả tiền AI theo số lần dùng (xem mục 9).
 
@@ -241,7 +248,7 @@ Giá Claude lấy theo bảng giá Anthropic ngày 06/10/2026 (USD cho 1 triệu
 
 | Rủi ro | Cách xử lý |
 |---|---|
-| Xóa dữ liệu trình duyệt thì mất hết | Nhắc sao lưu sau 7 ngày. Có khôi phục từ file |
+| Xóa dữ liệu trình duyệt thì mất hết | Nhắc sao lưu sau 7 ngày. Có khôi phục từ file. Task 15: tự ghi ra thư mục trên máy, "Nạp từ thư mục" để lấy lại |
 | AI trả JSON sai | Structured output + kiểm tra bằng Zod + nút Thử lại |
 | Tên model Gemini thay đổi | Lấy danh sách model từ Google khi kiểm tra key |
 | Thư viện ra bản mới làm hỏng app | Ghi chính xác phiên bản trong `package-lock.json`. Chỉ nâng cấp khi chủ động yêu cầu |
