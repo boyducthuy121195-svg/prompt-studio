@@ -45,6 +45,9 @@ Làm task [số] trong @PLAN.md.
 | 14 | Hoàn thiện và kiểm thử toàn app | Tất cả | 1–13 | ✅ |
 | 15 | Lưu dữ liệu ra thư mục trên máy | A8 (mở rộng) | 12 | ✅ |
 | 16 | Nâng chất lượng prompt (học từ "Trợ lý tạo prompt") | A4, A7 | 5, 7 | ✅ |
+| 17 | Mẫu Word/Excel – B1: phân tích mẫu trên máy, lập hồ sơ mẫu | D | 15 | ⬜ (nháp) |
+| 18 | Mẫu Word/Excel – B2: bàn giao cho AI lập trình kèm skill | D | 17 | ⬜ (nháp) |
+| 19 | Mẫu Word/Excel – A: điền biến `{{...}}` và xuất file (bản đơn giản) | D | 17 | ⬜ (nháp) |
 
 Thứ tự trên đã tính sẵn: có thể làm lần lượt từ trên xuống. Các task 1–6 **chưa cần API key**.
 
@@ -304,6 +307,28 @@ Task này không có giao diện mới. AI báo kết quả test.
 **Tự kiểm tra:**
 - Mở Tạo prompt → "Xây tính năng mới": thanh Độ hoàn thiện 0%, gõ Nhiệm vụ thì tăng; thấy ô "Khi trống / lỗi / đang tải".
 - Phần xem trước có câu "Dừng lại chờ tôi trả lời "Đồng ý"" và "không giả vờ đã đọc".
+
+### Module Mẫu Word/Excel (task 17–19) – BẢN NHÁP, chưa duyệt
+> Chủ dự án chọn hướng ngày 19/10/2026: **B trước** (phân tích mẫu + bàn giao cho AI kèm skill `office-template-portable`), **sau đó A bản đơn giản**.
+> Đang chờ chủ dự án: (1) 1–3 file mẫu Word/Excel đã thay dữ liệu giả; (2) mỗi mẫu điền 1 bản hay nhiều bản từ danh sách;
+> (3) dữ liệu nhập từ đâu (gõ form / dán / file Excel nguồn); (4) có được gửi chữ trong mẫu cho Claude/Gemini không;
+> (5) có cho chép skill `office-template-portable` vào kho không. Trả lời xong sẽ chốt chi tiết và trình duyệt từng task.
+
+**Task 17 – B1: phân tích mẫu trên máy (dự kiến)**
+- M11: tải file .docx / .xlsx (không gửi đi đâu), tính SHA-256, đọc cấu trúc bằng `fflate` + `DOMParser` (không thêm thư viện).
+- Word: danh sách đoạn, bảng / dòng / ô kèm vị trí (XPath). Excel: sheet, ô có chữ, ô gộp, vùng in.
+- Người dùng đánh dấu ô / đoạn nào là "trường cần điền" (mã trường, nhãn, kiểu) → app lập hồ sơ FILE_TEMPLATE_SPEC 1.0 (trạng thái `draft`), lưu theo dự án. Không lưu nội dung file gốc nếu chưa được đồng ý.
+- Test đơn vị với file mẫu giả trong `src/test/fixtures/`, e2e cho luồng tải → đánh dấu → lưu.
+
+**Task 18 – B2: bàn giao cho AI (dự kiến)**
+- 3 loại prompt mới theo skill: Phân tích / kiểm tra hồ sơ mẫu → Tạo giao diện nhập → Điền và xuất file; ô hồ sơ mẫu điền sẵn từ task 17.
+- Tải gói .zip bàn giao: hồ sơ mẫu + skill + prompt của bước đang chọn (file mẫu chỉ kèm khi người dùng tích).
+- Có thể ghi thẳng vào "thư mục code" của dự án (task 15).
+
+**Task 19 – A: điền và xuất bản đơn giản (dự kiến)**
+- Mẫu có biến `{{ten}}` hoặc trường đã đánh dấu ở task 17 → form nhập → xuất bản sao cùng định dạng, chỉ thay đúng vị trí đã duyệt.
+- Xử lý Word tách một chữ thành nhiều đoạn định dạng; chưa làm dòng lặp, nhiều file một lần (để sau).
+- Kiểm tra sau xuất: so cấu trúc với mẫu, báo chỗ khác ngoài các vị trí đã điền.
 
 ---
 
