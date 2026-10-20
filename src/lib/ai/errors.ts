@@ -4,6 +4,8 @@ export type AIErrorCode =
   | 'no_key'
   | 'invalid_key'
   | 'rate_limit'
+  /** Hết hạn mức trong ngày (Gemini miễn phí) – thử lại ngay cũng vô ích. */
+  | 'quota'
   | 'server'
   | 'network'
   | 'refusal'
@@ -24,6 +26,8 @@ export function aiErrorMessage(code: AIErrorCode, provider: ProviderId, detail =
       return `API key ${n} không hợp lệ. Vào Cài đặt để kiểm tra lại.`
     case 'rate_limit':
       return 'Bạn đang gửi quá nhanh hoặc hết hạn mức. Đợi một chút rồi thử lại.'
+    case 'quota':
+      return `Đã hết hạn mức dùng ${n} trong ngày của API key này. Đợi sang ngày mai, hoặc vào Cài đặt chọn model khác (ví dụ bản Flash nhẹ hơn) hay đổi AI mặc định.`
     case 'server':
       return 'Dịch vụ AI đang bận. Thử lại sau ít phút.'
     case 'network':
@@ -68,7 +72,12 @@ export function toAIError(err: unknown, provider: ProviderId): AIError {
   ) {
     return new AIError('invalid_key', provider)
   }
-  if (status === 429) return new AIError('rate_limit', provider)
+  if (status === 429) {
+    return new AIError(
+      /per[ _-]?day|daily|limit: 0\b/i.test(message) ? 'quota' : 'rate_limit',
+      provider,
+    )
+  }
   if (status !== undefined && status >= 500) return new AIError('server', provider)
   if (status === 400 || status === 404)
     return new AIError('bad_request', provider, shorten(message))

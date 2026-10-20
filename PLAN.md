@@ -43,6 +43,11 @@ Làm task [số] trong @PLAN.md.
 | 12A | ✨ AI theo ngữ cảnh: gợi ý bổ sung, Cải thiện 2 bước | A2, A3, A4 | 8, 10, 11 | ✅ |
 | 13 | Tìm nhanh (Ctrl+K) và hoàn thiện phím tắt | A9 | 6, 9 | ✅ |
 | 14 | Hoàn thiện và kiểm thử toàn app | Tất cả | 1–13 | ✅ |
+| 15 | Lưu dữ liệu ra thư mục trên máy | A8 (mở rộng) | 12 | ✅ |
+| 16 | Nâng chất lượng prompt (học từ "Trợ lý tạo prompt") | A4, A7 | 5, 7 | ✅ |
+| 17 | Mẫu Word/Excel – B1: phân tích mẫu trên máy, lập hồ sơ mẫu | D | 15 | ⬜ (nháp) |
+| 18 | Mẫu Word/Excel – B2: bàn giao cho AI lập trình kèm skill | D | 17 | ⬜ (nháp) |
+| 19 | Mẫu Word/Excel – A: điền biến `{{...}}` và xuất file (bản đơn giản) | D | 17 | ⬜ (nháp) |
 
 Thứ tự trên đã tính sẵn: có thể làm lần lượt từ trên xuống. Các task 1–6 **chưa cần API key**.
 
@@ -269,8 +274,66 @@ Task này không có giao diện mới. AI báo kết quả test.
 **Tự kiểm tra:**
 - Làm theo checklist trong báo cáo cuối mà AI gửi.
 
+### Task 15 – Lưu dữ liệu ra thư mục trên máy ✅
+> Thêm sau MVP theo yêu cầu của chủ dự án (đã duyệt thiết kế ngày 19/10/2026). Hoàn thành 19/10/2026.
+> - Chỉ chạy trên **Chrome / Edge** (File System Access API). Trình duyệt khác thấy thông báo "chưa hỗ trợ".
+> - Thư mục đã chọn được nhớ trong một cơ sở dữ liệu riêng của trình duyệt (`prompt-studio-folders`), **không đổi** cấu trúc dữ liệu cũ và không nằm trong file sao lưu.
+> - Mở lại trình duyệt, Chrome có thể hỏi lại quyền ghi: app hiện thanh nhắc "Cho phép ghi" ở đầu mọi trang.
+> - Chọn thư mục đã có file khác (không phải dữ liệu Prompt Studio) thì app từ chối, để không ghi đè.
+> - Xóa dần hết dự án và prompt thì app coi là "trống" và không ghi nữa: thư mục giữ bản cuối cùng.
+**Làm gì:**
+- Cài đặt có khối "Lưu ra thư mục trên máy": nút "Chọn thư mục lưu dữ liệu…", "Nạp từ thư mục…", "Ngừng ghi ra thư mục" và dòng trạng thái lần ghi gần nhất.
+- Sau mỗi lần sửa, app tự ghi **một chiều** ra thư mục: `du-lieu-prompt-studio.json` (không kèm API key), `du-an/<ten>/ho-so.md`, `AGENTS.md`, `CLAUDE.md`, `prompts/*.md`, `dung-chung/prompts/*.md`, kèm `README.md`. Sửa tay các file đó thì app không đọc lại.
+- "Nạp từ thư mục" để lấy lại dữ liệu khi đổi máy. Thư mục đã có dữ liệu thì hỏi trước (xem trước số dự án, prompt), không ghi đè. Không ghi khi app đang trống. "Xóa toàn bộ dữ liệu" thì ngừng ghi ra thư mục.
+- Mỗi dự án (M2) có khối "Thư mục code": ghi thẳng AGENTS.md / CLAUDE.md vào đó. Nếu ở đó đã có file khác nội dung thì giữ bản cũ thành `AGENTS.backup-<ngày>.md` trước khi ghi.
+- API key không bao giờ ghi ra thư mục. Test đơn vị (`src/lib/folder/*.test.ts`, `src/features/folder/folder.test.tsx`) và e2e (`tests/e2e/folder.spec.ts`).
+
+**Tự kiểm tra (trên Chrome hoặc Edge):**
+- Cài đặt → "Chọn thư mục lưu dữ liệu…" → tạo một thư mục trống mới (ví dụ `Documents\Prompt Studio`) → bấm "Cho phép". Mở thư mục bằng File Explorer: thấy `du-lieu-prompt-studio.json` và thư mục `du-an`.
+- Sửa hồ sơ một dự án, bấm Ctrl+S, mở lại `du-an/<ten>/ho-so.md` thấy nội dung mới. Mở file `.json` bằng Notepad, tìm "sk-ant" không thấy.
+- Trang dự án → "Chọn thư mục code…" → chọn thư mục code thật của dự án. Sửa AGENTS.md trong app: file AGENTS.md trong thư mục code đổi theo; nếu trước đó đã có AGENTS.md khác thì thấy thêm `AGENTS.backup-<ngày>.md`.
+- Đổi máy: cài app, mở Cài đặt → "Nạp từ thư mục…" → chọn đúng thư mục (ví dụ qua OneDrive) → "Nạp dữ liệu". Nhập lại API key.
+
+### Task 16 – Nâng chất lượng prompt ✅
+> Thêm theo đề xuất trong `docs/07` (mục 3, nhóm 1), chủ dự án duyệt ngày 19/10/2026. Hoàn thành 19/10/2026.
+> Chưa làm "tự chuyển sang model Gemini dự phòng" (cần đổi thiết kế Cài đặt) – thông báo lỗi gợi ý đổi model thay vào đó.
+**Làm gì:**
+- CL-02 "Lên kế hoạch → chờ duyệt" viết chặt hơn: chờ trả lời "Đồng ý", bị yêu cầu chỉnh thì sửa kế hoạch và chờ lại, chỉ làm đúng phạm vi đã duyệt.
+- Gợi ý mới CL-08 "Báo cáo trung thực" (không đọc được AGENTS.md thì báo; tách việc đã kiểm tra thật với điều suy luận). Tích sẵn cho Tính năng, Sửa lỗi, Refactor, Viết test, Kiểm thử. `docs/04` đã cập nhật.
+- Ô "Khi trống / lỗi / đang tải" (có ✨) cho loại Xây tính năng mới và Thiết kế giao diện.
+- Thanh "Độ hoàn thiện" trên phần xem trước: % các ô chữ quan trọng đã điền và danh sách ô còn thiếu (`src/lib/prompts/completeness.ts`, không gọi AI).
+- Gemini tự thử lại tối đa 2 lần (sau 1 giây, 2 giây) khi quá tải / gửi quá nhanh; hết hạn mức trong ngày thì báo riêng và gợi ý đổi model (`src/lib/ai/retry.ts`).
+
+**Tự kiểm tra:**
+- Mở Tạo prompt → "Xây tính năng mới": thanh Độ hoàn thiện 0%, gõ Nhiệm vụ thì tăng; thấy ô "Khi trống / lỗi / đang tải".
+- Phần xem trước có câu "Dừng lại chờ tôi trả lời "Đồng ý"" và "không giả vờ đã đọc".
+
+### Module Mẫu Word/Excel (task 17–19) – BẢN NHÁP, chưa duyệt
+> Chủ dự án chọn hướng ngày 19/10/2026: **B trước** (phân tích mẫu + bàn giao cho AI kèm skill `office-template-portable`), **sau đó A bản đơn giản**.
+> Đang chờ chủ dự án: (1) 1–3 file mẫu Word/Excel đã thay dữ liệu giả; (2) mỗi mẫu điền 1 bản hay nhiều bản từ danh sách;
+> (3) dữ liệu nhập từ đâu (gõ form / dán / file Excel nguồn); (4) có được gửi chữ trong mẫu cho Claude/Gemini không;
+> (5) có cho chép skill `office-template-portable` vào kho không. Trả lời xong sẽ chốt chi tiết và trình duyệt từng task.
+
+**Task 17 – B1: phân tích mẫu trên máy (dự kiến)**
+- M11: tải file .docx / .xlsx (không gửi đi đâu), tính SHA-256, đọc cấu trúc bằng `fflate` + `DOMParser` (không thêm thư viện).
+- Word: danh sách đoạn, bảng / dòng / ô kèm vị trí (XPath). Excel: sheet, ô có chữ, ô gộp, vùng in.
+- Người dùng đánh dấu ô / đoạn nào là "trường cần điền" (mã trường, nhãn, kiểu) → app lập hồ sơ FILE_TEMPLATE_SPEC 1.0 (trạng thái `draft`), lưu theo dự án. Không lưu nội dung file gốc nếu chưa được đồng ý.
+- Test đơn vị với file mẫu giả trong `src/test/fixtures/`, e2e cho luồng tải → đánh dấu → lưu.
+
+**Task 18 – B2: bàn giao cho AI (dự kiến)**
+- 3 loại prompt mới theo skill: Phân tích / kiểm tra hồ sơ mẫu → Tạo giao diện nhập → Điền và xuất file; ô hồ sơ mẫu điền sẵn từ task 17.
+- Tải gói .zip bàn giao: hồ sơ mẫu + skill + prompt của bước đang chọn (file mẫu chỉ kèm khi người dùng tích).
+- Có thể ghi thẳng vào "thư mục code" của dự án (task 15).
+
+**Task 19 – A: điền và xuất bản đơn giản (dự kiến)**
+- Mẫu có biến `{{ten}}` hoặc trường đã đánh dấu ở task 17 → form nhập → xuất bản sao cùng định dạng, chỉ thay đúng vị trí đã duyệt.
+- Xử lý Word tách một chữ thành nhiều đoạn định dạng; chưa làm dòng lặp, nhiều file một lần (để sau).
+- Kiểm tra sau xuất: so cấu trúc với mẫu, báo chỗ khác ngoài các vị trí đã điền.
+
 ---
 
 ## Sau MVP
+- **Task 15** (ở trên): lưu dữ liệu ra thư mục trên máy.
+- **Đề xuất học hỏi từ "Trợ lý tạo prompt"** (chưa duyệt): xem `docs/07-SO-SANH-TRO-LY-TAO-PROMPT.md` mục 3.
 - **Phiên bản 1.1 (mức B trong PRD):** lịch sử phiên bản, mẫu khởi đầu, so sánh Claude và Gemini, ước tính chi phí.
 - **Giai đoạn 2 (mức D):** module Điền mẫu Word/Excel. Sẽ nghiên cứu và lập PLAN riêng.

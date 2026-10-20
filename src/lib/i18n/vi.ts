@@ -240,6 +240,9 @@ export const vi = {
     selectedCount: (n: number, total: number) => `${n}/${total} đã chọn`,
     previewTitle: 'Xem trước prompt',
     stats: (lines: number, tokens: number) => `${lines} dòng · khoảng ${tokens} token`,
+    completeness: 'Độ hoàn thiện',
+    completenessMissing: (list: string) => `Còn thiếu: ${list}.`,
+    completenessDone: 'Đã điền đủ các ô quan trọng.',
     polish: '✨ Trau chuốt',
     polishAll: '✨ Trau chuốt toàn bộ',
     polishLabel: (field: string) => `Trau chuốt ô ${field} bằng AI`,
@@ -515,7 +518,7 @@ export const vi = {
     wipe: 'Xóa toàn bộ dữ liệu',
     wipe1Title: 'Xóa toàn bộ dữ liệu?',
     wipe1Desc:
-      'Mọi dự án, prompt, AGENTS.md và cài đặt (kể cả API key) trong trình duyệt này sẽ bị xóa. Nên tải file sao lưu trước.',
+      'Mọi dự án, prompt, AGENTS.md và cài đặt (kể cả API key) trong trình duyệt này sẽ bị xóa. App cũng ngừng ghi ra thư mục (các file đã ghi vẫn còn). Nên tải file sao lưu trước.',
     wipe1Next: 'Tiếp tục',
     wipe2Title: 'Xác nhận lần cuối',
     wipe2Desc: 'Việc này không thể hoàn tác. Bạn chắc chắn muốn xóa hết?',
@@ -524,6 +527,60 @@ export const vi = {
     reminder: (days: number) =>
       `Đã ${days} ngày chưa sao lưu. Sao lưu để không mất dữ liệu khi đổi máy.`,
     reminderAction: 'Sao lưu ngay',
+  },
+  folder: {
+    title: 'Lưu ra thư mục trên máy',
+    note: 'Chọn một thư mục trống (có thể nằm trong OneDrive / Google Drive để mang sang máy khác). Sau mỗi lần sửa, app tự ghi ra đó: file du-lieu-prompt-studio.json (không kèm API key) và mỗi dự án một thư mục gồm hồ sơ, AGENTS.md, CLAUDE.md, prompt. App chỉ ghi ra, không đọc lại khi bạn sửa tay các file đó.',
+    unsupported:
+      'Trình duyệt này chưa hỗ trợ ghi ra thư mục trên máy. Hãy mở app bằng Chrome hoặc Microsoft Edge.',
+    choose: 'Chọn thư mục lưu dữ liệu…',
+    change: 'Đổi thư mục…',
+    load: 'Nạp từ thư mục…',
+    stop: 'Ngừng ghi ra thư mục',
+    allow: 'Cho phép ghi',
+    folderName: (name: string) => `Thư mục: ${name}`,
+    statusOk: (when: string) => `Đã ghi tự động · lần gần nhất: ${when}.`,
+    statusPending: 'Đang chờ ghi…',
+    statusEmpty: 'Chưa ghi vì app chưa có dự án hoặc prompt nào.',
+    statusPermission:
+      'Trình duyệt cần bạn cho phép lại quyền ghi vào thư mục này. Bấm "Cho phép ghi".',
+    chosen: (name: string) => `Đã chọn thư mục "${name}". App sẽ tự ghi sau mỗi lần sửa.`,
+    stopped: 'Đã ngừng ghi ra thư mục. Các file đã ghi vẫn còn nguyên.',
+    loaded: 'Đã nạp dữ liệu từ thư mục',
+    errNotEmpty:
+      'Thư mục này đã có file khác và không phải thư mục dữ liệu của Prompt Studio. Để không ghi đè, hãy tạo hoặc chọn một thư mục trống riêng (ví dụ Documents\\Prompt Studio).',
+    errNoData:
+      'Không thấy dữ liệu Prompt Studio trong thư mục này (thiếu file du-lieu-prompt-studio.json). Hãy chọn đúng thư mục đã dùng trên máy kia.',
+    errBadData:
+      'File du-lieu-prompt-studio.json trong thư mục bị hỏng hoặc không đúng định dạng. App không ghi đè thư mục này. Hãy chọn thư mục khác hoặc khôi phục bằng file sao lưu.',
+    errDenied:
+      'Bạn chưa cho phép app ghi vào thư mục. Hãy chọn lại và bấm "Cho phép" / "Lưu thay đổi" khi trình duyệt hỏi.',
+    errNotFound:
+      'Không tìm thấy thư mục (có thể đã bị xóa, đổi tên hoặc chuyển đi). Hãy chọn lại thư mục.',
+    errNotAllowed:
+      'Trình duyệt không cho ghi vào thư mục này. Hãy chọn thư mục khác (không chọn thư mục hệ thống như ổ C:\\ hay Windows).',
+    errFull: 'Ổ đĩa đã đầy, không ghi được. Hãy giải phóng dung lượng rồi thử lại.',
+    errWrite: (msg: string) =>
+      `Không ghi được vào thư mục (${msg}). Kiểm tra thư mục còn tồn tại rồi chọn lại.`,
+    loadTitle: 'Nạp dữ liệu từ thư mục?',
+    loadDesc: (name: string, date: string) =>
+      `Thư mục "${name}" đã có dữ liệu Prompt Studio, lưu lúc ${date}.`,
+    loadKeys: 'Thư mục không chứa API key: giữ nguyên key đang có trên máy này.',
+    loadWarning:
+      'Toàn bộ dữ liệu hiện tại trong app sẽ bị thay bằng dữ liệu trong thư mục. Nếu bạn bấm Hủy, app không ghi gì vào thư mục này.',
+    loadConfirm: 'Nạp dữ liệu',
+    cancel: 'Hủy',
+    bannerText: (names: string) =>
+      `Chưa ghi được ra thư mục ${names}: trình duyệt cần bạn cho phép lại sau khi mở app.`,
+    codeTitle: 'Thư mục code',
+    codeNote:
+      'Ghi thẳng AGENTS.md và CLAUDE.md vào thư mục code của dự án sau mỗi lần sửa AGENTS.md. Nếu ở đó đã có file khác nội dung, app giữ bản cũ thành AGENTS.backup-<ngày>.md trước khi ghi.',
+    codeChoose: 'Chọn thư mục code…',
+    codeUnlink: 'Bỏ liên kết',
+    codeChosen: (name: string) => `Đã liên kết thư mục code "${name}"`,
+    codeUnlinked: 'Đã bỏ liên kết thư mục code. Các file đã ghi vẫn còn nguyên.',
+    codeNoDoc: 'Dự án chưa có AGENTS.md. Tạo ở trang AGENTS.md, app sẽ tự ghi vào thư mục này.',
+    codeBackups: (names: string) => `Đã giữ bản cũ: ${names}.`,
   },
   common: {
     comingSoonBadge: 'Đang xây dựng',

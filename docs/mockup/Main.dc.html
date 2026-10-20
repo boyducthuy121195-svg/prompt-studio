@@ -275,6 +275,19 @@ mark{background:#FFE3A1;color:#3A2600;padding:0 2px;border-radius:3px}
           </div>
           <div class="panel-b" style="padding-top: 10px"><button class="btn" onClick="{{goBuilder}}">Tạo prompt mới</button></div>
         </section>
+        <section class="panel" style="flex: 1 1 280px">
+          <div class="panel-h"><h2 class="h2">Thư mục code</h2></div>
+          <div class="panel-b">
+            <p class="muted" style="margin: 0; font-size: 12px; line-height: 1.5">Ghi thẳng AGENTS.md và CLAUDE.md vào thư mục code của dự án sau mỗi lần sửa AGENTS.md. Nếu ở đó đã có file khác nội dung, app giữ bản cũ thành AGENTS.backup-&lt;ngày&gt;.md trước khi ghi.</p>
+            <p style="margin: 0; font-weight: 600">Thư mục: prompt-studio</p>
+            <p class="ok" style="margin: 0; font-size: 12px">Đã ghi tự động · lần gần nhất: Vừa xong. Đã giữ bản cũ: AGENTS.backup-2026-10-19.md.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px">
+              <button class="btn btn-sm">Đổi thư mục…</button>
+              <button class="btn btn-sm btn-danger">Bỏ liên kết</button>
+            </div>
+            <p class="muted" style="margin: 0; font-size: 12px">Chỉ có trên Chrome / Edge. Trình duyệt khác thấy thông báo "chưa hỗ trợ".</p>
+          </div>
+        </section>
       </div>
     </sc-if>
 
@@ -379,6 +392,11 @@ mark{background:#FFE3A1;color:#3A2600;padding:0 2px;border-radius:3px}
             <span class="muted" style="font-size: 12px">{{previewStats}}</span>
           </div>
           <div class="panel-b">
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; margin-bottom: 4px"><span style="flex: 1">Độ hoàn thiện</span><span>60%</span></div>
+              <div role="progressbar" aria-label="Độ hoàn thiện" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="height: 6px; border-radius: 999px; background: var(--soft); overflow: hidden"><div style="width: 60%; height: 100%; border-radius: 999px; background: var(--accent)"></div></div>
+              <p class="muted" style="margin: 4px 0 0; font-size: 12px">Còn thiếu: Mục đích / Vì sao, Khi trống / lỗi / đang tải. (Task 16 – app tự tính, không gọi AI)</p>
+            </div>
             <pre class="preview">{{preview}}</pre>
             <div style="display: flex; flex-wrap: wrap; gap: 6px">
               <button class="btn btn-ai" onClick="{{openDiff}}">✨ Trau chuốt toàn bộ</button>
@@ -708,6 +726,20 @@ mark{background:#FFE3A1;color:#3A2600;padding:0 2px;border-radius:3px}
                   </tbody>
                 </table>
               </div>
+            </div>
+          </section>
+          <section class="panel">
+            <div class="panel-h"><h2 class="h2">Lưu ra thư mục trên máy</h2></div>
+            <div class="panel-b">
+              <p class="muted" style="margin: 0; font-size: 12px; line-height: 1.5">Chọn một thư mục trống (có thể nằm trong OneDrive / Google Drive để mang sang máy khác). Sau mỗi lần sửa, app tự ghi ra đó: file du-lieu-prompt-studio.json (không kèm API key) và mỗi dự án một thư mục gồm hồ sơ, AGENTS.md, CLAUDE.md, prompt. App chỉ ghi ra, không đọc lại khi bạn sửa tay các file đó.</p>
+              <p style="margin: 0; font-weight: 600">Thư mục: Prompt Studio</p>
+              <p class="ok" style="margin: 0; font-size: 12px">Đã ghi tự động · lần gần nhất: Vừa xong.</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px">
+                <button class="btn">Đổi thư mục…</button>
+                <button class="btn">Nạp từ thư mục…</button>
+                <button class="btn btn-danger">Ngừng ghi ra thư mục</button>
+              </div>
+              <p class="muted" style="margin: 0; font-size: 12px">Thư mục đã có dữ liệu thì app hỏi "Nạp dữ liệu từ thư mục?" (xem trước số dự án / prompt), không ghi đè. Thư mục có file khác thì từ chối. Mở lại trình duyệt: thanh nhắc "Cho phép ghi" hiện ở đầu mọi trang. Chỉ có trên Chrome / Edge.</p>
             </div>
           </section>
           <section class="panel">
@@ -1240,7 +1272,7 @@ class Component extends DCLogic {
       },
       projOptions: s.projects.map(function (p, i) { return { value: String(i), name: p.name }; }),
       build: (function () {
-        var map = { projects: [1, 'task 3'], project: [1, 'task 3'], templates: [1, 'task 2 (giữ chỗ)'], builder: [1, 'task 5, 8, 12A'], library: [1, 'task 6'], settings: [1, 'task 7, 12'], agents: [1, 'task 9–10'], improve: [1, 'task 11, 12A'] };
+        var map = { projects: [1, 'task 3'], project: [1, 'task 3, 15'], templates: [1, 'task 2 (giữ chỗ)'], builder: [1, 'task 5, 8, 12A, 16'], library: [1, 'task 6'], settings: [1, 'task 7, 12, 15'], agents: [1, 'task 9–10'], improve: [1, 'task 11, 12A'] };
         var m = map[s.screen] || [0, ''];
         return m[0] ? { cls: 'tag tag-green', text: '✓ Đã có trong app · ' + m[1] } : { cls: 'tag tag-warn', text: 'Bản mẫu · sẽ làm ở ' + m[1] };
       })(),

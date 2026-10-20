@@ -25,7 +25,9 @@ import {
   ROLES,
   type LanguageCode,
 } from '@/lib/prompts/prompt-types'
+import { completeness } from '@/lib/prompts/completeness'
 import { SUGGESTION_GROUPS, SUGGESTIONS, toggleSuggestion } from '@/lib/prompts/suggestions'
+import { cn } from '@/lib/utils'
 import { PROMPT_TYPE_CODES, type PromptTypeCode } from '@/lib/prompts/types'
 import { DiffDialog } from '@/components/DiffDialog'
 import { useAITask } from '@/components/use-ai-task'
@@ -103,6 +105,7 @@ export function PromptBuilder({
   const toast = useToast()
 
   const built = useMemo(() => buildPrompt(form, project), [form, project])
+  const done = completeness(form, type, { task: t.task, purpose: t.purpose })
   // Bản đã trau chuốt bằng AI (✨ Trau chuốt toàn bộ); sửa bảng nhập thì bỏ bản này
   const [polished, setPolished] = useState<string | null>(null)
   const preview = polished ?? built
@@ -466,6 +469,33 @@ export function PromptBuilder({
             </span>
           </PanelHeader>
           <div className="flex flex-col gap-3 p-3.5">
+            <div>
+              <div className="mb-1 flex items-center gap-2 text-xs">
+                <span className="flex-1 font-semibold">{t.completeness}</span>
+                <span className="font-semibold">{done.percent}%</span>
+              </div>
+              <div
+                role="progressbar"
+                aria-label={t.completeness}
+                aria-valuenow={done.percent}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                className="h-1.5 overflow-hidden rounded-full bg-soft"
+              >
+                <div
+                  className={cn(
+                    'h-full rounded-full transition-[width]',
+                    done.percent === 100 ? 'bg-green-ink' : 'bg-accent',
+                  )}
+                  style={{ width: `${done.percent}%` }}
+                />
+              </div>
+              <p className="mt-1 text-xs text-muted">
+                {done.missing.length
+                  ? t.completenessMissing(done.missing.join(', '))
+                  : t.completenessDone}
+              </p>
+            </div>
             {polished && (
               <div className="flex flex-wrap items-center gap-2 rounded-md border border-ai-line bg-ai-bg px-3 py-1.5 text-xs text-ai-ink">
                 <span className="flex-1">{t.polishedBanner}</span>

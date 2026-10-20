@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { db } from '@/lib/db/schema'
 import { DEFAULT_SETTINGS, getSettings } from '@/lib/db/settings'
+import { clearFolders } from '@/lib/folder/store'
 import type { Settings } from '@/types/models'
 
 export const BACKUP_APP = 'prompt-studio'
@@ -179,8 +180,9 @@ export async function restoreBackup(b: BackupFile): Promise<void> {
   })
 }
 
-/** Xóa sạch mọi dữ liệu của app trong trình duyệt này. */
+/** Xóa sạch mọi dữ liệu của app trong trình duyệt này và ngừng ghi ra thư mục (file đã ghi vẫn còn). */
 export async function wipeAllData(): Promise<void> {
+  await clearFolders()
   await db.transaction('rw', db.tables, async () => {
     await Promise.all(db.tables.map((t) => t.clear()))
   })

@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Outlet } from 'react-router'
 import { UsePromptProvider } from '@/components/UsePromptProvider'
+import { FolderPermissionBanner } from '@/features/folder/FolderPermissionBanner'
+import { useFolderSync } from '@/features/folder/use-folders'
 import { useSettings } from '@/lib/db/hooks'
 import { vi } from '@/lib/i18n/vi'
 import { Header } from './Header'
@@ -14,6 +16,8 @@ export function AppLayout() {
   const [searching, setSearching] = useState(false)
   // Không đọc được IndexedDB (ví dụ trình duyệt chặn lưu trữ): báo một lần cho mọi trang
   const dbFailed = useSettings().status === 'error'
+  // Task 15: sau mỗi lần sửa, tự ghi ra thư mục trên máy (nếu đã chọn)
+  useFolderSync()
   useHotkey('mod+b', toggleSidebar)
   useHotkey('mod+k', () => setSearching((v) => !v), { inDialog: true })
 
@@ -32,6 +36,7 @@ export function AppLayout() {
                 {vi.common.dbError}
               </p>
             )}
+            <FolderPermissionBanner />
             <Outlet />
           </main>
         </div>

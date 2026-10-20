@@ -41,7 +41,12 @@ vi.mock('@anthropic-ai/sdk', () => ({
   },
 }))
 
-const gemini = vi.hoisted(() => ({ config: undefined as Record<string, unknown> | undefined }))
+const gemini = vi.hoisted(() => ({
+  config: undefined as Record<string, unknown> | undefined,
+  /** Số lần đầu tiên trả lỗi 503 (giả lập Gemini quá tải). */
+  failTimes: 0,
+  calls: 0,
+}))
 
 vi.mock('@google/genai', () => ({
   GoogleGenAI: class {
@@ -59,6 +64,9 @@ vi.mock('@google/genai', () => ({
         },
       }),
       generateContent: async (p: { config: Record<string, unknown> }) => {
+        gemini.calls++
+        if (gemini.calls <= gemini.failTimes)
+          throw Object.assign(new Error('The model is overloaded'), { status: 503 })
         gemini.config = p.config
         return { text: '{"ok":true}' }
       },
@@ -132,6 +140,21 @@ describe('Gemini adapter', () => {
       systemInstruction: 'sys',
     })
     expect(gemini.config?.responseJsonSchema).toMatchObject({ type: 'object' })
+  })
+
+  it('quá tải (503) thì tự thử lại; vẫn bận sau 2 lần thì báo lỗi tiếng Việt', async () => {
+    const schema = z.object({ ok: z.boolean() })
+    Object.assign(gemini, { failTimes: 2, calls: 0 })
+    const p = createGeminiProvider('k', 'gemini-3.8-flash', [0, 0])
+    expect(await p.generateJson(req, schema, new AbortController().signal)).toEqual({ ok: true })
+    expect(gemini.calls).toBe(3)
+
+    Object.assign(gemini, { failTimes: 5, calls: 0 })
+    await expect(p.generateJson(req, schema, new AbortController().signal)).rejects.toThrow(
+      'Dịch vụ AI đang bận',
+    )
+    expect(gemini.calls).toBe(3)
+    Object.assign(gemini, { failTimes: 0, calls: 0 })
   })
 
   it('chưa chọn model thì báo lỗi rõ ràng', async () => {

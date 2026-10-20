@@ -10,7 +10,7 @@
 
 Prompt Studio là web app cá nhân dùng để tạo, cải thiện và quản lý prompt và file quy tắc (AGENTS.md) theo từng dự án.
 App gọi Claude (Anthropic API) và Gemini (Google AI API) **trực tiếp từ trình duyệt**. Không có server riêng, không có đăng nhập.
-Toàn bộ dữ liệu lưu trong IndexedDB của trình duyệt.
+Toàn bộ dữ liệu lưu trong IndexedDB của trình duyệt. Nếu người dùng chọn thư mục (task 15, chỉ Chrome / Edge), app ghi **một chiều** ra thư mục đó sau mỗi lần sửa (`src/lib/folder/`); API key không bao giờ được ghi ra thư mục.
 
 **Chủ dự án không biết lập trình.** Mọi giải thích gửi chủ dự án phải bằng tiếng Việt, dễ hiểu, tránh thuật ngữ. Nếu buộc phải dùng thuật ngữ thì giải thích ngắn kèm theo.
 
